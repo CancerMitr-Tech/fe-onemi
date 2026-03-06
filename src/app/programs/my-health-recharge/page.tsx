@@ -31,14 +31,38 @@ const conditions = [
   "Low immunity", "Muscle/joint pain", "Heavy Metal Toxicity", "Body stiffness", "Others",
 ];
 
-const pillars = [
-  { label: "Mind & Vitality",          top: "18%", left: "3%"  },
-  { label: "Lifestyle Balance",        top: "8%",  left: "72%" },
-  { label: "Nutrition & Repair",       top: "40%", left: "48%" },
-  { label: "Organ & Cellular Support", top: "55%", left: "38%" },
-  { label: "Resistance & Mobility",    top: "60%", left: "74%" },
-  { label: "Anti-Inflammation",        top: "78%", left: "24%" },
+const pillarsA = [
+  { label: "Mitochondrial Optimization", top: "12%", left: "72%" },
+  { label: "Organ & Cellular Support",   top: "32%", left: "38%" },
+  { label: "Pain Management",            top: "53%", left: "7%"  },
+  { label: "Resistance & Mobility",      top: "55%", left: "72%" },
+  { label: "Anti-Inflammation",          top: "72%", left: "24%" },
 ];
+
+const dotsA = [
+  { top: "27%", left: "14%" },
+  { top: "42%", left: "67%" },
+  { top: "50%", left: "42%" },
+  { top: "72%", left: "4%"  },
+  { top: "72%", left: "67%" },
+];
+
+const pillarsB = [
+  { label: "Lifestyle Balance",     top: "24%", left: "70%" },
+  { label: "Mind & Vitality",       top: "40%", left: "2%"  },
+  { label: "Nutrition & Repair",    top: "47%", left: "48%" },
+  { label: "Immunity & Gut Health", top: "65%", left: "16%" },
+  { label: "Stress Recovery",       top: "68%", left: "79%" },
+];
+
+const dotsB = [
+  { top: "38%", left: "37%" },
+  { top: "65%", left: "4%"  },
+  { top: "65%", left: "83%" },
+  { top: "78%", left: "58%" },
+];
+
+const allPillars = [...pillarsA, ...pillarsB];
 
 // ─── Sticky Steps data (mirrors HowItWorks shape) ────────────────────────────
 
@@ -109,24 +133,9 @@ const dataCards = [
 ];
 
 const stories = [
-  {
-    quote: "The program gave me my life back.",
-    text: "After my cancer diagnosis I felt lost. The My Health Recharge program gave me a structured, personalised path that addressed not just my treatment but my entire lifestyle. My energy returned and my markers improved dramatically.",
-    journey: "90-Day Health Recharge Journey",
-    name: "Satish Chugh",
-    age: "60M",
-    diagnosis: "Squamous cell carcinoma of the vallecula",
-    img: "/images/mhr/story1.png",
-  },
-  {
-    quote: "I finally feel in control of my health.",
-    text: "The weekly consults and personalised protocol made all the difference. I could see measurable improvements month on month, and I had expert support at every step of the way.",
-    journey: "90-Day Health Recharge Journey",
-    name: "Program Participant",
-    age: "52F",
-    diagnosis: "Hypertension & Thyroid",
-    img: "/images/mhr/story2.png",
-  },
+  { img: "/images/Testimonial-Card-2-scaled.webp", alt: "Chandresh Mehta – Urothelial carcinoma" },
+  { img: "/images/Testimonial-Card-scaled.webp",   alt: "Rajendra Mehta – Prostate cancer" },
+  { img: "/images/Testimonial-Card-1-scaled.webp", alt: "Satish Chugh – Squamous cell carcinoma" },
 ];
 
 const research = [
@@ -135,11 +144,13 @@ const research = [
   { title: "Multidisciplinary Cancer Rehab Improves Patient Wellbeing — Review", img: "/images/mhr/research3.png" },
 ];
 
-const blogs = [
-  { title: "Why I Recommend My Health Recharge Program: Mr Rajendra Mehta – OneMi", img: "/images/mhr/blog1.png" },
-  { title: "21 vs 90 Days: Know About OneMi's My Metabolic Detox and My Health Recharge Programs?", img: "/images/mhr/blog2.png" },
-  { title: "Gut Detox, Organ Detox, Thought Detox—What's the Difference?", img: "/images/mhr/blog3.png" },
-];
+type BlogPost = {
+  id: number;
+  title: string;
+  slug: string;
+  link: string;
+  img: string;
+};
 
 const faqs = [
   {
@@ -168,9 +179,9 @@ const faqs = [
 
 function OrangeCheck() {
   return (
-    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#E85D04] flex items-center justify-center">
-      <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+    <span className="flex-shrink-0">
+      <svg className="w-6 h-6 text-[#E85D04]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     </span>
   );
@@ -340,6 +351,10 @@ export default function MyHealthRechargePage() {
   const [conditionIdx, setConditionIdx] = useState(0);
   const [conditionVisible, setConditionVisible] = useState(true);
   const [activeStory, setActiveStory] = useState(0);
+  const [pillGroup, setPillGroup] = useState<"A" | "B">("A");
+  const storyTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [blogsLoading, setBlogsLoading] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -352,51 +367,106 @@ export default function MyHealthRechargePage() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const t = setInterval(() => setPillGroup((g) => (g === "A" ? "B" : "A")), 3500);
+    return () => clearInterval(t);
+  }, []);
+
+  // Auto-scroll stories every 2s
+  useEffect(() => {
+    storyTimerRef.current = setInterval(() => {
+      setActiveStory((prev) => (prev + 1) % stories.length);
+    }, 2000);
+    return () => { if (storyTimerRef.current) clearInterval(storyTimerRef.current); };
+  }, []);
+
+  function goToStory(idx: number) {
+    setActiveStory(idx);
+    if (storyTimerRef.current) clearInterval(storyTimerRef.current);
+    storyTimerRef.current = setInterval(() => {
+      setActiveStory((prev) => (prev + 1) % stories.length);
+    }, 2000);
+  }
+
+  useEffect(() => {
+    fetch("https://onemi.ai/wp-json/wp/v2/posts?categories=10&_embed&per_page=3")
+      .then((res) => res.json())
+      .then((data) => {
+        const parsed: BlogPost[] = data.map((post: any) => ({
+          id: post.id,
+          title: post.title.rendered
+            .replace(/&#8211;.*$/, "")
+            .replace(/&amp;/g, "&")
+            .replace(/&#8217;/g, "'")
+            .replace(/&#8220;/g, '"')
+            .replace(/&#8221;/g, '"')
+            .trim(),
+          slug: post.slug,
+          link: post.link,
+          img: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? "",
+        }));
+        setBlogs(parsed);
+      })
+      .catch(() => {
+        setBlogs([
+          { id: 1, title: "Why I Recommend My Health Recharge Program: Mr Rajendra Mehta", slug: "", link: "#", img: "/images/mhr/blog1.png" },
+          { id: 2, title: "21 vs 90 Days: Know About OneMi's My Metabolic Detox and My Health Recharge Programs?", slug: "", link: "#", img: "/images/mhr/blog2.png" },
+          { id: 3, title: "Gut Detox, Organ Detox, Thought Detox—What's the Difference?", slug: "", link: "#", img: "/images/mhr/blog3.png" },
+        ]);
+      })
+      .finally(() => setBlogsLoading(false));
+  }, []);
+
   return (
     <div className="bg-white">
 
       {/* ── 1. HERO ── */}
-      <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-0">
-        <section className="relative rounded-3xl overflow-hidden min-h-[500px] sm:min-h-[560px] lg:min-h-[620px]">
+      <div className="px-6 sm:px-10 lg:px-14 pt-4 pb-4">
+        <section
+          className="relative rounded-2xl overflow-hidden"
+          style={{ height: 714 }}
+        >
           <Image
             src="/images/mhr/mhr-banner.webp"
             alt="My Health Recharge"
             fill
+            className="object-cover object-[55%_15%]"
             priority
             sizes="(max-width: 640px) 100vw, 95vw"
-            className="object-cover object-center"
           />
-          {/* Subtle left overlay so text stays readable */}
+          {/* Gradient — left side for text readability */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to right, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.45) 35%, rgba(255,255,255,0.1) 58%, transparent 78%)",
+                "linear-gradient(to right, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.1) 48%, transparent 65%)",
             }}
           />
-          {/* Text — bottom-left, matching production layout */}
-          <div className="relative z-10 flex items-end min-h-[500px] sm:min-h-[560px] lg:min-h-[620px]">
-            <div className="px-8 sm:px-10 lg:px-14 pb-14 flex flex-col gap-4 max-w-[520px]">
-              {/* Rotating yellow condition box */}
-              <div
-                className="inline-flex self-start px-5 py-3 rounded font-bold text-xl text-[#1A1A2E]"
-                style={{
-                  backgroundColor: "#F5C842",
-                  opacity: conditionVisible ? 1 : 0,
-                  transition: "opacity 0.4s ease",
-                  minWidth: 180,
-                }}
-              >
-                {rotatingConditions[conditionIdx]}
-              </div>
-              <p className="text-base text-[#3D3D3D] font-medium">Address the root cause</p>
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#1A1A2E] leading-tight">
+          {/* Text — bottom-left */}
+          <div className="absolute bottom-10 left-8 sm:left-10 flex flex-col gap-3 max-w-xs">
+            <div
+              key={conditionIdx}
+              className="inline-block px-4 py-2 rounded-lg font-bold text-[#1A1A2E] text-base sm:text-lg"
+              style={{
+                backgroundColor: "#F5C842",
+                width: "fit-content",
+                opacity: conditionVisible ? 1 : 0,
+                transition: "opacity 0.4s ease",
+              }}
+            >
+              {rotatingConditions[conditionIdx]}
+            </div>
+            <p className="text-sm sm:text-base text-[#1A1A2E] font-medium">Address the root cause</p>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] leading-tight">
                 My Health Recharge
               </h1>
-              <p className="text-lg text-[#3D3D3D]">Restore your Health in 90 Days</p>
-              <div>
-                <Button href="#enquire">Enquire Now</Button>
-              </div>
+              <p className="mt-1 text-sm sm:text-base text-[#3D3D3D]">
+                Restore your Health in 90 Days
+              </p>
+            </div>
+            <div className="mt-1">
+              <Button href="#enquire">Enquire Now</Button>
             </div>
           </div>
         </section>
@@ -428,7 +498,7 @@ export default function MyHealthRechargePage() {
               }}
             />
             <Image
-              src="/images/mhr/problem-woman.png"
+              src="/images/mhr/Frame-427319559.png"
               alt="Woman concerned about health"
               width={560}
               height={500}
@@ -483,7 +553,7 @@ export default function MyHealthRechargePage() {
 
       {/* ── 5. TREAT THE CAUSE ── */}
       <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-white">
-        {/* CSS dot-grid background — matches production */}
+        {/* dot-grid background */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -492,8 +562,7 @@ export default function MyHealthRechargePage() {
             opacity: 0.7,
           }}
         />
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Left-aligned heading + subtitle — matches production */}
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mb-4">
             Treat the cause.{" "}
             <span className="text-[#E85D04]">Not just the symptoms.</span>
@@ -502,23 +571,85 @@ export default function MyHealthRechargePage() {
             When leaves get yellow, you don&apos;t paint them green, you look at the soil.
           </p>
 
-          {/* Desktop: scattered absolute pills with red dot */}
-          <div className="relative hidden lg:block" style={{ height: 380 }}>
-            {pillars.map((p) => (
+          {/* Desktop: two alternating groups */}
+          <div className="relative hidden lg:block" style={{ height: 420 }}>
+
+            {/* ── Group A pills ── */}
+            {pillarsA.map((p) => (
               <div
                 key={p.label}
                 className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
-                style={{ top: p.top, left: p.left }}
+                style={{
+                  top: p.top,
+                  left: p.left,
+                  opacity: pillGroup === "A" ? 1 : 0.06,
+                  filter: pillGroup === "A" ? "blur(0px)" : "blur(2px)",
+                  transition: "opacity 0.9s ease, filter 0.9s ease",
+                }}
               >
                 <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
                 {p.label}
               </div>
             ))}
+
+            {/* ── Group A dots ── */}
+            {dotsA.map((d, i) => (
+              <span
+                key={`da-${i}`}
+                className="absolute"
+                style={{
+                  top: d.top,
+                  left: d.left,
+                  opacity: pillGroup === "A" ? 1 : 0,
+                  transition: "opacity 0.9s ease",
+                }}
+              >
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                </span>
+              </span>
+            ))}
+
+            {/* ── Group B pills ── */}
+            {pillarsB.map((p) => (
+              <div
+                key={p.label}
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                style={{
+                  top: p.top,
+                  left: p.left,
+                  opacity: pillGroup === "B" ? 1 : 0.06,
+                  filter: pillGroup === "B" ? "blur(0px)" : "blur(2px)",
+                  transition: "opacity 0.9s ease, filter 0.9s ease",
+                }}
+              >
+                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                {p.label}
+              </div>
+            ))}
+
+            {/* ── Group B dots ── */}
+            {dotsB.map((d, i) => (
+              <span
+                key={`db-${i}`}
+                className="absolute"
+                style={{
+                  top: d.top,
+                  left: d.left,
+                  opacity: pillGroup === "B" ? 1 : 0,
+                  transition: "opacity 0.9s ease",
+                }}
+              >
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                </span>
+              </span>
+            ))}
           </div>
 
-          {/* Mobile: flex wrap with red dot */}
-          <div className="flex flex-wrap gap-3 lg:hidden">
-            {pillars.map((p) => (
+          {/* Mobile: show all pills */}
+          <div className="flex flex-wrap gap-3 lg:hidden justify-center">
+            {allPillars.map((p) => (
               <span
                 key={p.label}
                 className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-[#1A1A2E] text-sm"
@@ -581,7 +712,7 @@ export default function MyHealthRechargePage() {
                 Limited Seats. &apos;By Invite Only.&apos;<br />Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
-              <Button href="#enquire" className="w-full justify-center">
+              <Button href="/cart" className="w-full justify-center">
                 Restore your health in 90 days
               </Button>
               <p className="text-center text-xs text-[#6B7280] italic">
@@ -621,40 +752,66 @@ export default function MyHealthRechargePage() {
       </section>
 
       {/* ── 9. SUCCESS STORIES ── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F5F5]">
+        <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
             Success <span className="text-[#E85D04]">Stories</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-6">Real people, real results</p>
-          <div className="flex justify-center gap-2 mb-6">
+          <p className="text-[#6B7280] text-center mb-10">Stories of courage, care, and lasting change.</p>
+
+          {/* Carousel */}
+          <div className="relative flex items-center gap-3">
+            {/* Left arrow */}
+            <button
+              onClick={() => goToStory((activeStory - 1 + stories.length) % stories.length)}
+              className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-[#E85D04] transition-colors shadow-sm"
+              aria-label="Previous story"
+            >
+              <svg className="w-4 h-4 text-[#6B7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Card */}
+            <div className="flex-1">
+              {stories.map((story, i) =>
+                i !== activeStory ? null : (
+                  <Image
+                    key={i}
+                    src={story.img}
+                    alt={story.alt}
+                    width={1200}
+                    height={600}
+                    className="w-full h-auto"
+                    priority={i === 0}
+                  />
+                )
+              )}
+            </div>
+
+            {/* Right arrow */}
+            <button
+              onClick={() => goToStory((activeStory + 1) % stories.length)}
+              className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-[#E85D04] transition-colors shadow-sm"
+              aria-label="Next story"
+            >
+              <svg className="w-4 h-4 text-[#6B7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-6">
             {stories.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setActiveStory(i)}
+                onClick={() => goToStory(i)}
                 className={`w-2.5 h-2.5 rounded-full transition-colors ${i === activeStory ? "bg-[#E85D04]" : "bg-gray-300"}`}
                 aria-label={`Story ${i + 1}`}
               />
             ))}
           </div>
-          {stories.map((story, i) =>
-            i !== activeStory ? null : (
-              <div key={i} className="grid lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-8 shadow-sm">
-                <div className="flex flex-col gap-4">
-                  <p className="text-2xl font-bold text-[#1A1A2E] italic">&ldquo;{story.quote}&rdquo;</p>
-                  <p className="text-[#6B7280] leading-relaxed">{story.text}</p>
-                  <span className="inline-block text-xs font-semibold text-[#E85D04] bg-orange-50 px-3 py-1 rounded-full self-start">
-                    {story.journey}
-                  </span>
-                  <div>
-                    <p className="font-bold text-[#1A1A2E]">{story.name}</p>
-                    <p className="text-sm text-[#6B7280]">{story.age} · {story.diagnosis}</p>
-                  </div>
-                </div>
-                <Image src={story.img} alt={story.name} width={520} height={400} className="rounded-2xl object-cover w-full" />
-              </div>
-            )
-          )}
         </div>
       </section>
 
@@ -690,16 +847,44 @@ export default function MyHealthRechargePage() {
           </h2>
           <p className="text-[#6B7280] text-center mb-10">Expert insights and patient stories</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map((item) => (
-              <div key={item.title} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div className="relative h-48">
-                  <Image src={item.img} alt={item.title} fill className="object-cover" />
-                </div>
-                <div className="p-5">
-                  <p className="text-sm font-semibold text-[#1A1A2E] leading-snug">{item.title}</p>
-                </div>
-              </div>
-            ))}
+            {blogsLoading
+              ? [1, 2, 3].map((i) => (
+                  <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
+                    <div className="h-48 bg-gray-200" />
+                    <div className="p-5 space-y-2">
+                      <div className="h-3 bg-gray-200 rounded w-full" />
+                      <div className="h-3 bg-gray-200 rounded w-4/5" />
+                    </div>
+                  </div>
+                ))
+              : blogs.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.slug ? `/blog/${item.slug}` : item.link}
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      {item.img ? (
+                        <Image
+                          src={item.img}
+                          alt={item.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                          <span className="text-gray-400 text-sm">No image</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <p className="text-sm font-semibold text-[#1A1A2E] leading-snug group-hover:text-[#E85D04] transition-colors">
+                        {item.title}
+                      </p>
+                    </div>
+                  </a>
+                ))}
           </div>
         </div>
       </section>

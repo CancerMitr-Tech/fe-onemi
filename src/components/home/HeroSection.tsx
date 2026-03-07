@@ -7,8 +7,8 @@ export default function HeroSection() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-0 bg-white">
       <section className="relative rounded-3xl overflow-hidden
-                          min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]
-                          bg-[#C9A87C]">
+                          min-h-120 sm:min-h-130 lg:min-h-140
+                          bg-brand-sand">
 
         {/* Full-card phone image */}
         <Image
@@ -31,15 +31,15 @@ export default function HeroSection() {
 
         {/* Text — left side, z-10 so it sits above gradient */}
         <div className="relative z-10 flex items-center
-                        min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]">
+                        min-h-120 sm:min-h-130 lg:min-h-140">
           <div className="px-8 sm:px-10 lg:px-14 py-12 flex flex-col gap-5
-                          w-full max-w-[520px] lg:max-w-[560px]">
-            <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem]
-font-bold text-[#1A1A2E] leading-tight whitespace-pre-line">
+                          w-full max-w-130 lg:max-w-140">
+<h1 className="text-3xl sm:text-4xl lg:text-[2.75rem]
+font-bold text-brand-dark leading-tight whitespace-pre-line">
   {HERO.heading}
 </h1>
             <p className="text-sm sm:text-base lg:text-lg
-                          text-[#3D3D3D] leading-relaxed max-w-[400px]">
+                          text-[#3D3D3D] leading-relaxed max-w-100">
               {HERO.subtitle}
             </p>
             <RotatingPill />

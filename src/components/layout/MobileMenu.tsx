@@ -7,9 +7,10 @@ import { NAV_LINKS, PROGRAM_LINKS } from "@/constants/nav";
 interface MobileMenuProps {
   onClose: () => void;
   activePath: string;
+  isLoggedIn: boolean;
 }
 
-export default function MobileMenu({ onClose, activePath }: MobileMenuProps) {
+export default function MobileMenu({ onClose, activePath, isLoggedIn }: MobileMenuProps) {
   return (
     <motion.div
       initial={{ x: "100%" }}
@@ -27,7 +28,7 @@ export default function MobileMenu({ onClose, activePath }: MobileMenuProps) {
           <X className="w-6 h-6 text-[#1A1A2E]" />
         </button>
       </div>
-      <nav className="flex flex-col px-6 py-4 gap-1">
+      <nav className="flex flex-col px-6 py-4 gap-1 overflow-y-auto flex-1">
         {NAV_LINKS.filter((l) => !l.hasDropdown).map((link) => (
           <Link
             key={link.href}
@@ -54,6 +55,44 @@ export default function MobileMenu({ onClose, activePath }: MobileMenuProps) {
               {link.label}
             </Link>
           ))}
+        </div>
+
+        <div className="pt-4 border-t border-gray-100 mt-2 space-y-2">
+          {isLoggedIn ? (
+            <>
+              <Link
+                href="/profile"
+                onClick={onClose}
+                className="block py-3 text-base font-medium text-[#1A1A2E] hover:text-[#E85D04]"
+              >
+                Profile
+              </Link>
+              <Link
+                href="/orders"
+                onClick={onClose}
+                className="block py-3 text-base font-medium text-[#1A1A2E] hover:text-[#E85D04]"
+              >
+                My Orders
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                onClick={onClose}
+                className="block text-center w-full bg-[#E85D04] hover:bg-[#C94E03] text-white font-bold py-3 rounded-lg transition-colors"
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                onClick={onClose}
+                className="block text-center w-full border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold py-3 rounded-lg transition-colors"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </motion.div>

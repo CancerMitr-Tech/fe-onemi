@@ -13,9 +13,9 @@ function TickerRow({ direction = 1 }: { direction?: number }) {
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
         {tickerRow.map((item, i) => (
-          <span key={i} className="inline-flex items-center text-sm font-medium text-[#1A1A2E]">
+          <span key={i} className="inline-flex items-center text-sm font-medium text-brand-dark">
             {item}
-            <span className="mx-4 text-[#E85D04] text-lg">✱</span>
+            <span className="mx-4 text-brand-orange text-lg">✱</span>
           </span>
         ))}
       </motion.div>
@@ -25,9 +25,9 @@ function TickerRow({ direction = 1 }: { direction?: number }) {
 
 export default function YellowBanner() {
   return (
-    <section className="bg-[#F5E6A3] py-16">
+    <section className="bg-brand-yellow py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
-        <p className="text-2xl sm:text-3xl font-semibold text-[#1A1A2E] leading-relaxed">
+        <p className="text-2xl sm:text-3xl font-semibold text-brand-dark leading-relaxed">
           {YELLOW_BANNER}
         </p>
       </div>

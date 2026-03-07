@@ -147,9 +147,6 @@ const research = [
   { title: "Sleep, circadian rhythms and metabolic health: translating the evidence", img: "/images/mhr/research3.png" },
 ];
 
-
-
-
 const faqs = [
   {
     q: "Who can benefit from My Metabolic Detox?",
@@ -185,8 +182,8 @@ const faqs = [
 
 function OrangeCheck() {
   return (
-    <span className="flex-shrink-0 mt-0.5">
-      <svg className="w-5 h-5 text-[#E85D04]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+    <span className="shrink-0 mt-0.5">
+      <svg className="w-5 h-5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     </span>
@@ -205,8 +202,8 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
       `}</style>
       <div className={`flex gap-6 whitespace-nowrap ${direction === "left" ? "mdp-ml" : "mdp-mr"}`}>
         {repeated.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-3 text-sm font-medium text-[#1A1A2E]">
-            <span className="text-[#E85D04]">✳</span>
+          <span key={i} className="inline-flex items-center gap-3 text-sm font-medium text-brand-dark">
+            <span className="text-brand-orange">✳</span>
             {item}
           </span>
         ))}
@@ -223,8 +220,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         className="w-full flex justify-between items-start py-5 text-left gap-4"
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="font-semibold text-[#1A1A2E] text-sm leading-snug">{q}</span>
-        <span className="text-[#E85D04] text-xl font-light flex-shrink-0 leading-none mt-0.5">{open ? "×" : "+"}</span>
+        <span className="font-semibold text-brand-dark text-sm leading-snug">{q}</span>
+        <span className="text-brand-orange text-xl font-light shrink-0 leading-none mt-0.5">{open ? "×" : "+"}</span>
       </button>
       <AnimatePresence>
         {open && (
@@ -235,7 +232,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.22 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm text-[#6B7280] leading-relaxed">{a}</p>
+            <p className="pb-4 text-sm text-brand-muted leading-relaxed">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -270,10 +267,10 @@ function StickySteps() {
   return (
     <div className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E]">
-          Kickstart your <span className="text-[#E85D04]">Detox Journey</span>
+        <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
+          Kickstart your <span className="text-brand-orange">Detox Journey</span>
         </h2>
-        <p className="mt-3 text-[#6B7280]">The process can be simplified. Outcomes, however, need effort.</p>
+        <p className="mt-3 text-brand-muted">The process can be simplified. Outcomes, however, need effort.</p>
       </div>
       <div ref={containerRef} style={{ height: CONTAINER_H }} className="relative">
         <div className="sticky" style={{ top: 80 }}>
@@ -299,18 +296,18 @@ function StickySteps() {
                       />
                     </div>
                     <div className="flex">
-                      <div className="hidden lg:block w-px bg-[#E85D04] mx-8 self-stretch flex-shrink-0" />
+                      <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
                       <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
-                        <p className="text-sm font-semibold text-[#E85D04] mb-2 tracking-wide">{step.step}</p>
-                        <h3 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mb-3 leading-tight">
-                          {step.title}<span className="text-[#E85D04]">{step.highlight}</span>
+                        <p className="text-sm font-semibold text-brand-orange mb-2 tracking-wide">{step.step}</p>
+                        <h3 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-3 leading-tight">
+                          {step.title}<span className="text-brand-orange">{step.highlight}</span>
                         </h3>
-                        <p className="text-sm text-[#6B7280] mb-5">{step.subtitle}</p>
+                        <p className="text-sm text-brand-muted mb-5">{step.subtitle}</p>
                         <ul className="space-y-3">
                           {step.items.map((item) => (
                             <li key={item} className="flex items-start gap-3">
                               <OrangeCheck />
-                              <span className="text-sm text-[#1A1A2E]">{item}</span>
+                              <span className="text-sm text-brand-dark">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -368,9 +365,8 @@ export default function MyMetabolicDetoxPage() {
     return () => clearInterval(t);
   }, []);
 
-  // Fetch blogs from WordPress API
   useEffect(() => {
-    fetch("https://onemi.ai/wp-json/wp/v2/posts?categories=11&_embed&per_page=3")
+    fetch(`${process.env.NEXT_PUBLIC_WP_API ?? "https://onemi.ai/wp-json/wp/v2"}/posts?categories=11&_embed&per_page=3`)
       .then((res) => res.json())
       .then((data) => {
         const parsed: BlogPost[] = data.map((post: any) => ({
@@ -383,7 +379,6 @@ export default function MyMetabolicDetoxPage() {
         setBlogs(parsed);
       })
       .catch(() => {
-        // Fallback to static on error
         setBlogs([
           { id: 1, title: "21 vs 90 Days: Know About OneMi's My Metabolic Detox and My Health Recharge Programs?", slug: "", link: "#", img: "/images/mhr/blog2.png" },
           { id: 2, title: "Gut Detox, Organ Detox, Thought Detox—What's the Difference?", slug: "", link: "#", img: "/images/mhr/blog3.png" },
@@ -396,7 +391,7 @@ export default function MyMetabolicDetoxPage() {
   return (
     <div className="bg-white">
 
-      {/* ── 1. HERO — fixed 500px height matching production, object-cover auto-crops on zoom ── */}
+      {/* ── 1. HERO ── */}
       <div className="px-6 sm:px-10 lg:px-14 pt-4 pb-4">
         <section
           className="relative rounded-2xl overflow-hidden"
@@ -410,7 +405,6 @@ export default function MyMetabolicDetoxPage() {
             priority
             sizes="(max-width: 640px) 100vw, 95vw"
           />
-          {/* Gradient — left side for text readability */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -418,18 +412,17 @@ export default function MyMetabolicDetoxPage() {
                 "linear-gradient(to right, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.1) 48%, transparent 65%)",
             }}
           />
-          {/* Text — bottom-left, fixed sizing matching production */}
           <div className="absolute bottom-10 left-8 sm:left-10 flex flex-col gap-3 max-w-xs">
             <div
               key={heroIdx}
-              className="inline-block px-4 py-2 rounded-lg font-bold text-[#1A1A2E] text-base sm:text-lg"
+              className="inline-block px-4 py-2 rounded-lg font-bold text-brand-dark text-base sm:text-lg"
               style={{ backgroundColor: "#F5C842", width: "fit-content" }}
             >
               {heroPhrases[heroIdx]}
             </div>
-            <p className="text-sm sm:text-base text-[#1A1A2E] font-medium">Address the root cause</p>
+            <p className="text-sm sm:text-base text-brand-dark font-medium">Address the root cause</p>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
                 My Metabolic Detox
               </h1>
               <p className="mt-1 text-sm sm:text-base text-[#3D3D3D]">
@@ -443,13 +436,13 @@ export default function MyMetabolicDetoxPage() {
         </section>
       </div>
 
-      {/* ── 3. MARQUEE — two rows, opposite directions ── */}
+      {/* ── 2. MARQUEE ── */}
       <div className="py-6 bg-[#F9FAFB] border-y border-gray-100">
         <MarqueeRow items={mdpMarqueeItems} direction="left" />
         <MarqueeRow items={[...mdpMarqueeItems].reverse()} direction="right" />
       </div>
 
-      {/* ── 4. PROBLEM SECTION ── */}
+      {/* ── 3. PROBLEM SECTION ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
@@ -470,18 +463,18 @@ export default function MyMetabolicDetoxPage() {
             />
           </div>
           <div className="flex flex-col gap-5">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Your body has been signaling.{" "}
-              <span className="text-[#E85D04]">Are you listening?</span>
+              <span className="text-brand-orange">Are you listening?</span>
             </h2>
-            <p className="text-[#6B7280] leading-relaxed">
+            <p className="text-brand-muted leading-relaxed">
               Metabolic dysfunction doesn&apos;t happen overnight. It builds up silently through years
               of stress, poor nutrition, disturbed sleep, and toxic overload.
             </p>
-            <hr className="border-[#E85D04] border-t-2" />
+            <hr className="border-brand-orange border-t-2" />
             <div>
-              <h3 className="text-xl font-bold text-[#1A1A2E] mb-1">Reset your System in 21 days</h3>
-              <p className="text-sm text-[#6B7280]">Personalised | Data-backed | Clinically guided</p>
+              <h3 className="text-xl font-bold text-brand-dark mb-1">Reset your System in 21 days</h3>
+              <p className="text-sm text-brand-muted">Personalised | Data-backed | Clinically guided</p>
             </div>
             <p className="text-[#3D3D3D] leading-relaxed">
               My Metabolic Detox is a 21-day clinically guided reset program designed to reduce
@@ -495,16 +488,16 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 5. SYMPTOMS GRID ── */}
+      {/* ── 4. SYMPTOMS GRID ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-4">
             Do you feel like your body needs a cleanse, a reboot?
           </h2>
-          <hr className="border-[#E85D04] border-t-2 mb-10 mx-auto max-w-2xl" />
+          <hr className="border-brand-orange border-t-2 mb-10 mx-auto max-w-2xl" />
           <div className="flex flex-wrap gap-3 justify-center">
             {symptoms.map((s) => (
-              <span key={s} className="px-5 py-2 rounded-full border border-gray-300 bg-white text-[#1A1A2E] text-sm font-medium">
+              <span key={s} className="px-5 py-2 rounded-full border border-gray-300 bg-white text-brand-dark text-sm font-medium">
                 {s}
               </span>
             ))}
@@ -512,9 +505,8 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 6. CLEANSE AT THE CORE ── */}
+      {/* ── 5. CLEANSE AT THE CORE ── */}
       <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden" style={{ backgroundColor: "#F8F9FA" }}>
-        {/* Grey dots background — matching production */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -524,10 +516,10 @@ export default function MyMetabolicDetoxPage() {
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mb-4">
-            Cleanse at the <span className="text-[#E85D04]">core</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark mb-4">
+            Cleanse at the <span className="text-brand-orange">core</span>
           </h2>
-          <p className="text-[#6B7280] text-base sm:text-lg mb-12 max-w-2xl mx-auto">
+          <p className="text-brand-muted text-base sm:text-lg mb-12 max-w-2xl mx-auto">
             If too many apps are running in the background, the battery of the phone drains fast.
           </p>
 
@@ -536,7 +528,7 @@ export default function MyMetabolicDetoxPage() {
             {pillarsA.map((p) => (
               <div
                 key={p.label}
-                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-brand-dark text-sm whitespace-nowrap"
                 style={{
                   top: p.top, left: p.left,
                   opacity: pillGroup === "A" ? 1 : 0.06,
@@ -544,7 +536,7 @@ export default function MyMetabolicDetoxPage() {
                   transition: "opacity 0.9s ease, filter 0.9s ease",
                 }}
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </div>
             ))}
@@ -558,15 +550,15 @@ export default function MyMetabolicDetoxPage() {
                   transition: "opacity 0.9s ease",
                 }}
               >
-                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-brand-orange">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange" />
                 </span>
               </span>
             ))}
             {pillarsB.map((p) => (
               <div
                 key={p.label}
-                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-brand-dark text-sm whitespace-nowrap"
                 style={{
                   top: p.top, left: p.left,
                   opacity: pillGroup === "B" ? 1 : 0.06,
@@ -574,7 +566,7 @@ export default function MyMetabolicDetoxPage() {
                   transition: "opacity 0.9s ease, filter 0.9s ease",
                 }}
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </div>
             ))}
@@ -588,8 +580,8 @@ export default function MyMetabolicDetoxPage() {
                   transition: "opacity 0.9s ease",
                 }}
               >
-                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-brand-orange">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange" />
                 </span>
               </span>
             ))}
@@ -600,9 +592,9 @@ export default function MyMetabolicDetoxPage() {
             {allPillars.map((p) => (
               <span
                 key={p.label}
-                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-[#1A1A2E] text-sm"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-brand-dark text-sm"
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </span>
             ))}
@@ -610,61 +602,55 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 7. KICKSTART YOUR DETOX JOURNEY — sticky scroll same as MHR ── */}
+      {/* ── 6. STICKY STEPS ── */}
       <StickySteps />
 
-      {/* ── 8. PRICING CARD ── */}
+      {/* ── 7. PRICING CARD ── */}
       <section id="program-details" className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl bg-white p-8 sm:p-12">
-          {/* Title */}
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Make your detox goals.
             </h2>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#E85D04] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-orange leading-tight">
               Commit to the program.
             </h2>
-            <p className="mt-3 text-[#6B7280]">
+            <p className="mt-3 text-brand-muted">
               From first assessment to final report, every step is covered for you.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10">
-            {/* Left: checklist with orange circle checks */}
             <ul className="flex flex-col gap-4">
               {pricingChecklist.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[#1A1A2E] text-sm">
+                <li key={item} className="flex items-start gap-3 text-brand-dark text-sm">
                   <OrangeCheck />
                   {item}
                 </li>
               ))}
             </ul>
 
-            {/* Right: Program Details box */}
             <div className="border border-gray-200 rounded-xl p-6 flex flex-col gap-4">
-              {/* "Program Details" with flanking lines */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gray-300" />
-                <span className="text-sm font-bold text-[#1A1A2E] whitespace-nowrap">Program Details</span>
+                <span className="text-sm font-bold text-brand-dark whitespace-nowrap">Program Details</span>
                 <div className="flex-1 h-px bg-gray-300" />
               </div>
-              {/* Mode + Duration tabs */}
               <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-sm font-medium text-center">
-                <div className="py-3 border-r border-gray-200 text-[#1A1A2E]">Mode : At Home</div>
-                <div className="py-3 text-[#1A1A2E]">Duration : 21 Days</div>
+                <div className="py-3 border-r border-gray-200 text-brand-dark">Mode : At Home</div>
+                <div className="py-3 text-brand-dark">Duration : 21 Days</div>
               </div>
-              {/* Price on light gray background */}
               <div className="bg-[#F3F4F6] rounded-lg py-4 text-center">
-                <span className="text-3xl font-bold text-[#1A1A2E]">&#8377; 5,000</span>
+                <span className="text-3xl font-bold text-brand-dark">&#8377; 5,000</span>
               </div>
               <p className="text-center text-sm text-[#3D3D3D] font-medium leading-snug">
                 Limited Seats. &apos;By Invite Only.&apos;<br />Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
-              <Button href="/cart" className="w-full justify-center">
+              <Button href="/cart?product=detox" className="w-full justify-center">
                 Reset your System in 21 days
               </Button>
-              <p className="text-center text-xs text-[#6B7280] italic">
+              <p className="text-center text-xs text-brand-muted italic">
                 Tests &amp; Products charged separately. Taxes as applicable
               </p>
             </div>
@@ -672,7 +658,7 @@ export default function MyMetabolicDetoxPage() {
 
           <p className="text-center text-sm text-[#3D3D3D] italic mt-8">
             Avail discounts and offers. Become a{" "}
-            <a href="/membership" className="text-[#E85D04] font-semibold not-italic underline">
+            <a href="/membership" className="text-brand-orange font-semibold not-italic underline">
               OneMi Member
             </a>
             .
@@ -680,13 +666,13 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 9. DATA-BACKED TRANSFORMATION — 3 cards like production ── */}
+      {/* ── 8. DATA-BACKED TRANSFORMATION ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Data-Backed <span className="text-[#E85D04]">Transformation</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Data-Backed <span className="text-brand-orange">Transformation</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Measured through clinical parameters, symptom scoring, and performance indicators
           </p>
 
@@ -694,7 +680,7 @@ export default function MyMetabolicDetoxPage() {
 
             {/* Card 1 — Program Benefits bar chart */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              <h3 className="text-sm font-semibold text-[#1A1A2E] text-center mb-4">Program Benefits</h3>
+              <h3 className="text-sm font-semibold text-brand-dark text-center mb-4">Program Benefits</h3>
               <div className="flex flex-col gap-2">
                 {[
                   { label: "Overall vitality & productivity", pct: 60 },
@@ -712,7 +698,7 @@ export default function MyMetabolicDetoxPage() {
                       className="absolute top-0 left-0 bottom-0 flex items-center pl-2"
                       style={{ width: `${m.pct}%`, backgroundColor: "#F5C842", borderRadius: 6 }}
                     >
-                      <span className="text-xs font-semibold text-[#1A1A2E] whitespace-nowrap truncate">{m.label}</span>
+                      <span className="text-xs font-semibold text-brand-dark whitespace-nowrap truncate">{m.label}</span>
                     </div>
                     <div
                       className="absolute flex items-center justify-center bg-white"
@@ -723,7 +709,7 @@ export default function MyMetabolicDetoxPage() {
                         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
                       }}
                     >
-                      <span className="text-xs font-bold text-[#1A1A2E]">{m.pct}%</span>
+                      <span className="text-xs font-bold text-brand-dark">{m.pct}%</span>
                     </div>
                   </div>
                 ))}
@@ -732,15 +718,15 @@ export default function MyMetabolicDetoxPage() {
 
             {/* Card 2 — Health Improvement table */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col">
-              <h3 className="text-sm font-semibold text-[#1A1A2E] text-center mb-4">Health Improvement</h3>
+              <h3 className="text-sm font-semibold text-brand-dark text-center mb-4">Health Improvement</h3>
               <div className="overflow-x-auto flex-1">
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="border-b border-gray-200">
-                      <th className="text-left pb-2 text-[#6B7280] font-medium">Health parameters</th>
-                      <th className="text-center pb-2 text-[#6B7280] font-medium">Pre-Program</th>
-                      <th className="text-center pb-2 text-[#6B7280] font-medium">Post-Program</th>
-                      <th className="text-center pb-2 text-[#6B7280] font-medium">% Change</th>
+                      <th className="text-left pb-2 text-brand-muted font-medium">Health parameters</th>
+                      <th className="text-center pb-2 text-brand-muted font-medium">Pre-Program</th>
+                      <th className="text-center pb-2 text-brand-muted font-medium">Post-Program</th>
+                      <th className="text-center pb-2 text-brand-muted font-medium">% Change</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -752,35 +738,33 @@ export default function MyMetabolicDetoxPage() {
                     ].map((row) => (
                       <tr key={row.param} className="border-b border-gray-100 last:border-0">
                         <td className="py-2.5 flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: row.dot }} />
+                          <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: row.dot }} />
                           {row.param}
                         </td>
-                        <td className="py-2.5 text-center text-[#1A1A2E]">{row.pre}</td>
-                        <td className="py-2.5 text-center text-[#1A1A2E]">{row.post}</td>
+                        <td className="py-2.5 text-center text-brand-dark">{row.pre}</td>
+                        <td className="py-2.5 text-center text-brand-dark">{row.post}</td>
                         <td className="py-2.5 text-center text-green-600 font-semibold">{row.change}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <p className="text-xs text-[#6B7280] text-center mt-4 italic">Small steps, strong progress.</p>
+              <p className="text-xs text-brand-muted text-center mt-4 italic">Small steps, strong progress.</p>
             </div>
 
             {/* Card 3 — Overall Outcomes grouped bar chart */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              <h3 className="text-sm font-semibold text-[#1A1A2E] text-center mb-2">Overall Outcomes</h3>
-              {/* Legend */}
+              <h3 className="text-sm font-semibold text-brand-dark text-center mb-2">Overall Outcomes</h3>
               <div className="flex justify-center gap-4 mb-4">
-                <span className="flex items-center gap-1.5 text-xs text-[#6B7280]">
+                <span className="flex items-center gap-1.5 text-xs text-brand-muted">
                   <span className="w-3 h-3 rounded-sm inline-block" style={{ backgroundColor: "#D1D5DB" }} />
                   Pre-Program
                 </span>
-                <span className="flex items-center gap-1.5 text-xs text-[#6B7280]">
+                <span className="flex items-center gap-1.5 text-xs text-brand-muted">
                   <span className="w-3 h-3 rounded-sm inline-block" style={{ backgroundColor: "#F5C842" }} />
                   Post-Program
                 </span>
               </div>
-              {/* Bars */}
               <div className="flex items-end justify-around gap-2 h-40 px-2">
                 {[
                   { label: "Energy\nLevels",        pre: 65, post: 90 },
@@ -790,15 +774,15 @@ export default function MyMetabolicDetoxPage() {
                   <div key={g.label} className="flex flex-col items-center gap-1 flex-1">
                     <div className="flex items-end gap-1 w-full justify-center" style={{ height: 120 }}>
                       <div
-                        className="flex-1 rounded-t-md max-w-[28px]"
+                        className="flex-1 rounded-t-md max-w-7"
                         style={{ height: `${g.pre}%`, backgroundColor: "#D1D5DB" }}
                       />
                       <div
-                        className="flex-1 rounded-t-md max-w-[28px]"
+                        className="flex-1 rounded-t-md max-w-7"
                         style={{ height: `${g.post}%`, backgroundColor: "#F5C842" }}
                       />
                     </div>
-                    <p className="text-xs text-[#6B7280] text-center leading-tight whitespace-pre-line">{g.label}</p>
+                    <p className="text-xs text-brand-muted text-center leading-tight whitespace-pre-line">{g.label}</p>
                   </div>
                 ))}
               </div>
@@ -808,33 +792,30 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 10. SUCCESS STORIES ── */}
+      {/* ── 9. SUCCESS STORIES ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Success <span className="text-[#E85D04]">Stories</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Success <span className="text-brand-orange">Stories</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">Stories of courage, care, and lasting change.</p>
+          <p className="text-brand-muted text-center mb-10">Stories of courage, care, and lasting change.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {stories.map((story) => (
               <div key={story.name} className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 flex flex-col">
-                {/* Orange quote marks */}
                 <div className="mb-4">
-                  <span className="text-[#E85D04]" style={{ fontSize: 32, lineHeight: 1, fontFamily: "Georgia, serif" }}>&#8220;&#8220;</span>
+                  <span className="text-brand-orange" style={{ fontSize: 32, lineHeight: 1, fontFamily: "Georgia, serif" }}>&#8220;&#8220;</span>
                 </div>
-                {/* Quote */}
                 <p className="text-[#3D3D3D] text-sm leading-relaxed flex-1">{story.quote}</p>
-                {/* Author */}
                 <div className="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-[#1A1A2E]"
+                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-bold text-brand-dark"
                     style={{ backgroundColor: "#F5C842" }}
                   >
                     {story.initial}
                   </div>
                   <div>
-                    <p className="font-bold text-[#1A1A2E] text-sm">{story.name}</p>
-                    <p className="text-xs text-[#6B7280]">{story.conditions}</p>
+                    <p className="font-bold text-brand-dark text-sm">{story.name}</p>
+                    <p className="text-xs text-brand-muted">{story.conditions}</p>
                   </div>
                 </div>
               </div>
@@ -843,13 +824,13 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 11. CLINICAL RESEARCH INSIGHTS ── */}
+      {/* ── 10. CLINICAL RESEARCH INSIGHTS ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Clinical Research <span className="text-[#E85D04]">Insights</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Clinical Research <span className="text-brand-orange">Insights</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">Built on medical research and real-world evidence.</p>
+          <p className="text-brand-muted text-center mb-10">Built on medical research and real-world evidence.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {research.map((item) => (
               <div key={item.title} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
@@ -857,7 +838,7 @@ export default function MyMetabolicDetoxPage() {
                   <Image src={item.img} alt={item.title} fill className="object-cover" />
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-[#1A1A2E] leading-snug">{item.title}</p>
+                  <p className="text-sm font-semibold text-brand-dark leading-snug">{item.title}</p>
                 </div>
               </div>
             ))}
@@ -865,17 +846,16 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 12. BLOGS ── */}
+      {/* ── 11. BLOGS ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            From the <span className="text-[#E85D04]">Blog</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            From the <span className="text-brand-orange">Blog</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">Expert insights and health stories</p>
+          <p className="text-brand-muted text-center mb-10">Expert insights and health stories</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsLoading
-              ? /* Loading skeleton */
-                [1, 2, 3].map((i) => (
+              ? [1, 2, 3].map((i) => (
                   <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
                     <div className="h-48 bg-gray-200" />
                     <div className="p-5 space-y-2">
@@ -906,7 +886,7 @@ export default function MyMetabolicDetoxPage() {
                       )}
                     </div>
                     <div className="p-5">
-                      <p className="text-sm font-semibold text-[#1A1A2E] leading-snug group-hover:text-[#E85D04] transition-colors">
+                      <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
                         {item.title}
                       </p>
                     </div>
@@ -916,23 +896,21 @@ export default function MyMetabolicDetoxPage() {
         </div>
       </section>
 
-      {/* ── 13. FAQ ── */}
+      {/* ── 12. FAQ ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "#F0F2F5" }}>
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[280px_1fr] gap-10 items-start">
-            {/* Left: title + description */}
             <div className="lg:sticky lg:top-24">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
                 Frequently Asked
               </h2>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#E85D04] leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-orange leading-tight mb-4">
                 Questions
               </h2>
-              <p className="text-sm text-[#6B7280] leading-relaxed">
+              <p className="text-sm text-brand-muted leading-relaxed">
                 Know how the program works, what&apos;s included, and how we support your care.
               </p>
             </div>
-            {/* Right: accordion */}
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
               {faqs.map((item) => (
                 <FaqItem key={item.q} q={item.q} a={item.a} />

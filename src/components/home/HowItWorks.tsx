@@ -32,8 +32,8 @@ export default function HowItWorks() {
     <div className="bg-[#F8F9FA]">
       {/* Title */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E]">
-          How It <span className="text-[#E85D04]">Works</span>
+        <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
+          How It <span className="text-brand-orange">Works</span>
         </h2>
       </div>
 
@@ -69,27 +69,27 @@ export default function HowItWorks() {
 
                     {/* Content — always right */}
                     <div className="flex">
-                      <div className="hidden lg:block w-px bg-[#E85D04] mx-8 self-stretch flex-shrink-0" />
+                      <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
                       <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
-                        <p className="text-sm font-semibold text-[#E85D04] mb-2 tracking-wide">{step.step}</p>
-                        <h3 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mb-3 leading-tight">
+                        <p className="text-sm font-semibold text-brand-orange mb-2 tracking-wide">{step.step}</p>
+                        <h3 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-3 leading-tight">
                           {step.title}{" "}
-                          <span className="text-[#E85D04]">{step.highlight}</span>
+                          <span className="text-brand-orange">{step.highlight}</span>
                         </h3>
-                        <p className="text-sm text-[#6B7280] mb-5">{step.subtitle}</p>
+                        <p className="text-sm text-brand-muted mb-5">{step.subtitle}</p>
                         <ul className="space-y-3">
                           {step.items.slice(0, 4).map((item) => (
                             <li key={item} className="flex items-center gap-3">
-                              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#E85D04] flex items-center justify-center">
+                              <span className="shrink-0 w-5 h-5 rounded-full bg-brand-orange flex items-center justify-center">
                                 <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                 </svg>
                               </span>
-                              <span className="text-sm text-[#1A1A2E]">{item}</span>
+                              <span className="text-sm text-brand-dark">{item}</span>
                             </li>
                           ))}
                         </ul>
-                        <p className="text-sm text-[#6B7280] mt-6">{step.tagline}</p>
+                        <p className="text-sm text-brand-muted mt-6">{step.tagline}</p>
                       </div>
                     </div>
                   </div>

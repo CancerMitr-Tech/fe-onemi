@@ -9,11 +9,11 @@ export default function MembershipSection() {
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left: copy */}
         <div className="flex flex-col gap-4 lg:sticky lg:top-24">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
             {MEMBERSHIP.heading}
           </h2>
-          <p className="text-xl font-semibold text-[#E85D04]">{MEMBERSHIP.subheading}</p>
-          <p className="text-[#6B7280] text-lg">{MEMBERSHIP.body}</p>
+          <p className="text-xl font-semibold text-brand-orange">{MEMBERSHIP.subheading}</p>
+          <p className="text-brand-muted text-lg">{MEMBERSHIP.body}</p>
           <div>
             <Button href="/#membership">{MEMBERSHIP.cta}</Button>
           </div>
@@ -23,7 +23,7 @@ export default function MembershipSection() {
         <div className="grid grid-cols-2 gap-4">
           {MEMBERSHIP_FEATURES.map((feature) => (
             <div key={feature.title} className="flex flex-col gap-2">
-              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden">
+              <div className="relative w-full aspect-4/3 rounded-xl overflow-hidden">
                 <Image
                   src={feature.image}
                   alt={feature.title}
@@ -32,8 +32,8 @@ export default function MembershipSection() {
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
               </div>
-              <h3 className="font-semibold text-sm text-[#1A1A2E]">{feature.title}</h3>
-              <p className="text-xs text-[#6B7280]">{feature.caption}</p>
+              <h3 className="font-semibold text-sm text-brand-dark">{feature.title}</h3>
+              <p className="text-xs text-brand-muted">{feature.caption}</p>
             </div>
           ))}
         </div>

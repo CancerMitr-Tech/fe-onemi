@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_BASE = "http://localhost:5000";
-
 type OrderData = {
   orderNumber: string;
   razorpayOrderId: string | null;
@@ -12,6 +10,9 @@ type OrderData = {
   total: number;
   email: string;
   token: string | null;
+  paymentId: string | null;
+  razorpayKey: string | null;
+  isDigital?: boolean;
 };
 
 export default function OrderPayPage() {
@@ -31,54 +32,100 @@ export default function OrderPayPage() {
       router.replace("/cart");
       return;
     }
-    setOrder(JSON.parse(stored));
-  }, [router]);
+    const parsed: OrderData = JSON.parse(stored);
+    setOrder(parsed);
+    // Auto-open Razorpay if we have a real order
+    const hasKey = parsed.razorpayKey ?? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    if (parsed.razorpayOrderId && hasKey) {
+      launchRazorpay(parsed);
+    }
+  }, [router]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function openRazorpay(o: OrderData) {
-    setPaying(true);
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.onload = () => {
-      const rzp = new (
-        window as unknown as {
-          Razorpay: new (opts: unknown) => { open(): void };
-        }
-      ).Razorpay({
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: o.amount,
-        currency: "INR",
-        name: "OneMi",
-        description: "My Health Recharge Program",
-        order_id: o.razorpayOrderId,
-        prefill: { email: o.email },
-        handler: async (response: {
-          razorpay_payment_id: string;
-          razorpay_order_id: string;
-          razorpay_signature: string;
-        }) => {
-          if (o.token) {
-            await fetch(`${API_BASE}/v1/payment/verify`, {
+  type RazorpayWindow = Window & {
+    Razorpay: new (opts: unknown) => { open(): void };
+  };
+
+  function initRzpModal(o: OrderData) {
+    const key = o.razorpayKey ?? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    if (!key) {
+      alert("Payment configuration missing. Please contact support.");
+      setPaying(false);
+      return;
+    }
+    const rzp = new (window as unknown as RazorpayWindow).Razorpay({
+      key,
+      amount: o.amount,
+      currency: "INR",
+      name: "OneMi",
+      description: "Health Program",
+      order_id: o.razorpayOrderId,
+      prefill: { email: o.email },
+      handler: async (response: {
+        razorpay_payment_id: string;
+        razorpay_order_id: string;
+        razorpay_signature: string;
+      }) => {
+        if (o.token) {
+          try {
+            const verifyEndpoint = o.isDigital
+              ? `${process.env.NEXT_PUBLIC_API_BASE}/digital-products/verify`
+              : `${process.env.NEXT_PUBLIC_API_BASE}/payment/verify`;
+            const verifyRes = await fetch(verifyEndpoint, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${o.token}`,
+                "auth-token": o.token,
               },
-              body: JSON.stringify(response),
+              body: JSON.stringify({
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature,
+                paymentId: o.paymentId,
+              }),
             });
+            if (!verifyRes.ok) {
+              const errData = await verifyRes.json().catch(() => ({}));
+              console.error("Payment verify failed:", errData);
+            }
+          } catch (err) {
+            console.error("Payment verify network error:", err);
           }
-          localStorage.removeItem("mhr_cart");
-          localStorage.removeItem("mhr_order");
-          router.push("/checkout/success");
-        },
-        modal: {
-          ondismiss: () => setPaying(false),
-        },
-        theme: { color: "#E85D04" },
-      });
-      rzp.open();
-    };
+        }
+        // Read program name before clearing storage
+        let programName = "";
+        try {
+          const cartStr = localStorage.getItem("mhr_cart");
+          if (cartStr) programName = JSON.parse(cartStr)?.product?.name ?? "";
+        } catch { /* ignore */ }
+        localStorage.removeItem("mhr_cart");
+        localStorage.removeItem("mhr_order");
+        const successUrl = programName
+          ? `/checkout/success?program=${encodeURIComponent(programName)}`
+          : "/checkout/success";
+        router.push(successUrl);
+      },
+      modal: { ondismiss: () => setPaying(false) },
+      theme: { color: "#E85D04" },
+    });
+    rzp.open();
+  }
+
+  function launchRazorpay(o: OrderData) {
+    setPaying(true);
+    // If SDK already loaded (cached), open directly — don't wait for onload
+    if ((window as unknown as RazorpayWindow).Razorpay) {
+      initRzpModal(o);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => initRzpModal(o);
     script.onerror = () => setPaying(false);
     document.body.appendChild(script);
+  }
+
+  function openRazorpay(o: OrderData) {
+    launchRazorpay(o);
   }
 
   if (!order) return null;
@@ -86,30 +133,28 @@ export default function OrderPayPage() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Order details grid */}
         <div className="grid sm:grid-cols-2 gap-x-16 gap-y-4 mb-10 border-b border-gray-200 pb-10">
           <div>
-            <p className="text-sm text-[#6B7280]">Order number:</p>
-            <p className="text-base font-bold text-[#1A1A2E]">{order.orderNumber}</p>
+            <p className="text-sm text-brand-muted">Order number:</p>
+            <p className="text-base font-bold text-brand-dark">{order.orderNumber}</p>
           </div>
           <div>
-            <p className="text-sm text-[#6B7280]">Date:</p>
-            <p className="text-base font-bold text-[#1A1A2E]">{today}</p>
+            <p className="text-sm text-brand-muted">Date:</p>
+            <p className="text-base font-bold text-brand-dark">{today}</p>
           </div>
           <div>
-            <p className="text-sm text-[#6B7280]">Total:</p>
-            <p className="text-base font-bold text-[#1A1A2E]">
+            <p className="text-sm text-brand-muted">Total:</p>
+            <p className="text-base font-bold text-brand-dark">
               ₹{order.total.toLocaleString("en-IN")}.00
             </p>
           </div>
           <div>
-            <p className="text-sm text-[#6B7280]">Payment method:</p>
-            <p className="text-base font-bold text-[#1A1A2E]">UPI, Cards, NetBanking</p>
+            <p className="text-sm text-brand-muted">Payment method:</p>
+            <p className="text-base font-bold text-brand-dark">UPI, Cards, NetBanking</p>
           </div>
         </div>
 
-        {/* CTA */}
-        <p className="text-sm text-[#6B7280] mb-6">
+        <p className="text-sm text-brand-muted mb-6">
           Thank you for your order, please click the button below to pay with Razorpay.
         </p>
 
@@ -117,7 +162,7 @@ export default function OrderPayPage() {
           <button
             onClick={() => openRazorpay(order)}
             disabled={paying}
-            className="bg-[#E85D04] hover:bg-[#C94E03] disabled:opacity-60 text-white font-bold px-8 py-3 rounded-lg transition-colors"
+            className="bg-brand-orange hover:bg-brand-orange-hover disabled:opacity-60 text-white font-bold px-8 py-3 rounded-lg transition-colors"
           >
             {paying ? "Opening..." : "Pay Now"}
           </button>
@@ -126,7 +171,7 @@ export default function OrderPayPage() {
               localStorage.removeItem("mhr_order");
               router.push("/cart");
             }}
-            className="border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold px-8 py-3 rounded-lg transition-colors"
+            className="border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white font-bold px-8 py-3 rounded-lg transition-colors"
           >
             Cancel
           </button>

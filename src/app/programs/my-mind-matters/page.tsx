@@ -205,9 +205,9 @@ const faqs = [
 
 function OrangeCheck() {
   return (
-    <span className="flex-shrink-0 mt-0.5">
+    <span className="shrink-0 mt-0.5">
       <svg
-        className="w-5 h-5 text-[#E85D04]"
+        className="w-5 h-5 text-brand-orange"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -247,9 +247,9 @@ function MarqueeRow({
         {repeated.map((item, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-3 text-sm font-medium text-[#1A1A2E]"
+            className="inline-flex items-center gap-3 text-sm font-medium text-brand-dark"
           >
-            <span className="text-[#E85D04]">✳</span>
+            <span className="text-brand-orange">✳</span>
             {item}
           </span>
         ))}
@@ -266,10 +266,10 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         className="w-full flex justify-between items-start py-5 text-left gap-4"
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="font-semibold text-[#1A1A2E] text-sm leading-snug">
+        <span className="font-semibold text-brand-dark text-sm leading-snug">
           {q}
         </span>
-        <span className="text-[#E85D04] text-xl font-light flex-shrink-0 leading-none mt-0.5">
+        <span className="text-brand-orange text-xl font-light shrink-0 leading-none mt-0.5">
           {open ? "×" : "+"}
         </span>
       </button>
@@ -282,7 +282,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.22 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm text-[#6B7280] leading-relaxed">{a}</p>
+            <p className="pb-4 text-sm text-brand-muted leading-relaxed">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -319,11 +319,11 @@ function StickySteps() {
   return (
     <div className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E]">
+        <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
           Kickstart your{" "}
-          <span className="text-[#E85D04]">Emotional Health Journey</span>
+          <span className="text-brand-orange">Emotional Health Journey</span>
         </h2>
-        <p className="mt-3 text-[#6B7280]">
+        <p className="mt-3 text-brand-muted">
           The process can be simplified. Outcomes, however, need effort.
         </p>
       </div>
@@ -354,25 +354,25 @@ function StickySteps() {
                       />
                     </div>
                     <div className="flex">
-                      <div className="hidden lg:block w-px bg-[#E85D04] mx-8 self-stretch flex-shrink-0" />
+                      <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
                       <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
-                        <p className="text-sm font-semibold text-[#E85D04] mb-2 tracking-wide">
+                        <p className="text-sm font-semibold text-brand-orange mb-2 tracking-wide">
                           {step.step}
                         </p>
-                        <h3 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mb-3 leading-tight">
+                        <h3 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-3 leading-tight">
                           {step.title}
-                          <span className="text-[#E85D04]">
+                          <span className="text-brand-orange">
                             {step.highlight}
                           </span>
                         </h3>
-                        <p className="text-sm text-[#6B7280] mb-5">
+                        <p className="text-sm text-brand-muted mb-5">
                           {step.subtitle}
                         </p>
                         <ul className="space-y-3">
                           {step.items.map((item) => (
                             <li key={item} className="flex items-start gap-3">
                               <OrangeCheck />
-                              <span className="text-sm text-[#1A1A2E]">
+                              <span className="text-sm text-brand-dark">
                                 {item}
                               </span>
                             </li>
@@ -438,10 +438,9 @@ export default function MyMindMattersPage() {
     return () => clearInterval(t);
   }, []);
 
-  // Fetch blogs from WordPress API — category 1 = My Mind Matters
   useEffect(() => {
     fetch(
-      "https://onemi.ai/wp-json/wp/v2/posts?categories=1&_embed&per_page=3"
+      `${process.env.NEXT_PUBLIC_WP_API ?? "https://onemi.ai/wp-json/wp/v2"}/posts?categories=1&_embed&per_page=3`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -509,7 +508,6 @@ export default function MyMindMattersPage() {
             priority
             sizes="(max-width: 640px) 100vw, 95vw"
           />
-          {/* Gradient — left side for text readability */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -517,20 +515,19 @@ export default function MyMindMattersPage() {
                 "linear-gradient(to right, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.1) 48%, transparent 65%)",
             }}
           />
-          {/* Text — bottom-left */}
           <div className="absolute bottom-10 left-8 sm:left-10 flex flex-col gap-3 max-w-xs">
             <div
               key={heroIdx}
-              className="inline-block px-4 py-2 rounded-lg font-bold text-[#1A1A2E] text-base sm:text-lg"
+              className="inline-block px-4 py-2 rounded-lg font-bold text-brand-dark text-base sm:text-lg"
               style={{ backgroundColor: "#F5C842", width: "fit-content" }}
             >
               {heroPhrases[heroIdx]}
             </div>
-            <p className="text-sm sm:text-base text-[#1A1A2E] font-medium">
+            <p className="text-sm sm:text-base text-brand-dark font-medium">
               Reduce emotional overload
             </p>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
                 My Mind Matters
               </h1>
               <p className="mt-1 text-sm sm:text-base text-[#3D3D3D]">
@@ -579,23 +576,23 @@ export default function MyMindMattersPage() {
             />
           </div>
           <div className="flex flex-col gap-5">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Your mind wants to talk{" "}
-              <span className="text-[#E85D04]">Do you listen?</span>
+              <span className="text-brand-orange">Do you listen?</span>
             </h2>
-            <p className="text-[#6B7280] leading-relaxed">
+            <p className="text-brand-muted leading-relaxed">
               Tendency to doomscroll at 2 am, thinking too much about results,
               stress eating — not normal signals.
               <br />
               They are your mind&apos;s signals asking for attention and
               resolution.
             </p>
-            <hr className="border-[#E85D04] border-t-2" />
+            <hr className="border-brand-orange border-t-2" />
             <div>
-              <h3 className="text-xl font-bold text-[#1A1A2E] mb-1">
+              <h3 className="text-xl font-bold text-brand-dark mb-1">
                 Reignite your mental strength in 6 sessions
               </h3>
-              <p className="text-sm text-[#6B7280]">
+              <p className="text-sm text-brand-muted">
                 Personalised | Clinically guided | Root-cause focused
               </p>
             </div>
@@ -614,15 +611,15 @@ export default function MyMindMattersPage() {
       {/* ── 4. SYMPTOMS GRID ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-4">
             Is your mind on overdrive?
           </h2>
-          <hr className="border-[#E85D04] border-t-2 mb-10 mx-auto max-w-2xl" />
+          <hr className="border-brand-orange border-t-2 mb-10 mx-auto max-w-2xl" />
           <div className="flex flex-wrap gap-3 justify-center">
             {symptoms.map((s, i) => (
               <span
                 key={`${s}-${i}`}
-                className="px-5 py-2 rounded-full border border-gray-300 bg-white text-[#1A1A2E] text-sm font-medium"
+                className="px-5 py-2 rounded-full border border-gray-300 bg-white text-brand-dark text-sm font-medium"
               >
                 {s}
               </span>
@@ -636,7 +633,6 @@ export default function MyMindMattersPage() {
         className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
         style={{ backgroundColor: "#F8F9FA" }}
       >
-        {/* Grey dots background */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -647,10 +643,10 @@ export default function MyMindMattersPage() {
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mb-4">
-            Clear the <span className="text-[#E85D04]">Inner Cache</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark mb-4">
+            Clear the <span className="text-brand-orange">Inner Cache</span>
           </h2>
-          <p className="text-[#6B7280] text-base sm:text-lg mb-12 max-w-2xl mx-auto">
+          <p className="text-brand-muted text-base sm:text-lg mb-12 max-w-2xl mx-auto">
             Just like a device slows down with overload, your mind needs space
             to breathe and reboot.
           </p>
@@ -660,7 +656,7 @@ export default function MyMindMattersPage() {
             {pillarsA.map((p) => (
               <div
                 key={p.label}
-                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-brand-dark text-sm whitespace-nowrap"
                 style={{
                   top: p.top,
                   left: p.left,
@@ -670,7 +666,7 @@ export default function MyMindMattersPage() {
                   transition: "opacity 0.9s ease, filter 0.9s ease",
                 }}
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </div>
             ))}
@@ -685,15 +681,15 @@ export default function MyMindMattersPage() {
                   transition: "opacity 0.9s ease",
                 }}
               >
-                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-brand-orange">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange" />
                 </span>
               </span>
             ))}
             {pillarsB.map((p) => (
               <div
                 key={p.label}
-                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-brand-dark text-sm whitespace-nowrap"
                 style={{
                   top: p.top,
                   left: p.left,
@@ -703,7 +699,7 @@ export default function MyMindMattersPage() {
                   transition: "opacity 0.9s ease, filter 0.9s ease",
                 }}
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </div>
             ))}
@@ -718,8 +714,8 @@ export default function MyMindMattersPage() {
                   transition: "opacity 0.9s ease",
                 }}
               >
-                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-brand-orange">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange" />
                 </span>
               </span>
             ))}
@@ -730,9 +726,9 @@ export default function MyMindMattersPage() {
             {allPillars.map((p) => (
               <span
                 key={p.label}
-                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-[#1A1A2E] text-sm"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-sm border-2 border-gray-200 font-semibold text-brand-dark text-sm"
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </span>
             ))}
@@ -740,7 +736,7 @@ export default function MyMindMattersPage() {
         </div>
       </section>
 
-      {/* ── 6. KICKSTART YOUR EMOTIONAL HEALTH JOURNEY — sticky scroll ── */}
+      {/* ── 6. STICKY STEPS ── */}
       <StickySteps />
 
       {/* ── 7. PRICING CARD ── */}
@@ -749,27 +745,25 @@ export default function MyMindMattersPage() {
         className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]"
       >
         <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl bg-white p-8 sm:p-12">
-          {/* Title */}
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Make your list of triggers.
             </h2>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#E85D04] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-orange leading-tight">
               Address the root cause.
             </h2>
-            <p className="mt-3 text-[#6B7280]">
+            <p className="mt-3 text-brand-muted">
               From first assessment to final report, every step is covered for
               you.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10">
-            {/* Left: checklist */}
             <ul className="flex flex-col gap-4">
               {pricingChecklist.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 text-[#1A1A2E] text-sm"
+                  className="flex items-start gap-3 text-brand-dark text-sm"
                 >
                   <OrangeCheck />
                   {item}
@@ -777,28 +771,24 @@ export default function MyMindMattersPage() {
               ))}
             </ul>
 
-            {/* Right: Program Details box */}
             <div className="border border-gray-200 rounded-xl p-6 flex flex-col gap-4">
-              {/* "Program Details" with flanking lines */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gray-300" />
-                <span className="text-sm font-bold text-[#1A1A2E] whitespace-nowrap">
+                <span className="text-sm font-bold text-brand-dark whitespace-nowrap">
                   Program Details
                 </span>
                 <div className="flex-1 h-px bg-gray-300" />
               </div>
-              {/* Mode + Duration tabs */}
               <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-sm font-medium text-center">
-                <div className="py-3 border-r border-gray-200 text-[#1A1A2E]">
+                <div className="py-3 border-r border-gray-200 text-brand-dark">
                   Mode : At Home
                 </div>
-                <div className="py-3 text-[#1A1A2E]">
+                <div className="py-3 text-brand-dark">
                   Duration : 6 Sessions
                 </div>
               </div>
-              {/* Price */}
               <div className="bg-[#F3F4F6] rounded-lg py-4 text-center">
-                <span className="text-3xl font-bold text-[#1A1A2E]">
+                <span className="text-3xl font-bold text-brand-dark">
                   &#8377; 9,000
                 </span>
               </div>
@@ -808,10 +798,10 @@ export default function MyMindMattersPage() {
                 Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
-              <Button href="/cart" className="w-full justify-center">
+              <Button href="/cart?product=mind" className="w-full justify-center">
                 Reignite your mental strength
               </Button>
-              <p className="text-center text-xs text-[#6B7280] italic">
+              <p className="text-center text-xs text-brand-muted italic">
                 Eligible Tests &amp; Products charged separately. Taxes as
                 applicable
               </p>
@@ -822,7 +812,7 @@ export default function MyMindMattersPage() {
             Avail discounts and offers. Become a{" "}
             <a
               href="/membership"
-              className="text-[#E85D04] font-semibold not-italic underline"
+              className="text-brand-orange font-semibold not-italic underline"
             >
               OneMi Member
             </a>
@@ -834,11 +824,11 @@ export default function MyMindMattersPage() {
       {/* ── 8. DATA-BACKED TRANSFORMATION ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
             Data-Backed{" "}
-            <span className="text-[#E85D04]">Transformation</span>
+            <span className="text-brand-orange">Transformation</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Measured through clinical parameters, symptom scoring, and
             performance indicators
           </p>
@@ -847,7 +837,7 @@ export default function MyMindMattersPage() {
 
             {/* Card 1 — Program Benefits bar chart */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-              <h3 className="text-sm font-semibold text-[#1A1A2E] text-center mb-4">
+              <h3 className="text-sm font-semibold text-brand-dark text-center mb-4">
                 Program Benefits
               </h3>
               <div className="flex flex-col gap-2">
@@ -876,7 +866,7 @@ export default function MyMindMattersPage() {
                         borderRadius: 6,
                       }}
                     >
-                      <span className="text-xs font-semibold text-[#1A1A2E] whitespace-nowrap truncate">
+                      <span className="text-xs font-semibold text-brand-dark whitespace-nowrap truncate">
                         {m.label}
                       </span>
                     </div>
@@ -893,7 +883,7 @@ export default function MyMindMattersPage() {
                         boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
                       }}
                     >
-                      <span className="text-xs font-bold text-[#1A1A2E]">
+                      <span className="text-xs font-bold text-brand-dark">
                         {m.pct}%
                       </span>
                     </div>
@@ -904,18 +894,15 @@ export default function MyMindMattersPage() {
 
             {/* Card 2 — Caregiver Emotional Wellbeing Overview bar chart */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col">
-              <h3 className="text-sm font-semibold text-[#1A1A2E] text-center mb-4">
+              <h3 className="text-sm font-semibold text-brand-dark text-center mb-4">
                 Caregiver Emotional Wellbeing Overview
               </h3>
-              {/* Y-axis labels + bars */}
               <div className="flex gap-2 flex-1">
-                {/* Y-axis */}
-                <div className="flex flex-col justify-between text-xs text-[#6B7280] pr-1 py-1" style={{ height: 160 }}>
+                <div className="flex flex-col justify-between text-xs text-brand-muted pr-1 py-1" style={{ height: 160 }}>
                   {[10, 8, 6, 4, 2, 0].map((v) => (
                     <span key={v}>{v}</span>
                   ))}
                 </div>
-                {/* Bars */}
                 <div className="flex items-end justify-around gap-2 flex-1" style={{ height: 160 }}>
                   {[
                     { label: "Stress &\nBurnout",      val: 8 },
@@ -928,13 +915,13 @@ export default function MyMindMattersPage() {
                       className="flex flex-col items-center gap-1 flex-1"
                     >
                       <div
-                        className="w-full rounded-t-md max-w-[40px]"
+                        className="w-full rounded-t-md max-w-10"
                         style={{
                           height: `${(g.val / 10) * 140}px`,
                           backgroundColor: "#F5C842",
                         }}
                       />
-                      <p className="text-xs text-[#6B7280] text-center leading-tight whitespace-pre-line">
+                      <p className="text-xs text-brand-muted text-center leading-tight whitespace-pre-line">
                         {g.label}
                       </p>
                     </div>
@@ -945,12 +932,10 @@ export default function MyMindMattersPage() {
 
             {/* Card 3 — Brain, Behavior & Life Balance donut chart */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center">
-              <h3 className="text-sm font-semibold text-[#1A1A2E] text-center mb-4">
+              <h3 className="text-sm font-semibold text-brand-dark text-center mb-4">
                 Brain, Behavior &amp; Life Balance
               </h3>
-              {/* SVG Donut */}
               <svg viewBox="0 0 120 120" className="w-32 h-32 mb-4">
-                {/* Segments: Emotional Stability (orange) ~30%, Cognitive Function (dark navy) ~25%, Physiological Regulation (light gray) ~20%, Social & Behavioural (yellow) ~25% */}
                 {[
                   { color: "#E85D04", offset: 0,    dash: 30 },
                   { color: "#1A1A2E", offset: 30,   dash: 25 },
@@ -973,8 +958,7 @@ export default function MyMindMattersPage() {
                 ))}
                 <circle cx="60" cy="60" r="28" fill="white" />
               </svg>
-              {/* Legend */}
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-[#6B7280]">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-brand-muted">
                 {[
                   { color: "#E85D04", label: "Emotional Stability" },
                   { color: "#1A1A2E", label: "Cognitive Function" },
@@ -983,7 +967,7 @@ export default function MyMindMattersPage() {
                 ].map((l) => (
                   <span key={l.label} className="flex items-start gap-1.5">
                     <span
-                      className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-0.5"
+                      className="w-2.5 h-2.5 rounded-full shrink-0 mt-0.5"
                       style={{ backgroundColor: l.color }}
                     />
                     {l.label}
@@ -999,10 +983,10 @@ export default function MyMindMattersPage() {
       {/* ── 9. SUCCESS STORIES ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Success <span className="text-[#E85D04]">Stories</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Success <span className="text-brand-orange">Stories</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Health progress, one story at a time.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1011,10 +995,9 @@ export default function MyMindMattersPage() {
                 key={story.name}
                 className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 flex flex-col"
               >
-                {/* Orange quote marks */}
                 <div className="mb-4">
                   <span
-                    className="text-[#E85D04]"
+                    className="text-brand-orange"
                     style={{
                       fontSize: 32,
                       lineHeight: 1,
@@ -1024,23 +1007,21 @@ export default function MyMindMattersPage() {
                     &#8220;&#8220;
                   </span>
                 </div>
-                {/* Quote */}
                 <p className="text-[#3D3D3D] text-sm leading-relaxed flex-1">
                   {story.quote}
                 </p>
-                {/* Author */}
                 <div className="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-[#1A1A2E]"
+                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-bold text-brand-dark"
                     style={{ backgroundColor: "#F5C842" }}
                   >
                     {story.initial}
                   </div>
                   <div>
-                    <p className="font-bold text-[#1A1A2E] text-sm">
+                    <p className="font-bold text-brand-dark text-sm">
                       {story.name}
                     </p>
-                    <p className="text-xs text-[#6B7280]">{story.conditions}</p>
+                    <p className="text-xs text-brand-muted">{story.conditions}</p>
                   </div>
                 </div>
               </div>
@@ -1052,11 +1033,11 @@ export default function MyMindMattersPage() {
       {/* ── 10. CLINICAL RESEARCH INSIGHTS ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
             Clinical Research{" "}
-            <span className="text-[#E85D04]">Insights</span>
+            <span className="text-brand-orange">Insights</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Built on medical research and real-world evidence.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1074,7 +1055,7 @@ export default function MyMindMattersPage() {
                   />
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-[#1A1A2E] leading-snug">
+                  <p className="text-sm font-semibold text-brand-dark leading-snug">
                     {item.title}
                   </p>
                 </div>
@@ -1087,10 +1068,10 @@ export default function MyMindMattersPage() {
       {/* ── 11. BLOGS ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
             Blogs
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Built on medical research and real-world evidence.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1131,7 +1112,7 @@ export default function MyMindMattersPage() {
                       )}
                     </div>
                     <div className="p-5">
-                      <p className="text-sm font-semibold text-[#1A1A2E] leading-snug group-hover:text-[#E85D04] transition-colors">
+                      <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
                         {item.title}
                       </p>
                     </div>
@@ -1148,20 +1129,18 @@ export default function MyMindMattersPage() {
       >
         <div className="max-w-5xl mx-auto">
           <div className="grid lg:grid-cols-[280px_1fr] gap-10 items-start">
-            {/* Left: title + description */}
             <div className="lg:sticky lg:top-24">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
                 Frequently Asked
               </h2>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#E85D04] leading-tight mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-orange leading-tight mb-4">
                 Questions
               </h2>
-              <p className="text-sm text-[#6B7280] leading-relaxed">
+              <p className="text-sm text-brand-muted leading-relaxed">
                 Know how the program works, what&apos;s included, and how we
                 support your care.
               </p>
             </div>
-            {/* Right: accordion */}
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
               {faqs.map((item) => (
                 <FaqItem key={item.q} q={item.q} a={item.a} />

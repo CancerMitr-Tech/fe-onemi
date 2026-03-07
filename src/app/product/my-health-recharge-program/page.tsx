@@ -16,7 +16,7 @@ export default function MHRProductPage() {
         <div className="flex flex-col lg:flex-row gap-16 items-center">
 
           {/* ── Left: product image — no border-radius, natural dimensions ── */}
-          <div className="w-full lg:w-[440px] flex-shrink-0">
+          <div className="w-full lg:w-110 shrink-0">
             <Image
               src="/images/mhr/MHR.webp"
               alt="My Health Recharge Program"
@@ -31,7 +31,7 @@ export default function MHRProductPage() {
           <div className="flex-1 flex flex-col gap-4">
 
             {/* Title */}
-            <h1 className="text-[22px] font-normal text-[#1A1A2E] leading-snug">
+            <h1 className="text-[22px] font-normal text-brand-dark leading-snug">
               My Health Recharge Program
             </h1>
 
@@ -46,7 +46,7 @@ export default function MHRProductPage() {
             </div>
 
             {/* Prices — same line, strikethrough then sale */}
-            <div className="flex items-baseline gap-3 text-base text-[#1A1A2E]">
+            <div className="flex items-baseline gap-3 text-base text-brand-dark">
               <span className="line-through text-[#9CA3AF]">
                 ₹{MRP.toLocaleString("en-IN")}.00
               </span>
@@ -67,7 +67,7 @@ export default function MHRProductPage() {
             <div className="mt-2">
               <button
                 onClick={() => router.push("/cart")}
-                className="bg-[#E85D04] hover:bg-[#C94E03] text-white font-semibold px-5 py-2.5 rounded-md transition-colors text-sm"
+                className="bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold px-5 py-2.5 rounded-md transition-colors text-sm"
               >
                 Add Program to Cart
               </button>

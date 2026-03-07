@@ -179,8 +179,8 @@ const faqs = [
 
 function OrangeCheck() {
   return (
-    <span className="flex-shrink-0">
-      <svg className="w-6 h-6 text-[#E85D04]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <span className="shrink-0">
+      <svg className="w-6 h-6 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     </span>
@@ -222,8 +222,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
-        <span className="font-medium text-[#1A1A2E] text-sm">{q}</span>
-        <span className="text-[#E85D04] text-xl font-light flex-shrink-0">{open ? "×" : "+"}</span>
+        <span className="font-medium text-brand-dark text-sm">{q}</span>
+        <span className="text-brand-orange text-xl font-light shrink-0">{open ? "×" : "+"}</span>
       </button>
       <AnimatePresence>
         {open && (
@@ -234,7 +234,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="pb-4 text-sm text-[#6B7280] bg-[#E8F5F3] rounded-lg px-4 py-3 mb-3">{a}</div>
+            <div className="pb-4 text-sm text-brand-muted bg-brand-mint rounded-lg px-4 py-3 mb-3">{a}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -269,10 +269,10 @@ function StickySteps() {
   return (
     <div className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E]">
-          Kickstart your <span className="text-[#E85D04]">Health Recharge Journey</span>
+        <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
+          Kickstart your <span className="text-brand-orange">Health Recharge Journey</span>
         </h2>
-        <p className="mt-3 text-[#6B7280]">
+        <p className="mt-3 text-brand-muted">
           A step-by-step approach to rebuild your health at the cellular level.
         </p>
       </div>
@@ -303,18 +303,18 @@ function StickySteps() {
                     </div>
                     {/* Content — always right */}
                     <div className="flex">
-                      <div className="hidden lg:block w-px bg-[#E85D04] mx-8 self-stretch flex-shrink-0" />
+                      <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
                       <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
-                        <p className="text-sm font-semibold text-[#E85D04] mb-2 tracking-wide">{step.step}</p>
-                        <h3 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mb-3 leading-tight">
-                          {step.title}<span className="text-[#E85D04]">{step.highlight}</span>
+                        <p className="text-sm font-semibold text-brand-orange mb-2 tracking-wide">{step.step}</p>
+                        <h3 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-3 leading-tight">
+                          {step.title}<span className="text-brand-orange">{step.highlight}</span>
                         </h3>
-                        <p className="text-sm text-[#6B7280] mb-5">{step.subtitle}</p>
+                        <p className="text-sm text-brand-muted mb-5">{step.subtitle}</p>
                         <ul className="space-y-3">
                           {step.items.map((item) => (
                             <li key={item} className="flex items-center gap-3">
                               <OrangeCheck />
-                              <span className="text-sm text-[#1A1A2E]">{item}</span>
+                              <span className="text-sm text-brand-dark">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -389,7 +389,7 @@ export default function MyHealthRechargePage() {
   }
 
   useEffect(() => {
-    fetch("https://onemi.ai/wp-json/wp/v2/posts?categories=10&_embed&per_page=3")
+    fetch(`${process.env.NEXT_PUBLIC_WP_API ?? "https://onemi.ai/wp-json/wp/v2"}/posts?categories=10&_embed&per_page=3`)
       .then((res) => res.json())
       .then((data) => {
         const parsed: BlogPost[] = data.map((post: any) => ({
@@ -446,7 +446,7 @@ export default function MyHealthRechargePage() {
           <div className="absolute bottom-10 left-8 sm:left-10 flex flex-col gap-3 max-w-xs">
             <div
               key={conditionIdx}
-              className="inline-block px-4 py-2 rounded-lg font-bold text-[#1A1A2E] text-base sm:text-lg"
+              className="inline-block px-4 py-2 rounded-lg font-bold text-brand-dark text-base sm:text-lg"
               style={{
                 backgroundColor: "#F5C842",
                 width: "fit-content",
@@ -456,9 +456,9 @@ export default function MyHealthRechargePage() {
             >
               {rotatingConditions[conditionIdx]}
             </div>
-            <p className="text-sm sm:text-base text-[#1A1A2E] font-medium">Address the root cause</p>
+            <p className="text-sm sm:text-base text-brand-dark font-medium">Address the root cause</p>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
                 My Health Recharge
               </h1>
               <p className="mt-1 text-sm sm:text-base text-[#3D3D3D]">
@@ -466,7 +466,7 @@ export default function MyHealthRechargePage() {
               </p>
             </div>
             <div className="mt-1">
-              <Button href="#enquire">Enquire Now</Button>
+              <Button href="#program-details">Enquire Now</Button>
             </div>
           </div>
         </section>
@@ -508,18 +508,18 @@ export default function MyHealthRechargePage() {
 
           {/* Right: text — exact production copy */}
           <div className="flex flex-col gap-5">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Are your Health conditions or symptoms worsening{" "}
-              <span className="text-[#E85D04]">as you age?</span>
+              <span className="text-brand-orange">as you age?</span>
             </h2>
-            <p className="text-[#6B7280] leading-relaxed">
+            <p className="text-brand-muted leading-relaxed">
               Health does not fail overnight. Long before disease appears, dysfunction begins at the cellular level.
             </p>
             {/* Orange divider */}
-            <hr className="border-[#E85D04] border-t-2" />
+            <hr className="border-brand-orange border-t-2" />
             <div>
-              <h3 className="text-xl font-bold text-[#1A1A2E] mb-1">Restore your Health in 90 days</h3>
-              <p className="text-sm text-[#6B7280]">Initiate | Maintain | Sustain</p>
+              <h3 className="text-xl font-bold text-brand-dark mb-1">Restore your Health in 90 days</h3>
+              <p className="text-sm text-brand-muted">Initiate | Maintain | Sustain</p>
             </div>
             <p className="text-[#3D3D3D] leading-relaxed">
               My Health Recharge is a restorative health management program designed for metabolic health, cancer care and chronic lifestyle diseases.
@@ -534,15 +534,15 @@ export default function MyHealthRechargePage() {
       {/* ── 4. CONDITIONS GRID ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-4">
             Are you struggling with chronic conditions or symptoms that don&apos;t seem to go away?
           </h2>
-          <hr className="border-[#E85D04] border-t-2 mb-10 mx-auto max-w-2xl" />
+          <hr className="border-brand-orange border-t-2 mb-10 mx-auto max-w-2xl" />
           <div className="flex flex-wrap gap-3 justify-center">
             {conditions.map((c) => (
               <span
                 key={c}
-                className="px-5 py-2 rounded-full border border-gray-300 bg-white text-[#1A1A2E] text-sm font-medium"
+                className="px-5 py-2 rounded-full border border-gray-300 bg-white text-brand-dark text-sm font-medium"
               >
                 {c}
               </span>
@@ -563,11 +563,11 @@ export default function MyHealthRechargePage() {
           }}
         />
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A2E] mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark mb-4">
             Treat the cause.{" "}
-            <span className="text-[#E85D04]">Not just the symptoms.</span>
+            <span className="text-brand-orange">Not just the symptoms.</span>
           </h2>
-          <p className="text-[#6B7280] text-lg mb-12">
+          <p className="text-brand-muted text-lg mb-12">
             When leaves get yellow, you don&apos;t paint them green, you look at the soil.
           </p>
 
@@ -578,7 +578,7 @@ export default function MyHealthRechargePage() {
             {pillarsA.map((p) => (
               <div
                 key={p.label}
-                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-brand-dark text-sm whitespace-nowrap"
                 style={{
                   top: p.top,
                   left: p.left,
@@ -587,7 +587,7 @@ export default function MyHealthRechargePage() {
                   transition: "opacity 0.9s ease, filter 0.9s ease",
                 }}
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </div>
             ))}
@@ -604,8 +604,8 @@ export default function MyHealthRechargePage() {
                   transition: "opacity 0.9s ease",
                 }}
               >
-                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-brand-orange">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange" />
                 </span>
               </span>
             ))}
@@ -614,7 +614,7 @@ export default function MyHealthRechargePage() {
             {pillarsB.map((p) => (
               <div
                 key={p.label}
-                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-[#1A1A2E] text-sm whitespace-nowrap"
+                className="absolute inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-brand-dark text-sm whitespace-nowrap"
                 style={{
                   top: p.top,
                   left: p.left,
@@ -623,7 +623,7 @@ export default function MyHealthRechargePage() {
                   transition: "opacity 0.9s ease, filter 0.9s ease",
                 }}
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </div>
             ))}
@@ -640,8 +640,8 @@ export default function MyHealthRechargePage() {
                   transition: "opacity 0.9s ease",
                 }}
               >
-                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-[#E85D04]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#E85D04]" />
+                <span className="flex w-6 h-6 items-center justify-center rounded-full border-2 border-brand-orange">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-orange" />
                 </span>
               </span>
             ))}
@@ -652,9 +652,9 @@ export default function MyHealthRechargePage() {
             {allPillars.map((p) => (
               <span
                 key={p.label}
-                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-[#1A1A2E] text-sm"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white rounded-full shadow-md border border-gray-200 font-semibold text-brand-dark text-sm"
               >
-                <span className="w-3 h-3 rounded-full bg-[#E85D04] flex-shrink-0" />
+                <span className="w-3 h-3 rounded-full bg-brand-orange shrink-0" />
                 {p.label}
               </span>
             ))}
@@ -669,13 +669,13 @@ export default function MyHealthRechargePage() {
       <section id="program-details" className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl bg-white p-8 sm:p-12">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Make your health goals.
             </h2>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#E85D04] leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-orange leading-tight">
               Commit to the program.
             </h2>
-            <p className="mt-3 text-[#6B7280]">
+            <p className="mt-3 text-brand-muted">
               From first assessment to final report, every step is covered for you.
             </p>
           </div>
@@ -684,7 +684,7 @@ export default function MyHealthRechargePage() {
             {/* Left: checklist with orange circle icons */}
             <ul className="flex flex-col gap-4">
               {pricingChecklist.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-[#1A1A2E] text-sm">
+                <li key={item} className="flex items-center gap-3 text-brand-dark text-sm">
                   <OrangeCheck />
                   {item}
                 </li>
@@ -696,26 +696,26 @@ export default function MyHealthRechargePage() {
               {/* "Program Details" with flanking lines */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gray-300" />
-                <span className="text-sm font-bold text-[#1A1A2E] whitespace-nowrap">Program Details</span>
+                <span className="text-sm font-bold text-brand-dark whitespace-nowrap">Program Details</span>
                 <div className="flex-1 h-px bg-gray-300" />
               </div>
               {/* Mode + Duration tabs */}
               <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-sm font-medium text-center">
-                <div className="py-3 border-r border-gray-200 text-[#1A1A2E]">Mode : At Home</div>
-                <div className="py-3 text-[#1A1A2E]">Duration : 90 Days</div>
+                <div className="py-3 border-r border-gray-200 text-brand-dark">Mode : At Home</div>
+                <div className="py-3 text-brand-dark">Duration : 90 Days</div>
               </div>
               {/* Price */}
               <div className="bg-[#F9FAFB] rounded-lg py-4 text-center">
-                <span className="text-3xl font-bold text-[#1A1A2E]">₹ 25,000</span>
+                <span className="text-3xl font-bold text-brand-dark">₹ 25,000</span>
               </div>
               <p className="text-center text-sm text-[#3D3D3D] font-medium leading-snug">
                 Limited Seats. &apos;By Invite Only.&apos;<br />Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
-              <Button href="/cart" className="w-full justify-center">
+              <Button href="/cart?product=mhr" className="w-full justify-center">
                 Restore your health in 90 days
               </Button>
-              <p className="text-center text-xs text-[#6B7280] italic">
+              <p className="text-center text-xs text-brand-muted italic">
                 Tests &amp; Products charged separately. Taxes as applicable
               </p>
             </div>
@@ -723,7 +723,7 @@ export default function MyHealthRechargePage() {
 
           <p className="text-center text-sm text-[#3D3D3D] italic mt-8">
             Avail discounts and offers. Become a{" "}
-            <a href="/membership" className="text-[#E85D04] font-semibold not-italic underline">
+            <a href="/membership" className="text-brand-orange font-semibold not-italic underline">
               OneMi Member
             </a>
             .
@@ -734,16 +734,16 @@ export default function MyHealthRechargePage() {
       {/* ── 8. DATA-BACKED TRANSFORMATION ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Data-Backed <span className="text-[#E85D04]">Transformation</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Data-Backed <span className="text-brand-orange">Transformation</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Measured through clinical parameters, symptom scoring, and performance indicators
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {dataCards.map((card) => (
               <div key={card.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                <h3 className="text-sm font-semibold text-[#1A1A2E] mb-4">{card.title}</h3>
+                <h3 className="text-sm font-semibold text-brand-dark mb-4">{card.title}</h3>
                 <Image src={card.img} alt={card.title} width={400} height={260} className="w-full object-contain" />
               </div>
             ))}
@@ -754,20 +754,20 @@ export default function MyHealthRechargePage() {
       {/* ── 9. SUCCESS STORIES ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F5F5F5]">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Success <span className="text-[#E85D04]">Stories</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Success <span className="text-brand-orange">Stories</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">Stories of courage, care, and lasting change.</p>
+          <p className="text-brand-muted text-center mb-10">Stories of courage, care, and lasting change.</p>
 
           {/* Carousel */}
           <div className="relative flex items-center gap-3">
             {/* Left arrow */}
             <button
               onClick={() => goToStory((activeStory - 1 + stories.length) % stories.length)}
-              className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-[#E85D04] transition-colors shadow-sm"
+              className="shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-brand-orange transition-colors shadow-sm"
               aria-label="Previous story"
             >
-              <svg className="w-4 h-4 text-[#6B7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-4 h-4 text-brand-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -792,10 +792,10 @@ export default function MyHealthRechargePage() {
             {/* Right arrow */}
             <button
               onClick={() => goToStory((activeStory + 1) % stories.length)}
-              className="flex-shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-[#E85D04] transition-colors shadow-sm"
+              className="shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-brand-orange transition-colors shadow-sm"
               aria-label="Next story"
             >
-              <svg className="w-4 h-4 text-[#6B7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-4 h-4 text-brand-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -807,7 +807,7 @@ export default function MyHealthRechargePage() {
               <button
                 key={i}
                 onClick={() => goToStory(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${i === activeStory ? "bg-[#E85D04]" : "bg-gray-300"}`}
+                className={`w-2.5 h-2.5 rounded-full transition-colors ${i === activeStory ? "bg-brand-orange" : "bg-gray-300"}`}
                 aria-label={`Story ${i + 1}`}
               />
             ))}
@@ -818,10 +818,10 @@ export default function MyHealthRechargePage() {
       {/* ── 10. CLINICAL RESEARCH INSIGHTS ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            Clinical Research <span className="text-[#E85D04]">Insights</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            Clinical Research <span className="text-brand-orange">Insights</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">
+          <p className="text-brand-muted text-center mb-10">
             Our protocols are grounded in peer-reviewed clinical evidence
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -831,7 +831,7 @@ export default function MyHealthRechargePage() {
                   <Image src={item.img} alt={item.title} fill className="object-cover" />
                 </div>
                 <div className="p-5">
-                  <p className="text-sm font-semibold text-[#1A1A2E] leading-snug">{item.title}</p>
+                  <p className="text-sm font-semibold text-brand-dark leading-snug">{item.title}</p>
                 </div>
               </div>
             ))}
@@ -842,10 +842,10 @@ export default function MyHealthRechargePage() {
       {/* ── 11. BLOGS ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] mb-2 text-center">
-            From the <span className="text-[#E85D04]">Blog</span>
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark mb-2 text-center">
+            From the <span className="text-brand-orange">Blog</span>
           </h2>
-          <p className="text-[#6B7280] text-center mb-10">Expert insights and patient stories</p>
+          <p className="text-brand-muted text-center mb-10">Expert insights and patient stories</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsLoading
               ? [1, 2, 3].map((i) => (
@@ -879,7 +879,7 @@ export default function MyHealthRechargePage() {
                       )}
                     </div>
                     <div className="p-5">
-                      <p className="text-sm font-semibold text-[#1A1A2E] leading-snug group-hover:text-[#E85D04] transition-colors">
+                      <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
                         {item.title}
                       </p>
                     </div>
@@ -893,10 +893,10 @@ export default function MyHealthRechargePage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] mb-4">
-              Frequently Asked <span className="text-[#E85D04]">Questions</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-4">
+              Frequently Asked <span className="text-brand-orange">Questions</span>
             </h2>
-            <p className="text-[#6B7280]">
+            <p className="text-brand-muted">
               Everything you need to know about the My Health Recharge program and your 90-day journey.
             </p>
           </div>

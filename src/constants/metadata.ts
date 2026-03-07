@@ -1,4 +1,4 @@
-export const BASE_URL = "https://onemi.ai";
+export const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://onemi.ai";
 
 export const DEFAULT_METADATA = {
   title: {

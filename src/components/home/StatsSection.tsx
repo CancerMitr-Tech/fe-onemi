@@ -7,8 +7,8 @@ export default function StatsSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {STATS.map((stat) => (
             <div key={stat.label}>
-              <p className="text-3xl font-bold text-[#E85D04]">{stat.value}</p>
-              <p className="text-sm text-[#1A1A2E] mt-1 font-medium">{stat.label}</p>
+              <p className="text-3xl font-bold text-brand-orange">{stat.value}</p>
+              <p className="text-sm text-brand-dark mt-1 font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

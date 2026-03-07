@@ -4,9 +4,9 @@ export default function PartnersSection() {
   return (
     <SectionWrapper className="bg-white border-t border-gray-100">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-[#1A1A2E]">
+        <h2 className="text-2xl font-bold text-brand-dark">
           Our Trusted Partners,{" "}
-          <span className="text-[#E85D04]">For Your Health Journey</span>
+          <span className="text-brand-orange">For Your Health Journey</span>
         </h2>
       </div>
       {/* Placeholder partner logos — replace with actual logos in public/images/partners/ */}

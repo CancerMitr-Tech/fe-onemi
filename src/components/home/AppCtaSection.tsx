@@ -4,7 +4,7 @@ import SectionWrapper from "@/components/ui/SectionWrapper";
 
 export default function AppCtaSection() {
   return (
-    <SectionWrapper className="bg-[#E8F5F3] overflow-hidden">
+    <SectionWrapper className="bg-brand-mint overflow-hidden">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         {/* Left: phones */}
         <div className="flex justify-center">
@@ -20,10 +20,10 @@ export default function AppCtaSection() {
 
         {/* Right: copy */}
         <div className="flex flex-col gap-5">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
             Healthcare that actually delivers value
           </h2>
-          <p className="text-[#6B7280] text-lg">
+          <p className="text-brand-muted text-lg">
             No stress. No confusion. Quick solutions. Easy use.
           </p>
           <div>

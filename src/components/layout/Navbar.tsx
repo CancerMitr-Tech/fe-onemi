@@ -22,7 +22,7 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const profileRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLLIElement>(null);
 
   const token = useSelector((state: RootState) => state.auth.token);
   const userName = useSelector((state: RootState) => state.auth.userName);

@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { setToken, setUserName } from "@/store/authSlice";
 
 type Step = "details" | "otp";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [step, setStep] = useState<Step>("details");
   const [fname, setFname] = useState("");
@@ -83,8 +86,11 @@ export default function RegisterPage() {
         }),
       });
       const data = await res.json();
-      if (res.ok && data.status !== false) {
-        router.push("/login?registered=1");
+      if (res.ok && data.status !== false && data.token) {
+        localStorage.setItem("auth_token", data.token);
+        dispatch(setToken(data.token));
+        if (data.user?.name) dispatch(setUserName(data.user.name));
+        router.push("/profile");
       } else {
         setError(data.message ?? "Registration failed. Please try again.");
       }

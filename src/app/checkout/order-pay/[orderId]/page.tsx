@@ -102,7 +102,7 @@ export default function OrderPayPage() {
         const successUrl = programName
           ? `/checkout/success?program=${encodeURIComponent(programName)}`
           : "/checkout/success";
-        router.push(successUrl);
+        window.location.href = successUrl;
       },
       modal: { ondismiss: () => setPaying(false) },
       theme: { color: "#E85D04" },

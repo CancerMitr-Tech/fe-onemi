@@ -22,7 +22,7 @@ type ProductConfig = {
 // Static fallback config (used until API responds)
 const PRODUCT_FALLBACK: Record<string, ProductConfig> = {
   mhr: {
-    id: Number(process.env.NEXT_PUBLIC_MHR_PRODUCT_ID ?? "220"),
+    id: Number(process.env.NEXT_PUBLIC_MHR_PRODUCT_ID ?? "1"),
     name: "My Health Recharge Program",
     mrp: 40000,
     price: 25000,
@@ -30,7 +30,7 @@ const PRODUCT_FALLBACK: Record<string, ProductConfig> = {
     url: "/programs/my-health-recharge",
   },
   detox: {
-    id: Number(process.env.NEXT_PUBLIC_DETOX_PRODUCT_ID ?? "221"),
+    id: Number(process.env.NEXT_PUBLIC_DETOX_PRODUCT_ID ?? "2"),
     name: "My Metabolic Detox Program",
     mrp: 7000,
     price: 5000,
@@ -38,7 +38,7 @@ const PRODUCT_FALLBACK: Record<string, ProductConfig> = {
     url: "/programs/my-metabolic-detox",
   },
   mind: {
-    id: Number(process.env.NEXT_PUBLIC_MIND_PRODUCT_ID ?? "222"),
+    id: Number(process.env.NEXT_PUBLIC_MIND_PRODUCT_ID ?? "3"),
     name: "My Mind Matters Program",
     mrp: 12000,
     price: 9000,

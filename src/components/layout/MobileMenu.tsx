@@ -19,7 +19,7 @@ export default function MobileMenu({ onClose, activePath, isLoggedIn }: MobileMe
       transition={{ type: "tween", duration: 0.25 }}
       className="fixed inset-0 z-50 bg-white flex flex-col"
     >
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
         <span className="text-2xl font-bold">
           <span className="text-[#1A1A2E]">one</span>
           <span className="text-[#E85D04]">Mi</span>
@@ -34,7 +34,7 @@ export default function MobileMenu({ onClose, activePath, isLoggedIn }: MobileMe
             key={link.href}
             href={link.href}
             onClick={onClose}
-            className={`py-3 text-lg font-medium border-b border-gray-100 ${
+            className={`py-3.5 text-base font-medium border-b border-gray-50 ${
               activePath === link.href ? "text-[#E85D04]" : "text-[#1A1A2E]"
             }`}
           >
@@ -80,14 +80,14 @@ export default function MobileMenu({ onClose, activePath, isLoggedIn }: MobileMe
               <Link
                 href="/login"
                 onClick={onClose}
-                className="block text-center w-full bg-[#E85D04] hover:bg-[#C94E03] text-white font-bold py-3 rounded-lg transition-colors"
+                className="block text-center w-full bg-[#E85D04] hover:bg-[#C94E03] text-white font-semibold py-3 rounded-full transition-colors"
               >
                 Login
               </Link>
               <Link
                 href="/register"
                 onClick={onClose}
-                className="block text-center w-full border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-bold py-3 rounded-lg transition-colors"
+                className="block text-center w-full border border-[#E85D04] text-[#E85D04] hover:bg-[#E85D04] hover:text-white font-semibold py-3 rounded-full transition-colors"
               >
                 Register
               </Link>

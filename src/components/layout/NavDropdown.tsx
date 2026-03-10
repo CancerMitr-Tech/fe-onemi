@@ -10,7 +10,7 @@ export default function NavDropdown() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.18 }}
-      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 min-w-[220px] z-50 overflow-hidden"
+      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-xl shadow-lg border border-gray-100 min-w-[220px] z-50 overflow-hidden"
     >
       {PROGRAM_LINKS.map((link) => (
         <Link

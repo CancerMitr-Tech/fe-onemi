@@ -12,15 +12,15 @@ const WHO_ITS_FOR = [
 const TRUST_SAFETY = [
   { label: "AI Responsibility & Guardrails", href: "/terms-and-conditions#ai-enabled-tools" },
   { label: "Data Privacy & Security", href: "/privacy-policy" },
-  { label: "Medical Disclaimer", href: "/#disclaimer" },
-  { label: "Clinical Governance", href: "/terms-and-conditions#governing-law" },
+  { label: "Medical Disclaimer", href: "/terms-and-conditions#medical-disclaimer" },
+  { label: "Clinical Governance", href: "/terms-and-conditions#clinical-governance" },
 ];
 
 const ABOUT_LINKS = [
   { label: "About OneMi", href: "/about", hash: false },
   { label: "Founders' Story", href: "/about/#story", hash: false },
   { label: "Experts", href: "/about/#experts", hash: false },
-  { label: "Partners", href: "/#partners", hash: true },
+  { label: "Partners", href: "#partners", hash: true },
 ];
 
 const QUICK_LINKS = [
@@ -34,10 +34,22 @@ const QUICK_LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-gray-100">
-      
+      {/* Pre-footer: logo */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
+        <div className="flex justify-center mb-5">
+          <Image
+            src="/images/logo-onemi.svg"
+            alt="oneMi — My health in my hands"
+            width={130}
+            height={60}
+            className="h-16 w-auto object-contain"
+          />
+        </div>
+      </div>
+
       {/* 4-column nav */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
-
+        {/* Who It's For */}
         <div>
           <h4 className="font-semibold text-brand-dark text-sm mb-4 tracking-wide">
             Who It&apos;s For
@@ -45,14 +57,13 @@ export default function Footer() {
           <ul className="space-y-3">
             {WHO_ITS_FOR.map((l) => (
               <li key={l}>
-                <Link href="#" className="text-sm text-brand-muted hover:text-[#E85D04] transition-colors">
-                  {l}
-                </Link>
+                <span className="text-sm text-brand-muted cursor-default">{l}</span>
               </li>
             ))}
           </ul>
         </div>
 
+        {/* Trust & Safety */}
         <div>
           <h4 className="font-semibold text-brand-dark text-sm mb-4 tracking-wide">
             Trust &amp; Safety
@@ -71,6 +82,7 @@ export default function Footer() {
           </ul>
         </div>
 
+        {/* About */}
         <div>
           <h4 className="font-semibold text-brand-dark text-sm mb-4 tracking-wide">About</h4>
           <ul className="space-y-3">
@@ -93,6 +105,7 @@ export default function Footer() {
           </ul>
         </div>
 
+        {/* Quick Links */}
         <div>
           <h4 className="font-semibold text-brand-dark text-sm mb-4 tracking-wide">&nbsp;</h4>
           <ul className="space-y-3">
@@ -109,12 +122,10 @@ export default function Footer() {
             ))}
           </ul>
         </div>
-
       </div>
 
-      {/* Contact + App download */}
+      {/* Contact + App download card */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 grid lg:grid-cols-2 gap-10 items-start">
-
         <div>
           <h4 className="font-semibold text-brand-dark mb-4">Contact Details</h4>
           <div className="space-y-2 text-sm text-brand-muted leading-relaxed">
@@ -150,7 +161,6 @@ export default function Footer() {
               className="object-contain h-44 w-auto drop-shadow-md"
             />
           </div>
-
           <div>
             <h4 className="font-bold text-brand-dark text-lg mb-1 leading-snug">
               Smarter Health Starts Here
@@ -166,60 +176,29 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-
       </div>
 
-      {/* Partner Logos */}
+      {/* Logos row */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 flex items-center gap-6 flex-wrap">
-
-        <a
-          href="https://www.cancermitr.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            src="/images/cancermitr-logo.png"
-            alt="CancerMitr — From Discovery To Recovery"
-            width={150}
-            height={52}
-            className="h-12 w-auto object-contain hover:opacity-80 transition"
-          />
-        </a>
-
-        <a
-          href="https://www.oncohappy.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            src="/images/Untitled-design-1.png"
-            alt="OnCoHappy — From Discovery To Recovery"
-            width={150}
-            height={52}
-            className="h-12 w-auto object-contain hover:opacity-80 transition"
-          />
-        </a>
-
-        <a
-          href="https://onemitr.cancermitr.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            src="/images/onemitr-logo.png"
-            alt="oneMitr — Your Health. Your Right"
-            width={120}
-            height={40}
-            className="h-10 w-auto object-contain hover:opacity-80 transition"
-          />
-        </a>
-
+        <Image
+          src="/images/cancermitr-logo.png"
+          alt="CancerMitr — From Discovery To Recovery"
+          width={150}
+          height={52}
+          className="h-12 w-auto object-contain"
+        />
+        <Image
+          src="/images/onemitr-logo.png"
+          alt="oneMitr — Your Health. Your Right"
+          width={120}
+          height={40}
+          className="h-10 w-auto object-contain"
+        />
       </div>
 
       {/* Bottom bar */}
       <div className="bg-[#F3F4F6] border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-
           <div className="flex flex-wrap items-center gap-3 text-xs text-brand-muted">
             <Link href="/privacy-policy" className="hover:text-[#E85D04] transition-colors">
               Privacy policy
@@ -233,11 +212,9 @@ export default function Footer() {
               Refund &amp; Cancellation Policy
             </Link>
           </div>
-
           <p className="text-xs text-brand-muted">
             &copy; {new Date().getFullYear()} OneMi. All rights reserved.
           </p>
-
         </div>
       </div>
     </footer>

@@ -83,27 +83,24 @@ export default function Navbar() {
   return (
     <>
       <header
-        className="sticky top-0 z-40 bg-white transition-all duration-300"
-        style={{
-          boxShadow: scrolled
-            ? "0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04)"
-            : "0 2px 12px rgba(0,0,0,0.05), 0 1px 0 0 #efefef",
-        }}
+        className={`sticky top-0 z-40 bg-white border-b ${
+          scrolled ? "border-gray-200" : "border-transparent"
+        } transition-colors duration-300`}
       >
         <nav
           aria-label="Main navigation"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-18"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[72px]"
         >
           <Logo />
 
           {/* Desktop nav */}
-          <ul className="hidden md:flex items-center gap-6 list-none">
+          <ul className="hidden md:flex items-center gap-8 list-none">
             {NAV_LINKS.map((link) => {
               if (link.hasDropdown) {
                 return (
                   <li key={link.label} className="relative">
                     <button
-                      className="flex items-center gap-1 font-medium text-brand-dark hover:text-[#E85D04] transition-colors"
+                      className="flex items-center gap-1 text-sm font-medium text-[#1A1A2E] hover:text-[#E85D04] transition-colors"
                       onClick={() => setDropdownOpen((v) => !v)}
                       onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
                     >
@@ -122,10 +119,10 @@ export default function Navbar() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className={`font-medium transition-colors ${
+                    className={`relative text-sm font-medium transition-colors pb-1 ${
                       isActive(link.href)
-                        ? "text-[#E85D04]"
-                        : "text-brand-dark hover:text-[#E85D04]"
+                        ? "text-[#E85D04] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#E85D04] after:rounded-full"
+                        : "text-[#1A1A2E] hover:text-[#E85D04]"
                     }`}
                   >
                     {link.label}
@@ -143,8 +140,8 @@ export default function Navbar() {
                     className="flex items-center gap-2 focus:outline-none"
                     aria-label="Profile menu"
                   >
-                    <div className="w-8 h-8 rounded-full bg-[#E85D04] flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">{initials}</span>
+                    <div className="w-9 h-9 rounded-full bg-[#2D2B6B] flex items-center justify-center">
+                      <span className="text-white text-xs font-semibold">{initials}</span>
                     </div>
                   </button>
                   <AnimatePresence>
@@ -154,7 +151,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 6 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-12 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-50"
+                        className="absolute right-0 top-14 w-48 bg-white border border-gray-100 rounded-xl shadow-lg py-1 z-50"
                       >
                         {userName && (
                           <div className="px-4 py-2 border-b border-gray-100">
@@ -196,7 +193,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="/login"
-                    className="bg-[#E85D04] hover:bg-brand-orange-hover text-white font-semibold px-5 py-2 rounded-lg text-sm transition-colors"
+                    className="bg-[#E85D04] hover:bg-[#C94E03] text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-colors"
                   >
                     Login
                   </Link>
@@ -209,8 +206,8 @@ export default function Navbar() {
           <div className="flex md:hidden items-center gap-3">
             {hydrated && isLoggedIn && (
               <Link href="/profile" aria-label="Profile">
-                <div className="w-8 h-8 rounded-full bg-[#E85D04] flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">{initials}</span>
+                <div className="w-9 h-9 rounded-full bg-[#2D2B6B] flex items-center justify-center">
+                  <span className="text-white text-xs font-semibold">{initials}</span>
                 </div>
               </Link>
             )}

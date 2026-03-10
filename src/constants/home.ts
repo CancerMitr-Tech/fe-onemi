@@ -241,7 +241,7 @@ export const TESTIMONIALS = [
   {
     name: "Anita",
     age: 38,
-    text: "The curated health products and concierge support make managing my family's health effortless. Highly recommend OneMi Pro.",
+    text: "The curated products and concierge support make managing my family's health effortless. Highly recommend OneMi Pro.",
   },
 ];
 
@@ -266,4 +266,35 @@ export const FAQ = [
     q: "Can I use OneMi without membership?",
     a: "Yes, you can access basic features of OneMi without a membership. However, the Pro membership unlocks the full suite of tools including AI credits, dedicated care experts, and priority support.",
   },
+];
+
+// ── Partners Section ──
+export const PARTNERS_ROW_1 = [
+  "Carbamide Forte",
+  "Wellbeing Nutrition",
+  "Cannazo India",
+  "ZeroHarm Sciences",
+  "Hugg Beverages",
+  "Pure Nutrition",
+  "Bold care",
+  "Nucgnex Life Sciences",
+  "Canfem",
+  "FM Nutrition",
+  "Salt Oral Care",
+  "Neodocs",
+];
+
+export const PARTNERS_ROW_2 = [
+  "New Empire Pharmacy",
+  "Kanari Nutrition Private Limited",
+  "Frido",
+  "Madhya Earth",
+  "Kankesh Pharmacy",
+  "Elixir Wellness",
+  "AutoimmunityCare",
+  "Clinical Nutrition",
+  "Nut Set Go",
+  "Seth Sons India",
+  "Pilcraft Healthcare Private Limited",
+  "Neodocs",
 ];

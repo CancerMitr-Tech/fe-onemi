@@ -1,7 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
-  --color-brand-orange: #E85D04;
+  --color-brand-orange: #ea5a1a;
   --color-brand-orange-hover: #C94E03;
   --color-brand-sand: #C9A87C;
   --color-brand-amber: #C8973A;

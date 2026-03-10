@@ -1,0 +1,252 @@
+/* ═══════════════════════════════════════════════════════════
+   About Page — Minimal overrides on top of Elementor CSS
+   ═══════════════════════════════════════════════════════════ */
+
+.wp-about {
+  width: 100%;
+  overflow-x: clip; /* clip not hidden — hidden breaks position:sticky */
+}
+
+.wp-about * {
+  box-sizing: border-box;
+}
+
+.wp-about img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Hide orange SVG icon blobs globally — Elementor icon widgets */
+.wp-about .elementor-icon,
+.wp-about .elementor-icon svg,
+.wp-about .elementor-icon i,
+.wp-about .elementor-icon-box-icon {
+  display: none !important;
+}
+
+/* ── Hide tablet/mobile Journey duplicate sections ── */
+.wp-about [data-id="96b8ba8"],
+.wp-about [data-id="233b19a"] {
+  display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   OUR JOURNEY — Sticky left panel
+   ══════════════════════════════════════════════════════ */
+.wp-about [data-id="54cdb72"] {
+  overflow: visible !important;
+}
+
+.wp-about [data-id="54cdb72"] > .e-con-inner {
+  overflow: visible !important;
+  align-items: flex-start !important;
+}
+
+.wp-about [data-id="54cdb72"] > .e-con-inner > .e-con:first-child {
+  position: sticky !important;
+  top: 72px !important;
+  align-self: flex-start !important;
+  height: fit-content !important;
+  max-height: calc(100vh - 80px) !important;
+  border-right: 2px solid #ea5a1a;
+}
+
+.wp-about [data-id="54cdb72"] > .e-con-inner > .e-con:last-child {
+  overflow: visible !important;
+}
+
+/* Year badges */
+.wp-about .elementor-button.elementor-size-sm {
+  text-decoration: none !important;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════
+   MARQUEE ROWS — Advisors & Awards
+   JS injects data-marquee="true" and inline flex styles.
+   These are safety overrides + scrollbar hide.
+   ══════════════════════════════════════════════════════ */
+
+[data-marquee="true"]::-webkit-scrollbar {
+  display: none !important;
+  height: 0 !important;
+}
+[data-marquee="true"] {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Prevent Elementor from overriding card widths set by JS */
+[data-marquee="true"] > *,
+[data-marquee="true"] > * > .e-con-inner {
+  flex-shrink: 0 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   ADVISORS SECTION — card photo sizing
+   Advisor photos fill card top; consistent 240px height
+   ══════════════════════════════════════════════════════ */
+.wp-about [data-id="e3d5fee"] .elementskit-client_logo,
+.wp-about [data-id="e3d5fee"] .elementskit-client_logo img {
+  width: 100% !important;
+  height: 240px !important;
+  object-fit: cover !important;
+  object-position: top center !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+.wp-about [data-id="e3d5fee"] .elementskit-single-testimonial-slider {
+  border-radius: 0.875rem !important;
+  overflow: hidden !important;
+  background: #f9fafb !important;
+  padding: 0 0 1rem !important;
+  text-align: center !important;
+}
+
+.wp-about [data-id="e3d5fee"] .elementskit-profile-info {
+  padding: 0.875rem 0.75rem 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.15rem !important;
+}
+
+.wp-about [data-id="e3d5fee"] .elementskit-author-name {
+  font-size: 0.875rem !important;
+  font-weight: 700 !important;
+  color: #0f0f0f !important;
+  line-height: 1.3 !important;
+  text-align: center !important;
+}
+
+.wp-about [data-id="e3d5fee"] .elementskit-author-des {
+  font-size: 0.74rem !important;
+  color: #6b7280 !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   AWARDS SECTION — card sizing
+   ══════════════════════════════════════════════════════ */
+.wp-about [data-id="cdeb8aa"] .elementskit-single-testimonial-slider {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 1rem !important;
+  padding: 1.5rem !important;
+  text-align: left !important;
+  align-items: flex-start !important;
+  height: 100% !important;
+}
+
+.wp-about [data-id="cdeb8aa"] .elementskit-client_logo img {
+  height: 36px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  margin: 0 0 0.875rem !important;
+  display: block !important;
+}
+
+.wp-about [data-id="cdeb8aa"] .elementskit-profile-info {
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 0 !important;
+  gap: 0.15rem !important;
+}
+
+.wp-about [data-id="cdeb8aa"] .elementskit-author-name {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: #0f0f0f !important;
+  text-align: left !important;
+  line-height: 1.35 !important;
+}
+
+.wp-about [data-id="cdeb8aa"] .elementskit-author-des {
+  font-size: 0.78rem !important;
+  color: #6b7280 !important;
+  text-align: left !important;
+}
+
+.wp-about [data-id="cdeb8aa"] .elementskit-commentor-content > p {
+  font-size: 0.78rem !important;
+  color: #374151 !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.4rem !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   MEDIA SECTION — card sizing (JS controls layout)
+   Cards: 340px wide, image top, title below
+   ══════════════════════════════════════════════════════ */
+.wp-about [data-id="97d0812"] .elementskit-single-testimonial-slider {
+  background: #f9fafb !important;
+  border-radius: 0.875rem !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+.wp-about [data-id="97d0812"] .elementskit-client_logo {
+  width: 100% !important;
+  margin: 0 !important;
+}
+.wp-about [data-id="97d0812"] .elementskit-client_logo img {
+  width: 100% !important;
+  height: 240px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 0 !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+.wp-about [data-id="97d0812"] .elementskit-profile-info {
+  padding: 1rem 1.25rem 1.25rem !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  gap: 0 !important;
+}
+
+.wp-about [data-id="97d0812"] .elementskit-author-name {
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: #0f0f0f !important;
+  text-align: left !important;
+  line-height: 1.45 !important;
+}
+
+/* Hide Elementor swiper navigation — we have custom arrows from JS */
+.wp-about .elementor-swiper-button,
+.wp-about .swiper-button-prev,
+.wp-about .swiper-button-next,
+.wp-about .ekit-swiper-arrow {
+  display: none !important;
+}
+
+/* ── Counter numbers colour ── */
+.wp-about .elementor-counter-number {
+  color: #ea5a1a;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .wp-about [data-id="54cdb72"] > .e-con-inner > .e-con:first-child {
+    position: static !important;
+    border-right: none !important;
+    border-bottom: 2px solid #ea5a1a !important;
+    max-height: none !important;
+  }
+
+  [data-marquee="true"] > * {
+    min-width: 220px !important;
+  }
+
+  .wp-about [data-id="97d0812"] .elementskit-client_logo img {
+    height: 160px !important;
+  }
+}

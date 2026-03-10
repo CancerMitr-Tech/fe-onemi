@@ -1,23 +1,34 @@
-import DotPattern from "./DotPattern";
-import { ABOUT } from "@/constants/about";
+"use client";
 
-export default function AboutHero() {
+import { useEffect } from "react";
+
+type Props = {
+  html: string;
+  cssLinks: string[];
+  styleBlocks: string[];
+};
+
+export default function AboutHero({ html, cssLinks, styleBlocks }: Props) {
+  useEffect(() => {
+    import("@/lib/about-page-effects").then((m) => {
+      m.initAll();
+    });
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-24 px-4 sm:px-6 lg:px-8">
-      <DotPattern />
-      <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-dark leading-tight mb-8 whitespace-pre-line">
-          {ABOUT.headingPlain}{" "}
-          <span className="text-brand-orange">{ABOUT.headingHighlight}</span>
-        </h1>
-        <div className="space-y-5">
-          {ABOUT.paragraphs.map((p, i) => (
-            <p key={i} className="text-lg text-brand-muted max-w-2xl mx-auto">
-              {p}
-            </p>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="wp-about elementor-3813">
+      {/* Elementor external CSS (core, page-specific, Google Fonts) */}
+      {cssLinks.map((href) => (
+        <link key={href} rel="stylesheet" href={href} />
+      ))}
+
+      {/* Elementor inline style blocks (custom properties, kit styles) */}
+      {styleBlocks.map((css, i) => (
+        <style key={i} dangerouslySetInnerHTML={{ __html: css }} />
+      ))}
+
+      {/* Page HTML from WordPress REST API */}
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    </div>
   );
 }

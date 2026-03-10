@@ -11,6 +11,7 @@ import Testimonials from "@/components/home/Testimonials";
 import FaqSection from "@/components/home/FaqSection";
 import AppCtaSection from "@/components/home/AppCtaSection";
 import PartnersSection from "@/components/home/PartnersSection";
+import MedicalDisclaimer from "@/components/home/MedicalDisclaimer";
 
 export const metadata: Metadata = {
   title: "oneMi — My Health in My Hands",
@@ -33,6 +34,7 @@ export default function HomePage() {
       <FaqSection />
       <AppCtaSection />
       <PartnersSection />
+      <MedicalDisclaimer />
     </>
   );
 }

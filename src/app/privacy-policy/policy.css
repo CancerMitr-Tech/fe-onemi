@@ -1,0 +1,138 @@
+/* ═══════════════════════════════════════════════════════════
+   Policy Pages — policy.css
+   Matches production onemi.ai layout exactly.
+   Works on raw WP HTML regardless of Elementor classes.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Reset Elementor layout so our CSS takes over ── */
+.wp-policy .elementor,
+.wp-policy .elementor-section-wrap,
+.wp-policy .elementor-container,
+.wp-policy .elementor-column-wrap,
+.wp-policy .elementor-widget-wrap,
+.wp-policy .elementor-section,
+.wp-policy .elementor-column,
+.wp-policy .elementor-widget,
+.wp-policy .elementor-widget-container,
+.wp-policy .e-con,
+.wp-policy .e-con-inner,
+.wp-policy .e-child {
+  all: unset !important;
+  display: block !important;
+}
+
+/* ── Page wrapper ── */
+.wp-policy {
+  width: 100%;
+  background: #ffffff;
+}
+
+/* ── Content container — matches production ~860px max ── */
+.wp-policy-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 80px 80px;
+}
+
+/* ── Headings ── */
+.wp-policy-inner h1,
+.wp-policy-inner h2,
+.wp-policy-inner h3,
+.wp-policy-inner h4,
+.wp-policy-inner h5,
+.wp-policy-inner h6 {
+  color: #1a1a1a !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.wp-policy-inner h1 { font-size: 1.75rem !important; }
+.wp-policy-inner h2 { font-size: 1.25rem !important; font-weight: 700 !important; }
+.wp-policy-inner h3 { font-size: 1.1rem  !important; }
+
+/* ── Paragraphs ── */
+.wp-policy-inner p {
+  color: #333333 !important;
+  font-size: 15px !important;
+  line-height: 1.85 !important;
+  margin-bottom: 1.1rem !important;
+}
+
+/* ── Bold / strong ── */
+.wp-policy-inner strong,
+.wp-policy-inner b {
+  color: #1a1a1a !important;
+  font-weight: 700 !important;
+}
+
+/* ── Lists ── */
+.wp-policy-inner ul,
+.wp-policy-inner ol {
+  color: #333333 !important;
+  font-size: 15px !important;
+  line-height: 1.85 !important;
+  margin: 0.25rem 0 1.1rem 1.6rem !important;
+  padding: 0 !important;
+}
+
+.wp-policy-inner li {
+  margin-bottom: 0.35rem !important;
+}
+
+/* ── Links ── */
+.wp-policy-inner a {
+  color: #ea5a1a !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+}
+
+.wp-policy-inner a:hover {
+  color: #c94d10 !important;
+}
+
+/* ── Italic / emphasis ── */
+.wp-policy-inner em,
+.wp-policy-inner i {
+  font-style: italic !important;
+}
+
+/* ── Horizontal rules ── */
+.wp-policy-inner hr {
+  border: none !important;
+  border-top: 1px solid #e5e7eb !important;
+  margin: 2rem 0 !important;
+}
+
+/* ── Tables ── */
+.wp-policy-inner table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 14px !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.wp-policy-inner th,
+.wp-policy-inner td {
+  border: 1px solid #d1d5db !important;
+  padding: 10px 14px !important;
+  text-align: left !important;
+  color: #333 !important;
+}
+
+.wp-policy-inner th {
+  background: #f9fafb !important;
+  font-weight: 600 !important;
+  color: #1a1a1a !important;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .wp-policy-inner {
+    padding: 40px 20px 60px !important;
+  }
+
+  .wp-policy-inner h1 { font-size: 1.4rem !important; }
+  .wp-policy-inner h2 { font-size: 1.15rem !important; }
+}

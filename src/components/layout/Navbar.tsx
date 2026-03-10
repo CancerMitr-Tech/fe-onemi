@@ -27,13 +27,12 @@ export default function Navbar() {
   const token = useSelector((state: RootState) => state.auth.token);
   const userName = useSelector((state: RootState) => state.auth.userName);
 
-  // Hydrate from localStorage if Redux isn't populated yet (client-side)
   const [hydrated, setHydrated] = useState(false);
   const [localToken, setLocalToken] = useState<string | null>(null);
   useEffect(() => {
     setLocalToken(localStorage.getItem("auth_token"));
     setHydrated(true);
-  }, [token]); // re-run when redux token changes
+  }, [token]);
 
   const isLoggedIn = !!(token ?? localToken);
 
@@ -43,7 +42,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close profile dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
@@ -85,13 +83,16 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 bg-white transition-shadow duration-300 ${
-          scrolled ? "shadow-md" : "shadow-none"
-        }`}
+        className="sticky top-0 z-40 bg-white transition-all duration-300"
+        style={{
+          boxShadow: scrolled
+            ? "0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04)"
+            : "0 2px 12px rgba(0,0,0,0.05), 0 1px 0 0 #efefef",
+        }}
       >
         <nav
           aria-label="Main navigation"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-18"
         >
           <Logo />
 
@@ -102,7 +103,7 @@ export default function Navbar() {
                 return (
                   <li key={link.label} className="relative">
                     <button
-                      className="flex items-center gap-1 font-medium text-[#1A1A2E] hover:text-[#E85D04] transition-colors"
+                      className="flex items-center gap-1 font-medium text-brand-dark hover:text-[#E85D04] transition-colors"
                       onClick={() => setDropdownOpen((v) => !v)}
                       onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
                     >
@@ -124,7 +125,7 @@ export default function Navbar() {
                     className={`font-medium transition-colors ${
                       isActive(link.href)
                         ? "text-[#E85D04]"
-                        : "text-[#1A1A2E] hover:text-[#E85D04]"
+                        : "text-brand-dark hover:text-[#E85D04]"
                     }`}
                   >
                     {link.label}
@@ -157,21 +158,21 @@ export default function Navbar() {
                       >
                         {userName && (
                           <div className="px-4 py-2 border-b border-gray-100">
-                            <p className="text-xs text-[#6B7280]">Signed in as</p>
-                            <p className="text-sm font-semibold text-[#1A1A2E] truncate">{userName}</p>
+                            <p className="text-xs text-brand-muted">Signed in as</p>
+                            <p className="text-sm font-semibold text-brand-dark truncate">{userName}</p>
                           </div>
                         )}
                         <Link
                           href="/profile"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#1A1A2E] hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-brand-dark hover:bg-gray-50 transition-colors"
                         >
                           <User className="w-4 h-4" /> Profile
                         </Link>
                         <Link
                           href="/orders"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#1A1A2E] hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-brand-dark hover:bg-gray-50 transition-colors"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -195,7 +196,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="/login"
-                    className="bg-[#E85D04] hover:bg-[#C94E03] text-white font-semibold px-5 py-2 rounded-lg text-sm transition-colors"
+                    className="bg-[#E85D04] hover:bg-brand-orange-hover text-white font-semibold px-5 py-2 rounded-lg text-sm transition-colors"
                   >
                     Login
                   </Link>
@@ -218,7 +219,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
-              <Menu className="w-6 h-6 text-[#1A1A2E]" />
+              <Menu className="w-6 h-6 text-brand-dark" />
             </button>
           </div>
         </nav>

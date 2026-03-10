@@ -1,0 +1,318 @@
+/* ═══════════════════════════════════════════════════════════
+   Contact Page — contact.css
+   ═══════════════════════════════════════════════════════════ */
+
+.wp-contact {
+  width: 100%;
+  overflow-x: clip;
+  margin-top: 12px;
+}
+
+.wp-contact * {
+  box-sizing: border-box;
+}
+
+.wp-contact img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Zero out top gaps ── */
+.wp-contact .elementor,
+.wp-contact .elementor-4417 {
+  margin-top: 4px !important;
+  padding-top: 4px !important;
+}
+
+.wp-contact .elementor > .elementor-inner,
+.wp-contact .elementor-inner > .elementor-section-wrap,
+.wp-contact .elementor-section-wrap > .elementor-section:first-child,
+.wp-contact .elementor-section-wrap > .e-con:first-child,
+.wp-contact .elementor-location-single > *:first-child,
+.wp-contact .elementor-4417 > .elementor-inner > .elementor-section-wrap > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.wp-contact .elementor-element-03f9291 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  --margin-top: 0px !important;
+  --padding-top: 0px !important;
+}
+
+.wp-contact > .elementor > .e-con:first-child,
+.wp-contact > .elementor .e-con:first-of-type {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.wp-contact .elementor-section:first-child .elementor-widget-wrap,
+.wp-contact .e-con:first-child > .e-con-inner {
+  padding-top: 0 !important;
+}
+
+.contact-page-main {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.wp-contact .elementor-4417 .elementor-element.elementor-element-03f9291 {
+  --display: flex;
+  --flex-direction: column;
+  --justify-content: center;
+  --align-items: center;
+  --gap: 0px 0px;
+  --row-gap: 0px;
+  --column-gap: 0px;
+  --margin-top: 0px !important;
+  --margin-bottom: 0px;
+  --margin-left: 0px;
+  --margin-right: 0px;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --padding-left: 0px;
+  --padding-right: 0px;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ── Hide Elementor blob icons ── */
+.wp-contact .elementor-icon-box-icon {
+  display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONTACT CARDS
+   ══════════════════════════════════════════════════════════ */
+
+.wp-contact .ekit-wid-con,
+.wp-contact .ekit-wid-con * {
+  text-align: center !important;
+}
+
+.wp-contact .ekit-wid-con a.ekit_global_links {
+  display: block !important;
+  width: 100% !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.wp-contact .elementskit-infobox {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ── Box header — default top padding for card 2 & 3 ── */
+.wp-contact .elementskit-box-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 32px 0 0 !important;
+  margin: 0 !important;
+}
+
+/* ── Card 1 only: extra top space via :has() on the infobox ── */
+.wp-contact .elementskit-infobox:has(i.icon-placeholder) .elementskit-box-header,
+.wp-contact .elementskit-infobox:has(i[class*="placeholder"]) .elementskit-box-header,
+.wp-contact .elementskit-infobox:has(i[class*="location"]) .elementskit-box-header {
+  padding-top: 72px !important;
+}
+
+/* Icon wrapper */
+.wp-contact .elementskit-info-box-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 60px !important;
+  height: 60px !important;
+  margin: 0 auto 16px !important;
+  padding: 0 !important;
+  float: none !important;
+}
+
+/* <i> tag */
+.wp-contact .elementskit-info-box-icon i {
+  position: relative !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 52px !important;
+  height: 52px !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  float: none !important;
+  margin: 0 !important;
+}
+
+.wp-contact .elementskit-info-box-icon i::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  font-size: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ── Title ── */
+.wp-contact .elementskit-infobox .elementskit-ib-title,
+.wp-contact .elementskit-infobox .box-title,
+.wp-contact .elementskit-infobox h3,
+.wp-contact .elementskit-infobox h4,
+.wp-contact .elementskit-infobox h5,
+.wp-contact .ekit-heading h1,
+.wp-contact .ekit-heading h2,
+.wp-contact .ekit-heading h3,
+.wp-contact .ekit-heading h4,
+.wp-contact .ekit-heading h5,
+.wp-contact .ekit-heading h6,
+.wp-contact .ekit-heading .ekit-heading-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1a1a1a !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  text-align: center !important;
+  width: 100% !important;
+  display: block !important;
+  line-height: 1.3 !important;
+}
+
+/* ── Divider — real element ── */
+.wp-contact .elementskit-ib-separator {
+  display: block !important;
+  width: 30px !important;
+  height: 2px !important;
+  background-color: #c8c8c8 !important;
+  border: none !important;
+  margin: 12px auto 20px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  float: none !important;
+}
+
+/* ── Divider — ::after fallback on title ── */
+.wp-contact .elementskit-infobox .elementskit-ib-title::after,
+.wp-contact .elementskit-infobox .box-title::after,
+.wp-contact .elementskit-infobox h3::after,
+.wp-contact .elementskit-infobox h4::after,
+.wp-contact .elementskit-infobox h5::after,
+.wp-contact .ekit-heading.elementskit-section-title-wraper::after,
+.wp-contact .ekit-heading::after {
+  content: "" !important;
+  display: block !important;
+  width: 30px !important;
+  height: 2px !important;
+  background-color: #c8c8c8 !important;
+  margin: 12px auto 0 !important;
+}
+
+/* ── Body text ── */
+.wp-contact .elementskit-infobox .elementskit-ib-text,
+.wp-contact .elementskit-infobox .box-content,
+.wp-contact .elementskit-infobox p,
+.wp-contact .elementskit-infobox > p {
+  font-size: 14px !important;
+  color: #555555 !important;
+  line-height: 1.75 !important;
+  margin: 0 auto !important;
+  padding: 0 28px 32px !important;
+  text-align: center !important;
+  width: 100% !important;
+  float: none !important;
+}
+
+.wp-contact .elementskit-infobox span,
+.wp-contact .elementskit-infobox div:not(.elementskit-box-header):not(.elementskit-ib-separator):not(.ekit-heading) {
+  text-align: center !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SVG ICONS
+   ══════════════════════════════════════════════════════════ */
+
+/* Card 1 — Location pin */
+.wp-contact .elementskit-info-box-icon i.icon-placeholder::before,
+.wp-contact .elementskit-info-box-icon i[class*="location"]::before,
+.wp-contact .elementskit-info-box-icon i[class*="placeholder"]::before,
+.wp-contact .elementskit-info-box-icon i[class*="map"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ea5a1a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E") !important;
+}
+
+/* Card 2 — Envelope */
+.wp-contact .elementskit-info-box-icon i.icon-envelope3::before,
+.wp-contact .elementskit-info-box-icon i[class*="envelope"]::before,
+.wp-contact .elementskit-info-box-icon i[class*="mail"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ea5a1a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E") !important;
+}
+
+/* Card 3 — Phone with signal waves */
+.wp-contact .elementskit-info-box-icon i[class*="phone"]::before,
+.wp-contact .elementskit-info-box-icon i[class*="call"]::before,
+.wp-contact .elementskit-info-box-icon i[class*="headphone"]::before,
+.wp-contact .elementskit-info-box-icon i[class*="mobile"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none' stroke='%23ea5a1a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.79-1.79a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'/%3E%3Cpath d='M17.5 1a9 9 0 0 1 0 18' opacity='0.5'/%3E%3Cpath d='M17.5 5a5 5 0 0 1 0 10' opacity='0.5'/%3E%3C/svg%3E") !important;
+}
+
+/* Fallback */
+.wp-contact .elementskit-info-box-icon i:not([class*="location"]):not([class*="placeholder"]):not([class*="map"]):not([class*="envelope"]):not([class*="mail"]):not([class*="phone"]):not([class*="call"]):not([class*="headphone"]):not([class*="mobile"])::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ea5a1a' stroke-width='1.5'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E") !important;
+}
+
+/* ── Background video fix ── */
+.wp-contact video.p-video,
+.wp-contact .pe-video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+.wp-contact .container--bg.bg--video {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+.wp-contact .elementor-element-03f9291 {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* ── Counter colour ── */
+.wp-contact .elementor-counter-number {
+  color: #ea5a1a;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .wp-contact {
+    margin-top: 0;
+  }
+}

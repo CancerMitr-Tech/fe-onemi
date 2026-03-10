@@ -27,13 +27,12 @@ export default function Navbar() {
   const token = useSelector((state: RootState) => state.auth.token);
   const userName = useSelector((state: RootState) => state.auth.userName);
 
-  // Hydrate from localStorage if Redux isn't populated yet (client-side)
   const [hydrated, setHydrated] = useState(false);
   const [localToken, setLocalToken] = useState<string | null>(null);
   useEffect(() => {
     setLocalToken(localStorage.getItem("auth_token"));
     setHydrated(true);
-  }, [token]); // re-run when redux token changes
+  }, [token]);
 
   const isLoggedIn = !!(token ?? localToken);
 
@@ -43,7 +42,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close profile dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
@@ -157,21 +155,21 @@ export default function Navbar() {
                       >
                         {userName && (
                           <div className="px-4 py-2 border-b border-gray-100">
-                            <p className="text-xs text-[#6B7280]">Signed in as</p>
-                            <p className="text-sm font-semibold text-[#1A1A2E] truncate">{userName}</p>
+                            <p className="text-xs text-brand-muted">Signed in as</p>
+                            <p className="text-sm font-semibold text-brand-dark truncate">{userName}</p>
                           </div>
                         )}
                         <Link
                           href="/profile"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#1A1A2E] hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-brand-dark hover:bg-gray-50 transition-colors"
                         >
                           <User className="w-4 h-4" /> Profile
                         </Link>
                         <Link
                           href="/orders"
                           onClick={() => setProfileOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#1A1A2E] hover:bg-gray-50 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-brand-dark hover:bg-gray-50 transition-colors"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -218,7 +216,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
-              <Menu className="w-6 h-6 text-[#1A1A2E]" />
+              <Menu className="w-6 h-6 text-brand-dark" />
             </button>
           </div>
         </nav>

@@ -10,17 +10,17 @@ const WHO_ITS_FOR = [
 ];
 
 const TRUST_SAFETY = [
-  { label: "AI Responsibility & Guardrails", href: "/terms-and-conditions#ai-enabled-tools" },
+  { label: "AI Responsibility & Guardrails", href: "/terms-and-conditions/#ai-enabled-tools" },
   { label: "Data Privacy & Security", href: "/privacy-policy" },
   { label: "Medical Disclaimer", href: "/#disclaimer" },
-  { label: "Clinical Governance", href: "/terms-and-conditions#clinical-governance" },
+  { label: "Clinical Governance", href: "/terms-and-conditions/#governing-law" },
 ];
 
 const ABOUT_LINKS = [
   { label: "About OneMi", href: "/about", hash: false },
   { label: "Founders' Story", href: "/about/#story", hash: false },
   { label: "Experts", href: "/about/#experts", hash: false },
-  { label: "Partners", href: "#partners", hash: true },
+  { label: "Partners", href: "/#partners", hash: true },
 ];
 
 const QUICK_LINKS = [
@@ -94,7 +94,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-semibold text-brand-dark text-sm mb-4 tracking-wide">&nbsp;</h4>
+          {/* <h4 className="font-semibold text-brand-dark text-sm mb-4 tracking-wide">&nbsp;</h4> */}
           <ul className="space-y-3">
             {QUICK_LINKS.map((l) => (
               <li key={l.label}>

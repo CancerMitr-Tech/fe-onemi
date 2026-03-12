@@ -15,7 +15,7 @@ export default function MembershipSection() {
           <p className="text-xl font-semibold text-brand-orange">{MEMBERSHIP.subheading}</p>
           <p className="text-brand-muted text-lg">{MEMBERSHIP.body}</p>
           <div>
-            <Button href="/#membership">{MEMBERSHIP.cta}</Button>
+            <Button href="/#onemipro">{MEMBERSHIP.cta}</Button>
           </div>
         </div>
 

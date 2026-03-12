@@ -1,14 +1,6 @@
 import Image from "next/image";
-
-interface StepData {
-  step: string;
-  title: string;
-  highlight: string;
-  subtitle: string;
-  items: string[];
-  tagline: string;
-  image: string;
-}
+import Link from "next/link";
+import type { StepData } from "@/constants/home";
 
 interface StepCardProps {
   data: StepData;
@@ -38,43 +30,71 @@ export default function StepCard({ data, reverse = false }: StepCardProps) {
       </div>
 
       {/* Divider + Content */}
-      <div
-        className={`flex ${reverse ? "lg:col-start-1 lg:row-start-1" : ""}`}
-      >
+      <div className={`flex ${reverse ? "lg:col-start-1 lg:row-start-1" : ""}`}>
         {!reverse && (
           <div className="hidden lg:block w-0.5 bg-brand-orange mx-8 shrink-0" />
         )}
-        <div className="flex flex-col justify-center py-8 px-4 lg:px-0">
-          <p className="text-sm text-brand-muted mb-1">{data.step}</p>
+
+        <div className="flex flex-col justify-center py-8 px-4 lg:px-0 w-full">
+          {/* Step label */}
+          <p className="text-sm font-semibold text-brand-orange mb-1">{data.step}</p>
+
+          {/* Title */}
           <h3 className="text-3xl font-bold text-brand-dark mb-2 leading-tight">
             {data.title}{" "}
             <span className="text-brand-orange">{data.highlight}</span>
           </h3>
-          <p className="text-brand-muted mb-4">{data.subtitle}</p>
-          <ul className="space-y-2 mb-4">
+
+          {/* Subtitle */}
+          <p className="text-brand-muted mb-5">{data.subtitle}</p>
+
+          {/* Feature list — orange filled circle check */}
+          <ul className="space-y-3 mb-6">
             {data.items.map((item) => (
               <li key={item} className="flex items-center gap-3">
-                <span className="shrink-0 w-5 h-5 rounded-full bg-brand-orange flex items-center justify-center">
-                  <svg
-                    className="w-3 h-3 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </span>
+                <Image src="/images/tick.png" width={20} height={20} alt="" className="shrink-0" />
                 <span className="text-brand-dark text-sm">{item}</span>
               </li>
             ))}
           </ul>
-          <p className="text-sm text-brand-muted italic">{data.tagline}</p>
+
+          {/* Grey divider line */}
+          <svg width="100%" height="1" viewBox="0 0 600 1" preserveAspectRatio="none" className="mb-4">
+            <line x1="0" y1="0.5" x2="600" y2="0.5" stroke="#D1D5DB" strokeWidth="1" />
+          </svg>
+
+          {/* Tagline */}
+          <p className="text-sm text-brand-muted italic text-center mb-6">
+            {data.tagline}
+          </p>
+
+          {/* Program cards — Step 3 only */}
+          {data.programs && data.programs.length > 0 && (
+            <div className="grid grid-cols-2 gap-4">
+              {data.programs.map((prog) => (
+                <div
+                  key={prog.title}
+                  className="border border-gray-200 rounded-xl p-4 flex flex-col items-center gap-1"
+                >
+                  <p className="text-sm font-semibold text-brand-dark text-center leading-snug">
+                    {prog.title}
+                  </p>
+                  <p className="text-xs text-brand-muted text-center mb-2">
+                    {prog.subtitle}
+                  </p>
+                  <Link
+                    href={prog.href}
+                    className="w-full text-center text-sm font-semibold text-white py-2.5 rounded-lg transition-opacity hover:opacity-90"
+                    style={{ backgroundColor: "#E05C1A" }}
+                  >
+                    Read more
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+
         {reverse && (
           <div className="hidden lg:block w-0.5 bg-brand-orange mx-8 shrink-0" />
         )}

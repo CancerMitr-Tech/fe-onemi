@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "@/components/ui/Button";
+import EnquireModal from "@/components/EnquireModal";
+import { MHR_FORM_CONFIG } from "@/lib/formConfigs";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -366,6 +368,7 @@ export default function MyHealthRechargePage() {
   const [conditionVisible, setConditionVisible] = useState(true);
   const [activeStory, setActiveStory] = useState(0);
   const [pillGroup, setPillGroup] = useState<"A" | "B">("A");
+  const [modalOpen, setModalOpen] = useState(false);
   const storyTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [blogsLoading, setBlogsLoading] = useState(true);
@@ -433,6 +436,8 @@ export default function MyHealthRechargePage() {
   return (
     <div className="bg-white">
 
+      <EnquireModal open={modalOpen} onClose={() => setModalOpen(false)} formConfig={MHR_FORM_CONFIG} />
+
       {/* ── 1. HERO ── */}
       <div className="px-6 sm:px-10 lg:px-14 pt-4 pb-4">
         <section
@@ -476,8 +481,9 @@ export default function MyHealthRechargePage() {
                 Restore your Health in 90 Days
               </p>
             </div>
+            {/* ✅ FIX: removed href so click always opens modal */}
             <div className="mt-1">
-              <Button href="#program-details">Enquire Now</Button>
+              <Button onClick={() => setModalOpen(true)}>Enquire Now</Button>
             </div>
           </div>
         </section>

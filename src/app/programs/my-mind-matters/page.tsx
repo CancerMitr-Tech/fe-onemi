@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "@/components/ui/Button";
+import EnquireModal from "@/components/EnquireModal";
+import { MMM_FORM_CONFIG } from "@/lib/formConfigs";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -424,6 +426,7 @@ export default function MyMindMattersPage() {
   const [heroIdx, setHeroIdx] = useState(0);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [blogsLoading, setBlogsLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const t = setInterval(
@@ -497,6 +500,8 @@ export default function MyMindMattersPage() {
   return (
     <div className="bg-white">
 
+      <EnquireModal open={modalOpen} onClose={() => setModalOpen(false)} formConfig={MMM_FORM_CONFIG} />
+
       {/* ── 1. HERO ── */}
       <div className="px-6 sm:px-10 lg:px-14 pt-4 pb-4">
         <section
@@ -537,8 +542,9 @@ export default function MyMindMattersPage() {
                 Reignite your mental strength in 6 sessions
               </p>
             </div>
+            {/* ✅ FIX: removed href so click always opens modal */}
             <div className="mt-1">
-              <Button href="#program-details">Enquire Now</Button>
+              <Button onClick={() => setModalOpen(true)}>Enquire Now</Button>
             </div>
           </div>
         </section>

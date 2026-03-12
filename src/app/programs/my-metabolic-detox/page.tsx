@@ -29,23 +29,23 @@ const symptoms = [
 
 // ── Cleanse at the core — same floating-pill animation as MHR ──────────────
 const pillarsA = [
-  { label: "Alkaline Balance",          top: "8%",  left: "4%"  },
-  { label: "Sleep Optimisation",        top: "30%", left: "60%" },
-  { label: "Hydration & Oxygenation",   top: "52%", left: "2%"  },
-  { label: "Colon Cleansing",           top: "68%", left: "42%" },
-  { label: "Nutrient Replenishment",    top: "80%", left: "70%" },
+  { label: "Alkaline Balance", top: "8%", left: "4%" },
+  { label: "Sleep Optimisation", top: "30%", left: "60%" },
+  { label: "Hydration & Oxygenation", top: "52%", left: "2%" },
+  { label: "Colon Cleansing", top: "68%", left: "42%" },
+  { label: "Nutrient Replenishment", top: "80%", left: "70%" },
 ];
 const dotsA = [
   { top: "20%", left: "42%" },
   { top: "44%", left: "76%" },
   { top: "60%", left: "28%" },
-  { top: "78%", left: "5%"  },
+  { top: "78%", left: "5%" },
 ];
 const pillarsB = [
-  { label: "Toxin Cleanse",                top: "12%", left: "68%" },
-  { label: "Elimination Diet",             top: "35%", left: "8%"  },
-  { label: "Lymphatic Exercises",          top: "50%", left: "65%" },
-  { label: "Metabolic Stability",          top: "70%", left: "18%" },
+  { label: "Toxin Cleanse", top: "12%", left: "68%" },
+  { label: "Elimination Diet", top: "35%", left: "8%" },
+  { label: "Lymphatic Exercises", top: "50%", left: "65%" },
+  { label: "Metabolic Stability", top: "70%", left: "18%" },
   { label: "Mindfulness & Self Reflection", top: "82%", left: "50%" },
 ];
 const dotsB = [
@@ -110,14 +110,14 @@ const pricingChecklist = [
 ];
 
 const dataMetrics = [
-  { label: "Overall health",                   pct: 85  },
-  { label: "Metabolic balance",                pct: 79  },
-  { label: "Gut health",                       pct: 93  },
-  { label: "Better sleep",                     pct: 85  },
-  { label: "Emotional health",                 pct: 85  },
-  { label: "Energy levels and mental clarity", pct: 85  },
-  { label: "Weight management",                pct: 75  },
-  { label: "Daily functioning",                pct: 100 },
+  { label: "Overall health", pct: 85 },
+  { label: "Metabolic balance", pct: 79 },
+  { label: "Gut health", pct: 93 },
+  { label: "Better sleep", pct: 85 },
+  { label: "Emotional health", pct: 85 },
+  { label: "Energy levels and mental clarity", pct: 85 },
+  { label: "Weight management", pct: 75 },
+  { label: "Daily functioning", pct: 100 },
 ];
 
 const stories = [
@@ -209,13 +209,26 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-gray-200 last:border-0 px-6">
+    <div className="border-b border-gray-200 last:border-0">
       <button
-        className="w-full flex justify-between items-start py-5 text-left gap-4"
+        className="w-full flex justify-between items-center py-4 text-left gap-4"
         onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
       >
-        <span className="font-semibold text-brand-dark text-sm leading-snug">{q}</span>
-        <span className="text-brand-orange text-xl font-light shrink-0 leading-none mt-0.5">{open ? "×" : "+"}</span>
+        <span
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 500,
+            fontSize: "20px",
+            lineHeight: "30px",
+            color: "rgb(69, 69, 69)",
+          }}
+        >
+          {q}
+        </span>
+        <span className="text-brand-orange text-2xl font-light shrink-0">
+          {open ? "×" : "+"}
+        </span>
       </button>
       <AnimatePresence>
         {open && (
@@ -223,10 +236,21 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22 }}
+            transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm text-brand-muted leading-relaxed">{a}</p>
+            <div
+              className="bg-brand-mint rounded-lg px-4 py-3 mb-3"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "16px",
+                lineHeight: "26px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              {a}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -603,13 +627,38 @@ export default function MyMetabolicDetoxPage() {
       <section id="program-details" className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl bg-white p-8 sm:p-12">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "rgb(37, 37, 37)",
+              }}
+            >
               Make your detox goals.
             </h2>
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-orange leading-tight">
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "#E85D04",
+              }}
+            >
               Commit to the program.
             </h2>
-            <p className="mt-3 text-brand-muted">
+            <p
+              className="mt-3"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
               From first assessment to final report, every step is covered for you.
             </p>
           </div>
@@ -617,9 +666,19 @@ export default function MyMetabolicDetoxPage() {
           <div className="grid lg:grid-cols-2 gap-10">
             <ul className="flex flex-col gap-4">
               {pricingChecklist.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-brand-dark text-sm">
+                <li key={item} className="flex items-start gap-3">
                   <OrangeCheck />
-                  {item}
+                  <span
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontWeight: 500,
+                      fontSize: "20px",
+                      lineHeight: "30px",
+                      color: "rgb(69, 69, 69)",
+                    }}
+                  >
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -627,30 +686,56 @@ export default function MyMetabolicDetoxPage() {
             <div className="border border-gray-200 rounded-xl p-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gray-300" />
-                <span className="text-sm font-bold text-brand-dark whitespace-nowrap">Program Details</span>
+                <span
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "26px",
+                    color: "rgb(69, 69, 69)",
+                    whiteSpace: "nowrap",
+                  }}
+                >Program Details</span>
                 <div className="flex-1 h-px bg-gray-300" />
               </div>
-              <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-sm font-medium text-center">
-                <div className="py-3 border-r border-gray-200 text-brand-dark">Mode : At Home</div>
-                <div className="py-3 text-brand-dark">Duration : 21 Days</div>
+              <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-center">
+                <div
+                  className="py-3 border-r border-gray-200"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 600, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+                >Mode : At Home</div>
+                <div
+                  className="py-3"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 600, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+                >Duration : 21 Days</div>
               </div>
               <div className="bg-[#F3F4F6] rounded-lg py-4 text-center">
-                <span className="text-3xl font-bold text-brand-dark">&#8377; 5,000</span>
+                <span
+                  style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 600, fontSize: "32px", lineHeight: "40px", color: "rgb(37, 37, 37)" }}
+                >&#8377; 5,000</span>
               </div>
-              <p className="text-center text-sm text-[#3D3D3D] font-medium leading-snug">
+              <p
+                className="text-center"
+                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+              >
                 Limited Seats. &apos;By Invite Only.&apos;<br />Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
               <Button href="/cart?product=detox" className="w-full justify-center">
                 Reset your System in 21 days
               </Button>
-              <p className="text-center text-xs text-brand-muted italic">
+              <p
+                className="text-center italic"
+                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "22px", color: "rgb(107, 114, 128)" }}
+              >
                 Tests &amp; Products charged separately. Taxes as applicable
               </p>
             </div>
           </div>
 
-          <p className="text-center text-sm text-[#3D3D3D] italic mt-8">
+          <p
+            className="text-center italic mt-8"
+            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 400, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+          >
             Avail discounts and offers. Become a{" "}
             <a href="/#onemipro" className="text-brand-orange font-semibold not-italic underline">
               OneMi Member
@@ -726,9 +811,9 @@ export default function MyMetabolicDetoxPage() {
                   <tbody>
                     {[
                       { param: "Energy Level", dot: "#F5C842", pre: "8/10", post: "8/10", change: "▲3%" },
-                      { param: "Digestion",    dot: "#E85D04", pre: "4/10", post: "8/10", change: "▲16%" },
-                      { param: "Emotional",    dot: "#D1D5DB", pre: "4/10", post: "8/10", change: "▲9%" },
-                      { param: "Sleep",        dot: "#1A1A2E", pre: "4/10", post: "8/10", change: "▲9%" },
+                      { param: "Digestion", dot: "#E85D04", pre: "4/10", post: "8/10", change: "▲16%" },
+                      { param: "Emotional", dot: "#D1D5DB", pre: "4/10", post: "8/10", change: "▲9%" },
+                      { param: "Sleep", dot: "#1A1A2E", pre: "4/10", post: "8/10", change: "▲9%" },
                     ].map((row) => (
                       <tr key={row.param} className="border-b border-gray-100 last:border-0">
                         <td className="py-2.5 flex items-center gap-2">
@@ -761,9 +846,9 @@ export default function MyMetabolicDetoxPage() {
               </div>
               <div className="flex items-end justify-around gap-2 h-40 px-2">
                 {[
-                  { label: "Energy\nLevels",        pre: 65, post: 90 },
-                  { label: "Digestive\nTolerance",  pre: 50, post: 88 },
-                  { label: "Emotional\nWellbeing",  pre: 60, post: 85 },
+                  { label: "Energy\nLevels", pre: 65, post: 90 },
+                  { label: "Digestive\nTolerance", pre: 50, post: 88 },
+                  { label: "Emotional\nWellbeing", pre: 60, post: 85 },
                 ].map((g) => (
                   <div key={g.label} className="flex flex-col items-center gap-1 flex-1">
                     <div className="flex items-end gap-1 w-full justify-center" style={{ height: 120 }}>
@@ -850,66 +935,79 @@ export default function MyMetabolicDetoxPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsLoading
               ? [1, 2, 3].map((i) => (
-                  <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
-                    <div className="h-48 bg-gray-200" />
-                    <div className="p-5 space-y-2">
-                      <div className="h-3 bg-gray-200 rounded w-full" />
-                      <div className="h-3 bg-gray-200 rounded w-4/5" />
-                    </div>
+                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
+                  <div className="h-48 bg-gray-200" />
+                  <div className="p-5 space-y-2">
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                    <div className="h-3 bg-gray-200 rounded w-4/5" />
                   </div>
-                ))
+                </div>
+              ))
               : blogs.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.slug ? `/blog/${item.slug}` : item.link}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
-                  >
-                    <div className="relative h-48 overflow-hidden">
-                      {item.img ? (
-                        <Image
-                          src={item.img}
-                          alt={item.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span className="text-gray-400 text-sm">No image</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
-                        {item.title}
-                      </p>
-                    </div>
-                  </a>
-                ))}
+                <a
+                  key={item.id}
+                  href={item.slug ? `/blog/${item.slug}` : item.link}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    {item.img ? (
+                      <Image
+                        src={item.img}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <span className="text-gray-400 text-sm">No image</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
+                      {item.title}
+                    </p>
+                  </div>
+                </a>
+              ))}
           </div>
         </div>
       </section>
 
       {/* ── 12. FAQ ── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "#F0F2F5" }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-[280px_1fr] gap-10 items-start">
-            <div className="lg:sticky lg:top-24">
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
-                Frequently Asked
-              </h2>
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-orange leading-tight mb-4">
-                Questions
-              </h2>
-              <p className="text-sm text-brand-muted leading-relaxed">
-                Know how the program works, what&apos;s included, and how we support your care.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-              {faqs.map((item) => (
-                <FaqItem key={item.q} q={item.q} a={item.a} />
-              ))}
-            </div>
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "rgb(37, 37, 37)",
+                marginBottom: "16px",
+              }}
+            >
+              Frequently Asked{" "}
+              <span style={{ color: "#E05C1A" }}>Questions</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              Everything you need to know about the My Metabolic Detox program and your 21-day journey.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            {faqs.map((item) => (
+              <FaqItem key={item.q} q={item.q} a={item.a} />
+            ))}
           </div>
         </div>
       </section>

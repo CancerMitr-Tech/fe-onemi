@@ -43,24 +43,24 @@ const symptoms = [
 
 // ── Clear the Inner Cache — floating pill animation ──────────────────────────
 const pillarsA = [
-  { label: "Behavioural Adjustments", top: "8%",  left: "60%" },
-  { label: "Guided Reflection",       top: "32%", left: "37%" },
-  { label: "Thought Reframing",       top: "50%", left: "2%"  },
-  { label: "Self-Compassion",         top: "62%", left: "62%" },
-  { label: "Mind Resilience",         top: "78%", left: "28%" },
+  { label: "Behavioural Adjustments", top: "8%", left: "60%" },
+  { label: "Guided Reflection", top: "32%", left: "37%" },
+  { label: "Thought Reframing", top: "50%", left: "2%" },
+  { label: "Self-Compassion", top: "62%", left: "62%" },
+  { label: "Mind Resilience", top: "78%", left: "28%" },
 ];
 const dotsA = [
   { top: "18%", left: "15%" },
   { top: "42%", left: "72%" },
   { top: "58%", left: "42%" },
-  { top: "72%", left: "5%"  },
+  { top: "72%", left: "5%" },
 ];
 const pillarsB = [
-  { label: "Emotional Regulation",  top: "10%", left: "58%" },
-  { label: "Stress Processing",     top: "35%", left: "4%"  },
-  { label: "Trigger Identification",top: "48%", left: "42%" },
-  { label: "Cognitive Reset",       top: "65%", left: "64%" },
-  { label: "Emotional Awareness",   top: "80%", left: "6%"  },
+  { label: "Emotional Regulation", top: "10%", left: "58%" },
+  { label: "Stress Processing", top: "35%", left: "4%" },
+  { label: "Trigger Identification", top: "48%", left: "42%" },
+  { label: "Cognitive Reset", top: "65%", left: "64%" },
+  { label: "Emotional Awareness", top: "80%", left: "6%" },
 ];
 const dotsB = [
   { top: "22%", left: "38%" },
@@ -224,9 +224,8 @@ function MarqueeRow({
         .mmm-mr{animation:mmm-mr 28s linear infinite}
       `}</style>
       <div
-        className={`flex gap-6 whitespace-nowrap ${
-          direction === "left" ? "mmm-ml" : "mmm-mr"
-        }`}
+        className={`flex gap-6 whitespace-nowrap ${direction === "left" ? "mmm-ml" : "mmm-mr"
+          }`}
       >
         {repeated.map((item, i) => (
           <span
@@ -245,15 +244,24 @@ function MarqueeRow({
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-gray-200 last:border-0 px-6">
+    <div className="border-b border-gray-200 last:border-0">
       <button
-        className="w-full flex justify-between items-start py-5 text-left gap-4"
+        className="w-full flex justify-between items-center py-4 text-left gap-4"
         onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
       >
-        <span className="font-semibold text-brand-dark text-sm leading-snug">
+        <span
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 500,
+            fontSize: "20px",
+            lineHeight: "30px",
+            color: "rgb(69, 69, 69)",
+          }}
+        >
           {q}
         </span>
-        <span className="text-brand-orange text-xl font-light shrink-0 leading-none mt-0.5">
+        <span className="text-brand-orange text-2xl font-light shrink-0">
           {open ? "×" : "+"}
         </span>
       </button>
@@ -263,10 +271,21 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22 }}
+            transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <p className="pb-4 text-sm text-brand-muted leading-relaxed">{a}</p>
+            <div
+              className="bg-brand-mint rounded-lg px-4 py-3 mb-3"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "16px",
+                lineHeight: "26px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              {a}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -730,27 +749,58 @@ export default function MyMindMattersPage() {
       >
         <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl bg-white p-8 sm:p-12">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "rgb(37, 37, 37)",
+              }}
+            >
               Make your list of triggers.
             </h2>
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-orange leading-tight">
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "#E85D04",
+              }}
+            >
               Address the root cause.
             </h2>
-            <p className="mt-3 text-brand-muted">
-              From first assessment to final report, every step is covered for
-              you.
+            <p
+              className="mt-3"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              From first assessment to final report, every step is covered for you.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10">
             <ul className="flex flex-col gap-4">
               {pricingChecklist.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-brand-dark text-sm"
-                >
+                <li key={item} className="flex items-start gap-3">
                   <OrangeCheck />
-                  {item}
+                  <span
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontWeight: 500,
+                      fontSize: "20px",
+                      lineHeight: "30px",
+                      color: "rgb(69, 69, 69)",
+                    }}
+                  >
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -758,46 +808,58 @@ export default function MyMindMattersPage() {
             <div className="border border-gray-200 rounded-xl p-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gray-300" />
-                <span className="text-sm font-bold text-brand-dark whitespace-nowrap">
-                  Program Details
-                </span>
+                <span
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "26px",
+                    color: "rgb(69, 69, 69)",
+                    whiteSpace: "nowrap",
+                  }}
+                >Program Details</span>
                 <div className="flex-1 h-px bg-gray-300" />
               </div>
-              <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-sm font-medium text-center">
-                <div className="py-3 border-r border-gray-200 text-brand-dark">
-                  Mode : At Home
-                </div>
-                <div className="py-3 text-brand-dark">
-                  Duration : 6 Sessions
-                </div>
+              <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-center">
+                <div
+                  className="py-3 border-r border-gray-200"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 600, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+                >Mode : At Home</div>
+                <div
+                  className="py-3"
+                  style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 600, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+                >Duration : 6 Sessions</div>
               </div>
               <div className="bg-[#F3F4F6] rounded-lg py-4 text-center">
-                <span className="text-3xl font-bold text-brand-dark">
-                  &#8377; 9,000
-                </span>
+                <span
+                  style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 600, fontSize: "32px", lineHeight: "40px", color: "rgb(37, 37, 37)" }}
+                >&#8377; 9,000</span>
               </div>
-              <p className="text-center text-sm text-[#3D3D3D] font-medium leading-snug">
-                Limited Seats. &apos;By Invite Only.&apos;
-                <br />
-                Use the invite code to qualify
+              <p
+                className="text-center"
+                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 500, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+              >
+                Limited Seats. &apos;By Invite Only.&apos;<br />Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
               <Button href="/cart?product=mind" className="w-full justify-center">
                 Reignite your mental strength
               </Button>
-              <p className="text-center text-xs text-brand-muted italic">
-                Eligible Tests &amp; Products charged separately. Taxes as
-                applicable
+              <p
+                className="text-center italic"
+                style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 400, fontSize: "14px", lineHeight: "22px", color: "rgb(107, 114, 128)" }}
+              >
+                Eligible Tests &amp; Products charged separately. Taxes as applicable
               </p>
             </div>
           </div>
 
-          <p className="text-center text-sm text-[#3D3D3D] italic mt-8">
+          <p
+            className="text-center italic mt-8"
+            style={{ fontFamily: "Montserrat, sans-serif", fontWeight: 400, fontSize: "16px", lineHeight: "26px", color: "rgb(69, 69, 69)" }}
+          >
             Avail discounts and offers. Become a{" "}
-            <a
-              href="/#onemipro"
-              className="text-brand-orange font-semibold not-italic underline"
-            >
+            <a href="/#onemipro" className="text-brand-orange font-semibold not-italic underline">
               OneMi Member
             </a>
             .
@@ -826,12 +888,12 @@ export default function MyMindMattersPage() {
               </h3>
               <div className="flex flex-col gap-2">
                 {[
-                  { label: "Improved emotional stability",    pct: 82 },
+                  { label: "Improved emotional stability", pct: 82 },
                   { label: "Reduced anxiety and stress levels", pct: 76 },
-                  { label: "Improved sleep quality",          pct: 71 },
+                  { label: "Improved sleep quality", pct: 71 },
                   { label: "Better focus and mental clarity", pct: 79 },
-                  { label: "Improved emotional resilience",   pct: 85 },
-                  { label: "Better overall quality of life",  pct: 92 },
+                  { label: "Improved emotional resilience", pct: 85 },
+                  { label: "Better overall quality of life", pct: 92 },
                 ].map((m) => (
                   <div
                     key={m.label}
@@ -889,10 +951,10 @@ export default function MyMindMattersPage() {
                 </div>
                 <div className="flex items-end justify-around gap-2 flex-1" style={{ height: 160 }}>
                   {[
-                    { label: "Stress &\nBurnout",      val: 8 },
-                    { label: "Negative\nThoughts",     val: 7 },
-                    { label: "Financial\nStrain",      val: 5 },
-                    { label: "Anger",                  val: 6 },
+                    { label: "Stress &\nBurnout", val: 8 },
+                    { label: "Negative\nThoughts", val: 7 },
+                    { label: "Financial\nStrain", val: 5 },
+                    { label: "Anger", val: 6 },
                   ].map((g) => (
                     <div
                       key={g.label}
@@ -921,10 +983,10 @@ export default function MyMindMattersPage() {
               </h3>
               <svg viewBox="0 0 120 120" className="w-32 h-32 mb-4">
                 {[
-                  { color: "#E85D04", offset: 0,    dash: 30 },
-                  { color: "#1A1A2E", offset: 30,   dash: 25 },
-                  { color: "#D1D5DB", offset: 55,   dash: 20 },
-                  { color: "#F5C842", offset: 75,   dash: 25 },
+                  { color: "#E85D04", offset: 0, dash: 30 },
+                  { color: "#1A1A2E", offset: 30, dash: 25 },
+                  { color: "#D1D5DB", offset: 55, dash: 20 },
+                  { color: "#F5C842", offset: 75, dash: 25 },
                 ].map((seg) => (
                   <circle
                     key={seg.color}
@@ -1061,75 +1123,84 @@ export default function MyMindMattersPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsLoading
               ? [1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse"
-                  >
-                    <div className="h-48 bg-gray-200" />
-                    <div className="p-5 space-y-2">
-                      <div className="h-3 bg-gray-200 rounded w-full" />
-                      <div className="h-3 bg-gray-200 rounded w-4/5" />
-                    </div>
+                <div
+                  key={i}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse"
+                >
+                  <div className="h-48 bg-gray-200" />
+                  <div className="p-5 space-y-2">
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                    <div className="h-3 bg-gray-200 rounded w-4/5" />
                   </div>
-                ))
+                </div>
+              ))
               : blogs.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.slug ? `/blog/${item.slug}` : item.link}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
-                  >
-                    <div className="relative h-48 overflow-hidden">
-                      {item.img ? (
-                        <Image
-                          src={item.img}
-                          alt={item.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span className="text-gray-400 text-sm">
-                            No image
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
-                        {item.title}
-                      </p>
-                    </div>
-                  </a>
-                ))}
+                <a
+                  key={item.id}
+                  href={item.slug ? `/blog/${item.slug}` : item.link}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    {item.img ? (
+                      <Image
+                        src={item.img}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <span className="text-gray-400 text-sm">
+                          No image
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
+                      {item.title}
+                    </p>
+                  </div>
+                </a>
+              ))}
           </div>
         </div>
       </section>
 
       {/* ── 12. FAQ ── */}
-      <section
-        className="py-16 px-4 sm:px-6 lg:px-8"
-        style={{ backgroundColor: "#F0F2F5" }}
-      >
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-[280px_1fr] gap-10 items-start">
-            <div className="lg:sticky lg:top-24">
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
-                Frequently Asked
-              </h2>
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-orange leading-tight mb-4">
-                Questions
-              </h2>
-              <p className="text-sm text-brand-muted leading-relaxed">
-                Know how the program works, what&apos;s included, and how we
-                support your care.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-              {faqs.map((item) => (
-                <FaqItem key={item.q} q={item.q} a={item.a} />
-              ))}
-            </div>
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "rgb(37, 37, 37)",
+                marginBottom: "16px",
+              }}
+            >
+              Frequently Asked{" "}
+              <span style={{ color: "#E05C1A" }}>Questions</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              Everything you need to know about the My Mind Matters program and your wellness journey.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            {faqs.map((item) => (
+              <FaqItem key={item.q} q={item.q} a={item.a} />
+            ))}
           </div>
         </div>
       </section>

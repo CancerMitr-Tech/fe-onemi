@@ -33,38 +33,38 @@ const conditions = [
 
 const pillarsA = [
   { label: "Mitochondrial Optimization", top: "12%", left: "72%" },
-  { label: "Organ & Cellular Support",   top: "32%", left: "38%" },
-  { label: "Pain Management",            top: "53%", left: "7%"  },
-  { label: "Resistance & Mobility",      top: "55%", left: "72%" },
-  { label: "Anti-Inflammation",          top: "72%", left: "24%" },
+  { label: "Organ & Cellular Support", top: "32%", left: "38%" },
+  { label: "Pain Management", top: "53%", left: "7%" },
+  { label: "Resistance & Mobility", top: "55%", left: "72%" },
+  { label: "Anti-Inflammation", top: "72%", left: "24%" },
 ];
 
 const dotsA = [
   { top: "27%", left: "14%" },
   { top: "42%", left: "67%" },
   { top: "50%", left: "42%" },
-  { top: "72%", left: "4%"  },
+  { top: "72%", left: "4%" },
   { top: "72%", left: "67%" },
 ];
 
 const pillarsB = [
-  { label: "Lifestyle Balance",     top: "24%", left: "70%" },
-  { label: "Mind & Vitality",       top: "40%", left: "2%"  },
-  { label: "Nutrition & Repair",    top: "47%", left: "48%" },
+  { label: "Lifestyle Balance", top: "24%", left: "70%" },
+  { label: "Mind & Vitality", top: "40%", left: "2%" },
+  { label: "Nutrition & Repair", top: "47%", left: "48%" },
   { label: "Immunity & Gut Health", top: "65%", left: "16%" },
-  { label: "Stress Recovery",       top: "68%", left: "79%" },
+  { label: "Stress Recovery", top: "68%", left: "79%" },
 ];
 
 const dotsB = [
   { top: "38%", left: "37%" },
-  { top: "65%", left: "4%"  },
+  { top: "65%", left: "4%" },
   { top: "65%", left: "83%" },
   { top: "78%", left: "58%" },
 ];
 
 const allPillars = [...pillarsA, ...pillarsB];
 
-// ─── Sticky Steps data (mirrors HowItWorks shape) ────────────────────────────
+// ─── Sticky Steps data ────────────────────────────────────────────────────────
 
 const mhrSteps = [
   {
@@ -134,7 +134,7 @@ const dataCards = [
 
 const stories = [
   { img: "/images/Testimonial-Card-2-scaled.webp", alt: "Chandresh Mehta – Urothelial carcinoma" },
-  { img: "/images/Testimonial-Card-scaled.webp",   alt: "Rajendra Mehta – Prostate cancer" },
+  { img: "/images/Testimonial-Card-scaled.webp", alt: "Rajendra Mehta – Prostate cancer" },
   { img: "/images/Testimonial-Card-1-scaled.webp", alt: "Satish Chugh – Squamous cell carcinoma" },
 ];
 
@@ -216,8 +216,20 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
-        <span className="font-medium text-brand-dark text-sm">{q}</span>
-        <span className="text-brand-orange text-xl font-light shrink-0">{open ? "×" : "+"}</span>
+        <span
+          style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 500,
+            fontSize: "20px",
+            lineHeight: "30px",
+            color: "rgb(69, 69, 69)",
+          }}
+        >
+          {q}
+        </span>
+        <span className="text-brand-orange text-2xl font-light shrink-0">
+          {open ? "×" : "+"}
+        </span>
       </button>
       <AnimatePresence>
         {open && (
@@ -228,7 +240,18 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            <div className="pb-4 text-sm text-brand-muted bg-brand-mint rounded-lg px-4 py-3 mb-3">{a}</div>
+            <div
+              className="bg-brand-mint rounded-lg px-4 py-3 mb-3"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "16px",
+                lineHeight: "26px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              {a}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -236,7 +259,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-// ─── Sticky Steps — exact same pattern as HowItWorks ─────────────────────────
+// ─── Sticky Steps ─────────────────────────────────────────────────────────────
 
 const CARD_H = 520;
 const SCROLL_PER_STEP = 600;
@@ -285,7 +308,6 @@ function StickySteps() {
                   style={{ zIndex: i + 1 }}
                 >
                   <div className="grid lg:grid-cols-2 h-full gap-0">
-                    {/* Image — always left */}
                     <div className="relative h-56 lg:h-full rounded-2xl overflow-hidden">
                       <Image
                         src={step.image}
@@ -295,7 +317,6 @@ function StickySteps() {
                         sizes="(max-width: 1024px) 100vw, 50vw"
                       />
                     </div>
-                    {/* Content — always right */}
                     <div className="flex">
                       <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
                       <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
@@ -318,7 +339,6 @@ function StickySteps() {
                 </motion.div>
               ))}
             </div>
-            {/* Step progress dots */}
             <div className="flex justify-center gap-2 mt-6 pb-4">
               {mhrSteps.map((_, i) => (
                 <div
@@ -366,7 +386,6 @@ export default function MyHealthRechargePage() {
     return () => clearInterval(t);
   }, []);
 
-  // Auto-scroll stories every 2s
   useEffect(() => {
     storyTimerRef.current = setInterval(() => {
       setActiveStory((prev) => (prev + 1) % stories.length);
@@ -428,7 +447,6 @@ export default function MyHealthRechargePage() {
             priority
             sizes="(max-width: 640px) 100vw, 95vw"
           />
-          {/* Gradient — left side for text readability */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -436,7 +454,6 @@ export default function MyHealthRechargePage() {
                 "linear-gradient(to right, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.1) 48%, transparent 65%)",
             }}
           />
-          {/* Text — bottom-left */}
           <div className="absolute bottom-10 left-8 sm:left-10 flex flex-col gap-3 max-w-xs">
             <div
               key={conditionIdx}
@@ -475,7 +492,6 @@ export default function MyHealthRechargePage() {
       {/* ── 3. PROBLEM SECTION ── */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: image + dot decorations */}
           <div className="relative">
             <div
               className="absolute -top-4 right-6 w-28 h-28 opacity-40 pointer-events-none"
@@ -499,8 +515,6 @@ export default function MyHealthRechargePage() {
               className="rounded-2xl object-cover w-full relative z-10"
             />
           </div>
-
-          {/* Right: text — exact production copy */}
           <div className="flex flex-col gap-5">
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
               Are your Health conditions or symptoms worsening{" "}
@@ -509,7 +523,6 @@ export default function MyHealthRechargePage() {
             <p className="text-brand-muted leading-relaxed">
               Health does not fail overnight. Long before disease appears, dysfunction begins at the cellular level.
             </p>
-            {/* Orange divider */}
             <hr className="border-brand-orange border-t-2" />
             <div>
               <h3 className="text-xl font-bold text-brand-dark mb-1">Restore your Health in 90 days</h3>
@@ -547,7 +560,6 @@ export default function MyHealthRechargePage() {
 
       {/* ── 5. TREAT THE CAUSE ── */}
       <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-white">
-        {/* dot-grid background */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -565,10 +577,7 @@ export default function MyHealthRechargePage() {
             When leaves get yellow, you don&apos;t paint them green, you look at the soil.
           </p>
 
-          {/* Desktop: two alternating groups */}
           <div className="relative hidden lg:block" style={{ height: 420 }}>
-
-            {/* ── Group A pills ── */}
             {pillarsA.map((p) => (
               <div
                 key={p.label}
@@ -585,8 +594,6 @@ export default function MyHealthRechargePage() {
                 {p.label}
               </div>
             ))}
-
-            {/* ── Group A dots ── */}
             {dotsA.map((d, i) => (
               <span
                 key={`da-${i}`}
@@ -603,8 +610,6 @@ export default function MyHealthRechargePage() {
                 </span>
               </span>
             ))}
-
-            {/* ── Group B pills ── */}
             {pillarsB.map((p) => (
               <div
                 key={p.label}
@@ -621,8 +626,6 @@ export default function MyHealthRechargePage() {
                 {p.label}
               </div>
             ))}
-
-            {/* ── Group B dots ── */}
             {dotsB.map((d, i) => (
               <span
                 key={`db-${i}`}
@@ -641,7 +644,6 @@ export default function MyHealthRechargePage() {
             ))}
           </div>
 
-          {/* Mobile: show all pills */}
           <div className="flex flex-wrap gap-3 lg:hidden justify-center">
             {allPillars.map((p) => (
               <span
@@ -656,66 +658,166 @@ export default function MyHealthRechargePage() {
         </div>
       </section>
 
-      {/* ── 6. JOURNEY STEPS — sticky scroll, same as HowItWorks ── */}
+      {/* ── 6. JOURNEY STEPS ── */}
       <StickySteps />
 
       {/* ── 7. PRICING CARD ── */}
       <section id="program-details" className="py-16 px-4 sm:px-6 lg:px-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto border border-gray-200 rounded-2xl bg-white p-8 sm:p-12">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark leading-tight">
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "rgb(37, 37, 37)",
+              }}
+            >
               Make your health goals.
             </h2>
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-orange leading-tight">
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "#E85D04",
+              }}
+            >
               Commit to the program.
             </h2>
-            <p className="mt-3 text-brand-muted">
+            <p
+              className="mt-3"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
               From first assessment to final report, every step is covered for you.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10">
-            {/* Left: checklist with orange circle icons */}
             <ul className="flex flex-col gap-4">
               {pricingChecklist.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-brand-dark text-sm">
+                <li key={item} className="flex items-center gap-3">
                   <OrangeCheck />
-                  {item}
+                  <span
+                    style={{
+                      fontFamily: "Montserrat, sans-serif",
+                      fontWeight: 500,
+                      fontSize: "20px",
+                      lineHeight: "30px",
+                      color: "rgb(69, 69, 69)",
+                    }}
+                  >
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
 
-            {/* Right: Program Details box */}
             <div className="border border-gray-200 rounded-xl p-6 flex flex-col gap-4">
-              {/* "Program Details" with flanking lines */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-gray-300" />
-                <span className="text-sm font-bold text-brand-dark whitespace-nowrap">Program Details</span>
+                <span
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "26px",
+                    color: "rgb(69, 69, 69)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Program Details
+                </span>
                 <div className="flex-1 h-px bg-gray-300" />
               </div>
-              {/* Mode + Duration tabs */}
-              <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-sm font-medium text-center">
-                <div className="py-3 border-r border-gray-200 text-brand-dark">Mode : At Home</div>
-                <div className="py-3 text-brand-dark">Duration : 90 Days</div>
+              <div className="grid grid-cols-2 border border-gray-200 rounded-lg overflow-hidden text-center">
+                <div
+                  className="py-3 border-r border-gray-200"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "26px",
+                    color: "rgb(69, 69, 69)",
+                  }}
+                >
+                  Mode : At Home
+                </div>
+                <div
+                  className="py-3"
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    lineHeight: "26px",
+                    color: "rgb(69, 69, 69)",
+                  }}
+                >
+                  Duration : 90 Days
+                </div>
               </div>
-              {/* Price */}
               <div className="bg-[#F9FAFB] rounded-lg py-4 text-center">
-                <span className="text-3xl font-bold text-brand-dark">₹ 25,000</span>
+                <span
+                  style={{
+                    fontFamily: "Montserrat, sans-serif",
+                    fontWeight: 600,
+                    fontSize: "32px",
+                    lineHeight: "40px",
+                    color: "rgb(37, 37, 37)",
+                  }}
+                >
+                  ₹ 25,000
+                </span>
               </div>
-              <p className="text-center text-sm text-[#3D3D3D] font-medium leading-snug">
+              <p
+                className="text-center"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  lineHeight: "26px",
+                  color: "rgb(69, 69, 69)",
+                }}
+              >
                 Limited Seats. &apos;By Invite Only.&apos;<br />Use the invite code to qualify
               </p>
               <div className="border-t border-dashed border-gray-300" />
               <Button href="/cart?product=mhr" className="w-full justify-center">
                 Restore your health in 90 days
               </Button>
-              <p className="text-center text-xs text-brand-muted italic">
+              <p
+                className="text-center italic"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  lineHeight: "22px",
+                  color: "rgb(107, 114, 128)",
+                }}
+              >
                 Tests &amp; Products charged separately. Taxes as applicable
               </p>
             </div>
           </div>
 
-          <p className="text-center text-sm text-[#3D3D3D] italic mt-8">
+          <p
+            className="text-center italic mt-8"
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 400,
+              fontSize: "16px",
+              lineHeight: "26px",
+              color: "rgb(69, 69, 69)",
+            }}
+          >
             Avail discounts and offers. Become a{" "}
             <a href="/#onemipro" className="text-brand-orange font-semibold not-italic underline">
               OneMi Member
@@ -753,9 +855,7 @@ export default function MyHealthRechargePage() {
           </h2>
           <p className="text-brand-muted text-center mb-10">Stories of courage, care, and lasting change.</p>
 
-          {/* Carousel */}
           <div className="relative flex items-center gap-3">
-            {/* Left arrow */}
             <button
               onClick={() => goToStory((activeStory - 1 + stories.length) % stories.length)}
               className="shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-brand-orange transition-colors shadow-sm"
@@ -766,7 +866,6 @@ export default function MyHealthRechargePage() {
               </svg>
             </button>
 
-            {/* Card */}
             <div className="flex-1">
               {stories.map((story, i) =>
                 i !== activeStory ? null : (
@@ -783,7 +882,6 @@ export default function MyHealthRechargePage() {
               )}
             </div>
 
-            {/* Right arrow */}
             <button
               onClick={() => goToStory((activeStory + 1) % stories.length)}
               className="shrink-0 w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center hover:border-brand-orange transition-colors shadow-sm"
@@ -795,7 +893,6 @@ export default function MyHealthRechargePage() {
             </button>
           </div>
 
-          {/* Dots */}
           <div className="flex justify-center gap-2 mt-6">
             {stories.map((_, i) => (
               <button
@@ -843,42 +940,42 @@ export default function MyHealthRechargePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsLoading
               ? [1, 2, 3].map((i) => (
-                  <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
-                    <div className="h-48 bg-gray-200" />
-                    <div className="p-5 space-y-2">
-                      <div className="h-3 bg-gray-200 rounded w-full" />
-                      <div className="h-3 bg-gray-200 rounded w-4/5" />
-                    </div>
+                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 animate-pulse">
+                  <div className="h-48 bg-gray-200" />
+                  <div className="p-5 space-y-2">
+                    <div className="h-3 bg-gray-200 rounded w-full" />
+                    <div className="h-3 bg-gray-200 rounded w-4/5" />
                   </div>
-                ))
+                </div>
+              ))
               : blogs.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.slug ? `/blog/${item.slug}` : item.link}
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
-                  >
-                    <div className="relative h-48 overflow-hidden">
-                      {item.img ? (
-                        <Image
-                          src={item.img}
-                          alt={item.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span className="text-gray-400 text-sm">No image</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
-                        {item.title}
-                      </p>
-                    </div>
-                  </a>
-                ))}
+                <a
+                  key={item.id}
+                  href={item.slug ? `/blog/${item.slug}` : item.link}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group block"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    {item.img ? (
+                      <Image
+                        src={item.img}
+                        alt={item.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        <span className="text-gray-400 text-sm">No image</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <p className="text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-orange transition-colors">
+                      {item.title}
+                    </p>
+                  </div>
+                </a>
+              ))}
           </div>
         </div>
       </section>
@@ -887,11 +984,29 @@ export default function MyHealthRechargePage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-4">
-              Frequently Asked <span className="text-brand-orange">Questions</span>
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "52px",
+                color: "rgb(37, 37, 37)",
+                marginBottom: "16px",
+              }}
+            >
+              Frequently Asked{" "}
+              <span style={{ color: "#E05C1A" }}>Questions</span>
             </h2>
-            <p className="text-brand-muted">
-              Everything you need to know about the My Health Recharge program and your 90-day journey.
+            <p
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(69, 69, 69)",
+              }}
+            >
+              Know how the program works, what&apos;s included, and how we support your care.
             </p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">

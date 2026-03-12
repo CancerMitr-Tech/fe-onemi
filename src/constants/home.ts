@@ -1,3 +1,21 @@
+// ── Types ──
+export interface StepProgram {
+  title: string;
+  subtitle: string;
+  href: string;
+}
+
+export interface StepData {
+  step: string;
+  title: string;
+  highlight: string;
+  subtitle: string;
+  items: string[];
+  tagline: string;
+  image: string;
+  programs?: StepProgram[];
+}
+
 export const HERO = {
   heading: "India's first AI-powered\nHealth Management Platform.",
   subtitle:
@@ -27,7 +45,7 @@ export const PROBLEM = {
     "Health management feels scattered. OneMi brings clarity, continuity, and control.",
 };
 
-export const HOW_IT_WORKS = [
+export const HOW_IT_WORKS: StepData[] = [
   {
     step: "Step 1:",
     title: "Assess your",
@@ -71,6 +89,18 @@ export const HOW_IT_WORKS = [
     tagline:
       "Personalised programs to restore metabolic health, chronic conditions, cancer.",
     image: "/images/step3-phone.png",
+    programs: [
+      {
+        title: "My Metabolic Detox",
+        subtitle: "Reset your system in 21 days",
+        href: "/programs/my-metabolic-detox",
+      },
+      {
+        title: "My Health Recharge",
+        subtitle: "Restore your health in 90 days",
+        href: "/programs/my-health-recharge",
+      },
+    ],
   },
   {
     step: "Step 4:",

@@ -204,23 +204,7 @@ const faqs = [
 // ─── Shared components ────────────────────────────────────────────────────────
 
 function OrangeCheck() {
-  return (
-    <span className="shrink-0 mt-0.5">
-      <svg
-        className="w-5 h-5 text-brand-orange"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2.2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-    </span>
-  );
+  return <Image src="/images/tick.png" width={20} height={20} alt="" className="shrink-0 mt-0.5" />;
 }
 
 function MarqueeRow({
@@ -811,7 +795,7 @@ export default function MyMindMattersPage() {
           <p className="text-center text-sm text-[#3D3D3D] italic mt-8">
             Avail discounts and offers. Become a{" "}
             <a
-              href="/membership"
+              href="/#onemipro"
               className="text-brand-orange font-semibold not-italic underline"
             >
               OneMi Member

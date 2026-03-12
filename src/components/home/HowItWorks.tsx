@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { HOW_IT_WORKS } from "@/constants/home";
 
-const CARD_H = 520;
+const CARD_H = 580;
 const SCROLL_PER_STEP = 600;
 const TOTAL = HOW_IT_WORKS.length;
 const CONTAINER_H = SCROLL_PER_STEP * TOTAL + CARD_H;
@@ -70,7 +71,7 @@ export default function HowItWorks() {
                     {/* Content — always right */}
                     <div className="flex">
                       <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
-                      <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
+                      <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12 w-full">
                         <p className="text-sm font-semibold text-brand-orange mb-2 tracking-wide">{step.step}</p>
                         <h3 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-3 leading-tight">
                           {step.title}{" "}
@@ -78,18 +79,43 @@ export default function HowItWorks() {
                         </h3>
                         <p className="text-sm text-brand-muted mb-5">{step.subtitle}</p>
                         <ul className="space-y-3">
-                          {step.items.slice(0, 4).map((item) => (
+                          {step.items.map((item) => (
                             <li key={item} className="flex items-center gap-3">
-                              <span className="shrink-0 w-5 h-5 rounded-full bg-brand-orange flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                              </span>
+                              <Image src="/images/tick.png" width={20} height={20} alt="" className="shrink-0" />
                               <span className="text-sm text-brand-dark">{item}</span>
                             </li>
                           ))}
                         </ul>
-                        <p className="text-sm text-brand-muted mt-6">{step.tagline}</p>
+
+                        {/* Programs panel — only shown on steps that have programs (Step 3) */}
+                        {step.programs && step.programs.length > 0 ? (
+                          <div className="mt-5 pt-4">
+                            <Image
+                              src="/images/grey-line.svg"
+                              alt=""
+                              width={380}
+                              height={1}
+                              className="w-full mb-4"
+                            />
+                            <p className="text-sm text-brand-muted text-center mb-4">{step.tagline}</p>
+                            <div className="grid grid-cols-2 divide-x divide-gray-200 gap-0">
+                              {step.programs.map((prog) => (
+                                <div key={prog.href} className="flex flex-col items-center text-center px-4 gap-2">
+                                  <p className="text-sm font-semibold text-brand-dark leading-tight">{prog.title}</p>
+                                  <p className="text-xs text-brand-muted">{prog.subtitle}</p>
+                                  <Link
+                                    href={prog.href}
+                                    className="mt-1 w-full inline-block bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold text-center py-2 px-4 rounded-lg transition-colors duration-200"
+                                  >
+                                    Read more
+                                  </Link>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-sm text-brand-muted mt-6">{step.tagline}</p>
+                        )}
                       </div>
                     </div>
                   </div>

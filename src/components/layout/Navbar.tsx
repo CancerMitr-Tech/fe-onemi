@@ -89,7 +89,7 @@ export default function Navbar() {
       >
         <nav
           aria-label="Main navigation"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[72px]"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-18"
         >
           <Logo />
 
@@ -100,7 +100,7 @@ export default function Navbar() {
                 return (
                   <li key={link.label} className="relative">
                     <button
-                      className="flex items-center gap-1 text-sm font-medium text-[#1A1A2E] hover:text-[#E85D04] transition-colors"
+                      className="flex items-center gap-1 text-sm font-medium text-brand-dark hover:text-brand-orange transition-colors"
                       onClick={() => setDropdownOpen((v) => !v)}
                       onBlur={() => setTimeout(() => setDropdownOpen(false), 150)}
                     >
@@ -121,8 +121,8 @@ export default function Navbar() {
                     href={link.href}
                     className={`relative text-sm font-medium transition-colors pb-1 ${
                       isActive(link.href)
-                        ? "text-[#E85D04] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#E85D04] after:rounded-full"
-                        : "text-[#1A1A2E] hover:text-[#E85D04]"
+                        ? "text-brand-orange after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-orange after:rounded-full"
+                        : "text-brand-dark hover:text-brand-orange"
                     }`}
                   >
                     {link.label}
@@ -193,7 +193,7 @@ export default function Navbar() {
                 <li>
                   <Link
                     href="/login"
-                    className="bg-[#E85D04] hover:bg-[#C94E03] text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-colors"
+                    className="bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-colors"
                   >
                     Login
                   </Link>

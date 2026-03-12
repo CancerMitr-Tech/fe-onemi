@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 async function getContactData() {
   const [apiRes, pageRes] = await Promise.all([
-    fetch("https://onemi.ai/wp-json/wp/v2/pages/4417", {
+    fetch(`${process.env.NEXT_PUBLIC_WP_API}/pages/4417`, {
       next: { revalidate: 60 },
     }),
-    fetch("https://onemi.ai/contact-us/", {
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/contact-us/`, {
       next: { revalidate: 3600 },
       headers: { "User-Agent": "Mozilla/5.0 (compatible; NextJS/1.0)" },
     }),

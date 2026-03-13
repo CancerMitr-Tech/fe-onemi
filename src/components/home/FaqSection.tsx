@@ -1,17 +1,27 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { FAQ } from "@/constants/home";
 
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
+function FaqItem({
+  q,
+  a,
+  isOpen,
+  onToggle,
+}: {
+  q: string;
+  a: string;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
   return (
     <div className="border-b border-gray-200 last:border-0">
       <button
         className="w-full flex justify-between items-center py-4 text-left gap-4"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
+        onClick={onToggle}
+        aria-expanded={isOpen}
       >
         {/* Question — Montserrat 500, 24px, 34px lh, rgb(10,19,35) */}
         <span
@@ -26,11 +36,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
           {q}
         </span>
         <span className="text-brand-orange text-2xl font-light shrink-0">
-          {open ? "×" : "+"}
+          {isOpen ? "×" : "+"}
         </span>
       </button>
+
       <AnimatePresence>
-        {open && (
+        {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -38,15 +49,16 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.25 }}
             className="overflow-hidden"
           >
-            {/* Answer — Montserrat 500, 16px, 24px lh, rgb(107,114,128) */}
+            {/* Answer — Montserrat 500, 16px, 30px lh, rgba(0,0,0,0.57) */}
             <div
-              className="bg-brand-mint rounded-lg px-4 py-3 mb-3"
+              className="rounded-lg px-4 py-3 mb-3"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: 500,
                 fontSize: "16px",
-                lineHeight: "24px",
-                color: "rgb(107, 114, 128)",
+                lineHeight: "30px",
+                color: "rgba(0, 0, 0, 0.57)",
+                whiteSpace: "pre-line",
               }}
             >
               {a}
@@ -59,48 +71,74 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function FaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const handleToggle = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
-    <SectionWrapper className="bg-gray-50">
-      <div className="grid lg:grid-cols-2 gap-12 items-start">
-
-        {/* Left */}
-        <div>
-          {/* Heading — Manrope 600, 40px, 56px lh, rgb(37,37,37) */}
-          <h2
-            style={{
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 600,
-              fontSize: "40px",
-              lineHeight: "56px",
-              color: "rgb(37, 37, 37)",
-              marginBottom: "16px",
-            }}
-          >
-            Frequently Asked{" "}
-            <span style={{ color: "#E05C1A" }}>Questions</span>
-          </h2>
-
-          {/* Subtext — Montserrat 400, 16px, 28px lh, rgb(10,19,35) */}
-          <p
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 400,
-              fontSize: "16px",
-              lineHeight: "28px",
-              color: "rgb(10, 19, 35)",
-            }}
-          >
-            Everything you need to know about oneMi and how it can transform your health management journey.
-          </p>
-        </div>
-
-        {/* Right: accordion */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          {FAQ.map((item) => (
-            <FaqItem key={item.q} q={item.q} a={item.a} />
-          ))}
-        </div>
+    <>
+      {/* Divider image — upar FAQ ke */}
+      <div className="w-1/2 mx-auto">
+        <Image
+          src="/images/grey-line.svg"
+          alt="divider"
+          width={100}
+          height={40}
+          className="w-full"
+        />
       </div>
-    </SectionWrapper>
+
+      <SectionWrapper className="bg-gray-50">
+        <div className="grid gap-12 items-start" style={{ gridTemplateColumns: "1fr 1.8fr" }}>
+
+          {/* Left */}
+          <div>
+            {/* Heading — Manrope 600, 40px, 56px lh, rgb(37,37,37) */}
+            <h2
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "56px",
+                color: "rgb(37, 37, 37)",
+                marginBottom: "16px",
+              }}
+            >
+              Frequently Asked{" "}
+              <span style={{ color: "#E05C1A" }}>Questions</span>
+            </h2>
+
+            {/* Subtext — Montserrat 500, 20px, 30px lh, rgb(101,101,101) */}
+            <p
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 500,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(101, 101, 101)",
+              }}
+            >
+              Learn how OneMi works, what to expect, and how we protect your
+              health and data.
+            </p>
+          </div>
+
+          {/* Right: accordion */}
+          <div className="bg-white rounded-2xl p-6 shadow-sm">
+            {FAQ.map((item, index) => (
+              <FaqItem
+                key={item.q}
+                q={item.q}
+                a={item.a}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
+            ))}
+          </div>
+        </div>
+      </SectionWrapper>
+    </>
   );
 }

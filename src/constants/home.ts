@@ -279,23 +279,37 @@ export const TESTIMONIALS = [
 export const FAQ = [
   {
     q: "Is Om a doctor replacement?",
-    a: "No, Om is an AI health assistant that helps you plan, book, and track your health journey. It provides guidance and insights but does not replace medical professionals. Always consult a qualified doctor for medical advice.",
+    a: "No. Om does not replace doctors. It supports you between visits by organizing information, explaining reports, tracking progress, and helps you make informed decisions with your medical team.",
   },
   {
     q: "What is the OneMi Patient Dashboard?",
-    a: "The OneMi Patient Dashboard is a comprehensive view of your health data — including biomarkers, risk analysis, health expenses, and progress reports — all in one place. It helps you and your care team make informed decisions.",
+    a: `The Patient Dashboard is your personal health command center.
+        It gives you:
+        - A snapshot of your health status
+        - Trends over time (symptoms, tests, treatments)
+        - Upcoming actions, reminders, and alerts
+        - Health locker`,
   },
   {
     q: "Is my data safe?",
-    a: "Absolutely. OneMi uses privacy-first architecture with secure encryption, controlled access, and AI guardrails. Your health data is yours alone, and we follow strict clinical governance standards.",
+    a: `Yes. OneMi uses:
+        - Secure encryption
+        - Controlled access
+        - Privacy-first architecture
+        Your data is never shared without your permission.`,
   },
   {
     q: "What do I get with the OneMi Pro Membership?",
-    a: "OneMi Pro includes expert consultations, AI credits, savings & discounts, priority appointments, secure health record management, a dedicated care expert, and 24/7 medical assistance. Plans start at ₹599/month.",
+    a: `- Continuous AI analysis
+        - Unlimited data storage
+        - Ongoing health insights (Coming soon)
+        - Priority concierge support
+        - Cost benefits on products and services`,
   },
   {
     q: "Can I use OneMi without membership?",
-    a: "Yes, you can access basic features of OneMi without a membership. However, the Pro membership unlocks the full suite of tools including AI credits, dedicated care experts, and priority support.",
+    a: `Yes, limited features may be available.
+        Membership unlocks the full, long-term health management experience.`,
   },
 ];
 

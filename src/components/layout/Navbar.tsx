@@ -64,7 +64,7 @@ export default function Navbar() {
       fetch(`${process.env.NEXT_PUBLIC_API_BASE}/auth/logout`, {
         method: "POST",
         headers: { "auth-token": t },
-      }).catch(() => {});
+      }).catch(() => { });
     }
     localStorage.removeItem("auth_token");
     localStorage.removeItem("auth_name");
@@ -82,14 +82,11 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-40 bg-white border-b ${
-          scrolled ? "border-gray-200" : "border-transparent"
-        } transition-colors duration-300`}
-      >
+      <header className="sticky top-0 z-40 bg-white shadow-sm">
+        {/* ✅ Consistent px-6 on both sides, no sm/lg variants that could shift logo vs nav */}
         <nav
           aria-label="Main navigation"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-18"
+          className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16"
         >
           <Logo />
 
@@ -119,11 +116,10 @@ export default function Navbar() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className={`relative text-sm font-medium transition-colors pb-1 ${
-                      isActive(link.href)
+                    className={`relative text-sm font-medium transition-colors pb-1 ${isActive(link.href)
                         ? "text-brand-orange after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-orange after:rounded-full"
                         : "text-brand-dark hover:text-brand-orange"
-                    }`}
+                      }`}
                   >
                     {link.label}
                   </Link>
@@ -191,9 +187,10 @@ export default function Navbar() {
                 </li>
               ) : (
                 <li>
+                  {/* ✅ Standard CTA: brand-orange bg, white text, rounded-full, consistent py/px */}
                   <Link
                     href="/login"
-                    className="bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-colors"
+                    className="inline-flex items-center justify-center bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold px-5 py-2 rounded-full text-sm transition-colors"
                   >
                     Login
                   </Link>

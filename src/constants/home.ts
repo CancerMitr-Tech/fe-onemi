@@ -245,57 +245,71 @@ export const TRUST_CARDS = [
 
 export const TESTIMONIALS = [
   {
-    name: "Suresh",
-    age: 52,
-    text: "OneMi gave me clarity about my health that no doctor visit ever could. The AI insights and personalised programs have transformed my lifestyle completely.",
-  },
-  {
-    name: "Kunal",
-    age: 45,
-    text: "The data-driven dashboards helped me understand my metabolic health patterns. I've never felt more in control of my wellbeing.",
-  },
-  {
-    name: "Preeti",
-    age: 36,
-    text: "From symptom tracking to booking consultations — everything in one app. OneMi is the healthcare companion I always needed.",
-  },
-  {
     name: "Megha",
     age: 34,
-    text: "The Om AI assistant guides me through every health decision. It's like having a knowledgeable friend available 24/7.",
+    text: "I had all my reports but no idea what they actually meant. OneMi explained everything in simple language and told me what I should focus on. That itself reduced so much anxiety.",
   },
   {
     name: "Rohit",
     age: 41,
-    text: "After joining OneMi Pro, my chronic health concerns are finally being addressed systematically. Visible progress across every phase of care.",
+    text: "Earlier I would Google everything and get scared. With OneMi, I get clear answers and guidance on what to do next. It feels much more reassuring.",
   },
   {
     name: "Anita",
     age: 38,
-    text: "The curated products and concierge support make managing my family's health effortless. Highly recommend OneMi Pro.",
+    text: "Instead of treating each test separately, OneMi helped me see patterns over time. I finally feel like I'm managing my health, not just reacting to problems.",
+  },
+  {
+    name: "Suresh",
+    age: 52,
+    text: "All my answers, document storage, symptoms, appointments, everything is in one app. I don't have to search through files anymore before every doctor visit.",
+  },
+  {
+    name: "Kunal",
+    age: 45,
+    text: "When my mother was diagnosed, we didn't know where to start. OneMi helped us understand reports and plan the next steps. That guidance meant everything to us.",
+  },
+  {
+    name: "Preeti",
+    age: 36,
+    text: "Doctors are great, but you don't see them every day. OneMi supported me between visits when small questions kept coming up.",
   },
 ];
 
 export const FAQ = [
   {
     q: "Is Om a doctor replacement?",
-    a: "No, Om is an AI health assistant that helps you plan, book, and track your health journey. It provides guidance and insights but does not replace medical professionals. Always consult a qualified doctor for medical advice.",
+    a: "No. Om does not replace doctors. It supports you between visits by organizing information, explaining reports, tracking progress, and helps you make informed decisions with your medical team.",
   },
   {
     q: "What is the OneMi Patient Dashboard?",
-    a: "The OneMi Patient Dashboard is a comprehensive view of your health data — including biomarkers, risk analysis, health expenses, and progress reports — all in one place. It helps you and your care team make informed decisions.",
+    a: `The Patient Dashboard is your personal health command center.
+        It gives you:
+        - A snapshot of your health status
+        - Trends over time (symptoms, tests, treatments)
+        - Upcoming actions, reminders, and alerts
+        - Health locker`,
   },
   {
     q: "Is my data safe?",
-    a: "Absolutely. OneMi uses privacy-first architecture with secure encryption, controlled access, and AI guardrails. Your health data is yours alone, and we follow strict clinical governance standards.",
+    a: `Yes. OneMi uses:
+        - Secure encryption
+        - Controlled access
+        - Privacy-first architecture
+        Your data is never shared without your permission.`,
   },
   {
     q: "What do I get with the OneMi Pro Membership?",
-    a: "OneMi Pro includes expert consultations, AI credits, savings & discounts, priority appointments, secure health record management, a dedicated care expert, and 24/7 medical assistance. Plans start at ₹599/month.",
+    a: `- Continuous AI analysis
+        - Unlimited data storage
+        - Ongoing health insights (Coming soon)
+        - Priority concierge support
+        - Cost benefits on products and services`,
   },
   {
     q: "Can I use OneMi without membership?",
-    a: "Yes, you can access basic features of OneMi without a membership. However, the Pro membership unlocks the full suite of tools including AI credits, dedicated care experts, and priority support.",
+    a: `Yes, limited features may be available.
+        Membership unlocks the full, long-term health management experience.`,
   },
 ];
 

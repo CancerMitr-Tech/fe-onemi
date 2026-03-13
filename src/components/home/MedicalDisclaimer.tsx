@@ -19,44 +19,97 @@ export default function MedicalDisclaimer() {
           />
         </div>
 
-        {/* Tagline */}
-        <p className="text-base font-semibold text-brand-dark mb-3">
+        {/* Tagline — Montserrat 500, 16px, 24px lh, rgb(26,26,46) */}
+        <p style={{
+          fontFamily: "Montserrat, sans-serif",
+          fontWeight: 600,
+          fontSize: "20px",
+          lineHeight: "26px",
+          color: "rgb(37, 37, 37)",
+          marginBottom: "12px",
+        }}>
           Powered by AI. Driven by Data.
         </p>
-        <p className="text-sm text-brand-muted leading-relaxed mb-10 max-w-2xl mx-auto">
+
+        {/* Body — Montserrat 500, 14px, 23px lh, rgb(107,114,128) */}
+        <p style={{
+          fontFamily: "Montserrat, sans-serif",
+          fontWeight: 400,
+          fontSize: "16px",
+          lineHeight: "24px",
+          color: "rgb(69, 69, 69)",
+          marginBottom: "40px",
+          maxWidth: "672px",
+          margin: "0 auto 40px",
+        }}>
           OneMi is a health management platform for clinical insights, curated
           solutions, and personalised care—built to bring clarity, continuity,
           and confidence to your health journey.
         </p>
 
-        {/* — Disclaimer — */}
+        {/* Disclaimer divider */}
         <div className="flex items-center gap-3 mb-5 justify-center">
-          <div className="flex-1 border-t border-gray-300 max-w-45" />
-          <span className="text-sm font-semibold text-brand-dark tracking-wide">
+          <div className="flex-1 border-t border-gray-700 max-w-100" />
+          <span style={{
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 700,
+            fontSize: "16px",
+            lineHeight: "16px",
+            color: "rgb(37, 37, 37)",
+            letterSpacing: "0.05em",
+          }}>
             Disclaimer
           </span>
-          <div className="flex-1 border-t border-gray-300 max-w-45" />
+          <div className="flex-1 border-t border-gray-700 max-w-100" />
         </div>
 
-        <p className="text-sm text-brand-muted mb-2 leading-relaxed">
+        {/* Disclaimer text — Montserrat 500, 14px, 23px lh, rgb(107,114,128) */}
+        <p style={{
+          fontFamily: "Montserrat, sans-serif",
+          fontWeight: 400,
+          fontSize: "14px",
+          lineHeight: "20px",
+          color: "rgb(69, 69, 69)",
+          marginBottom: "8px",
+        }}>
           OneMi supports health understanding and care navigation. It does not
           diagnose, prescribe, or replace doctors. Always consult qualified
           healthcare professionals for medical decisions.
         </p>
 
-        <p className="text-sm text-brand-muted pb-10">
+        {/* Links — Montserrat 500, 16px, 24px lh, rgb(26,26,46) */}
+        <p style={{
+          fontFamily: "Montserrat, sans-serif",
+          fontWeight: 400,
+          fontSize: "14px",
+          lineHeight: "14px",
+          color: "rgb(69, 69, 69)",
+          paddingBottom: "40px",
+        }}>
           For complete details, please refer to our{" "}
           <Link
             href="/privacy-policy"
-            className="font-semibold text-brand-dark hover:text-[#E85D04] transition-colors"
-            style={{ textDecoration: "none" }}
+            style={{
+              fontWeight: 700,
+              fontSize: "14px",
+              lineHeight: "14px",
+              color: "rgb(10, 19, 35)",
+              textDecoration: "none",
+            }}
+            className="hover:text-[#E85D04] transition-colors"
           >
             Privacy Policy,
           </Link>{" "}
           <Link
             href="/terms-and-conditions"
-            className="font-semibold text-brand-dark hover:text-[#E85D04] transition-colors"
-            style={{ textDecoration: "none" }}
+            style={{              
+              fontWeight: 700,
+              fontSize: "14px",
+              lineHeight: "14px",
+              color: "rgb(10, 19, 35)",
+              textDecoration: "none",
+            }}
+            className="hover:text-[#E85D04] transition-colors"
           >
             Terms &amp; Conditions
           </Link>

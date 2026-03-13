@@ -17,9 +17,10 @@ export interface StepData {
 }
 
 export const HERO = {
-  heading: "India's first AI-powered\nHealth Management Platform.",
-  subtitle:
-    "Empowering health with clinical insights,\ncurated solutions & personalised care.",
+  heading1: "India's first AI-powered",
+  heading2: "Health Management Platform.",
+  subtitle1: "Empowering health with clinical insights,",
+  subtitle2: "curated solutions & personalised care.",
   cta: "Download Now",
 };
 
@@ -58,7 +59,7 @@ export const HOW_IT_WORKS: StepData[] = [
       "MRI, CT, PET and other scans",
     ],
     tagline: "See patterns throughout — not isolated reports.",
-    image: "/images/step1-phone.webp",
+    image: "/images/Lstep1.png",
   },
   {
     step: "Step 2:",
@@ -72,7 +73,7 @@ export const HOW_IT_WORKS: StepData[] = [
       "Report interpretation",
     ],
     tagline: "So you don't treat symptoms or conditions blindly.",
-    image: "/images/step2-phone.png",
+    image: "/images/step-2-landing.png",
   },
   {
     step: "Step 3:",
@@ -88,7 +89,7 @@ export const HOW_IT_WORKS: StepData[] = [
     ],
     tagline:
       "Personalised programs to restore metabolic health, chronic conditions, cancer.",
-    image: "/images/step3-phone.png",
+    image: "/images/lstep3.png",
     programs: [
       {
         title: "My Metabolic Detox",
@@ -116,7 +117,7 @@ export const HOW_IT_WORKS: StepData[] = [
       "Tests at home",
     ],
     tagline: "So you choose with confidence.",
-    image: "/images/step4-phone.png",
+    image: "/images/step-4-landing.png",
   },
   {
     step: "Step 5:",
@@ -130,7 +131,7 @@ export const HOW_IT_WORKS: StepData[] = [
       "Reminders, notifications, alarms",
     ],
     tagline: "You save time and energy.",
-    image: "/images/step5-phone.png",
+    image: "/images/lstep4.png",
   },
   {
     step: "Step 6:",
@@ -145,7 +146,7 @@ export const HOW_IT_WORKS: StepData[] = [
       "Milestones and adherence",
     ],
     tagline: "So outcome is measured, not assumed.",
-    image: "/images/step6-phone.png",
+    image: "/images/step6.png",
   },
 ];
 

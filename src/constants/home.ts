@@ -245,34 +245,34 @@ export const TRUST_CARDS = [
 
 export const TESTIMONIALS = [
   {
-    name: "Suresh",
-    age: 52,
-    text: "OneMi gave me clarity about my health that no doctor visit ever could. The AI insights and personalised programs have transformed my lifestyle completely.",
-  },
-  {
-    name: "Kunal",
-    age: 45,
-    text: "The data-driven dashboards helped me understand my metabolic health patterns. I've never felt more in control of my wellbeing.",
-  },
-  {
-    name: "Preeti",
-    age: 36,
-    text: "From symptom tracking to booking consultations — everything in one app. OneMi is the healthcare companion I always needed.",
-  },
-  {
     name: "Megha",
     age: 34,
-    text: "The Om AI assistant guides me through every health decision. It's like having a knowledgeable friend available 24/7.",
+    text: "I had all my reports but no idea what they actually meant. OneMi explained everything in simple language and told me what I should focus on. That itself reduced so much anxiety.",
   },
   {
     name: "Rohit",
     age: 41,
-    text: "After joining OneMi Pro, my chronic health concerns are finally being addressed systematically. Visible progress across every phase of care.",
+    text: "Earlier I would Google everything and get scared. With OneMi, I get clear answers and guidance on what to do next. It feels much more reassuring.",
   },
   {
     name: "Anita",
     age: 38,
-    text: "The curated products and concierge support make managing my family's health effortless. Highly recommend OneMi Pro.",
+    text: "Instead of treating each test separately, OneMi helped me see patterns over time. I finally feel like I'm managing my health, not just reacting to problems.",
+  },
+  {
+    name: "Suresh",
+    age: 52,
+    text: "All my answers, document storage, symptoms, appointments, everything is in one app. I don't have to search through files anymore before every doctor visit.",
+  },
+  {
+    name: "Kunal",
+    age: 45,
+    text: "When my mother was diagnosed, we didn't know where to start. OneMi helped us understand reports and plan the next steps. That guidance meant everything to us.",
+  },
+  {
+    name: "Preeti",
+    age: 36,
+    text: "Doctors are great, but you don't see them every day. OneMi supported me between visits when small questions kept coming up.",
   },
 ];
 

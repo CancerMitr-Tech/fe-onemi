@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import SectionWrapper from "@/components/ui/SectionWrapper";
 
 const FEATURES = [
   {
@@ -46,161 +45,226 @@ const PLANS = [
 
 export default function PricingSection() {
   return (
-    <SectionWrapper id="onemipro" className="bg-[#EFEFEF]">
-      <div className="max-w-5xl mx-auto bg-white rounded-3xl px-8 sm:px-14 py-12">
+    /*
+      Split background: top half #EFEFEF (membership bg), bottom half #E5EDEE (trust bg).
+      Card appears to float across both section backgrounds.
+    */
+    <section
+      id="onemipro"
+      style={{
+        background: "linear-gradient(to bottom, #EFEFEF 70%, #E5EDEE 30%)",
+        paddingTop: "60px",
+        paddingBottom: "60px",
+      }}
+    >
+       <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Heading — Manrope 600, 36px, 54px lh, rgb(37,37,37) */}
-        <div className="text-center mb-10">
-          <h2
-            style={{
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 600,
-              fontSize: "36px",
-              lineHeight: "54px",
-              color: "rgb(37, 37, 37)",
-            }}
-          >
-            One<span style={{ color: "#E05C1A" }}>Mi</span> Pro
-          </h2>
-          <p
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 500,
-              fontSize: "16px",
-              color: "rgb(101, 101, 101)",
-              marginTop: "6px",
-            }}
-          >
-            Smarter intelligence. Exclusive benefits. Priority care.
-          </p>
-        </div>
+        {/* Floating white card with border */}
+        <div
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "24px",
+            border: "2px solid #9CA3AF",
+            padding: "48px 64px",
+            boxShadow: "0 2px 16px 0 rgba(0,0,0,0.06)",
+          }}
+        >
+          {/* ── Heading ── */}
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            {/* Manrope 600, 36px, 54px lh, rgb(37,37,37) */}
+            <h2
+              style={{
+                fontFamily: "'Manrope', sans-serif",
+                fontWeight: 600,
+                fontSize: "36px",
+                lineHeight: "54px",
+                color: "rgb(37,37,37)",
+                margin: 0,
+              }}
+            >
+              One<span style={{ color: "#EA5A1A" }}>Mi</span> Pro
+            </h2>
+            {/* Montserrat 500, 20px, 30px lh, rgb(101,101,101) */}
+            <p
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: 500,
+                fontSize: "20px",
+                lineHeight: "30px",
+                color: "rgb(101,101,101)",
+                marginTop: "6px",
+                marginBottom: 0,
+              }}
+            >
+              Smarter intelligence. Exclusive benefits. Priority care.
+            </p>
+          </div>
 
-        {/* Two-column layout */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* ── Two-column layout ── */}
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          {/* Left — feature list */}
-          <ul className="space-y-5">
-            {FEATURES.map((f) => (
-              <li key={f.title} className="flex gap-3 items-start">
-                <Image src="/images/tick.png" width={22} height={22} alt="" className="shrink-0 mt-0.5" />
-                <div>
-                  {/* Title — Montserrat 600, 20px, 27px lh, rgb(69,69,69) */}
-                  <span
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: 600,
-                      fontSize: "20px",
-                      lineHeight: "27px",
-                      color: "rgb(69, 69, 69)",
-                      display: "block",
-                    }}
-                  >
-                    {f.title}
-                  </span>
-                  {/* Detail — Montserrat 500, 20px, 28px lh, rgb(69,69,69) */}
-                  {f.detail && (
-                    <p
+            {/* Left — feature list */}
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
+              {FEATURES.map((f) => (
+                <li key={f.title} style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                  <Image
+                    src="/images/tick.png"
+                    width={22}
+                    height={22}
+                    alt=""
+                    style={{ flexShrink: 0, marginTop: "3px" }}
+                  />
+                  <div>
+                    {/* Feature title: Montserrat 600, 20px, 27px lh, rgb(69,69,69) */}
+                    <span
                       style={{
-                        fontFamily: "Montserrat, sans-serif",
-                        fontWeight: 500,
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontWeight: 600,
                         fontSize: "20px",
-                        lineHeight: "28px",
-                        color: "rgb(69, 69, 69)",
-                        marginTop: "2px",
-                        whiteSpace: "pre-line",
+                        lineHeight: "27px",
+                        color: "rgb(69,69,69)",
+                        display: "block",
                       }}
                     >
-                      {f.detail}
+                      {f.title}
+                    </span>
+                    {/* Feature detail: Montserrat 500, 16px, 26px lh, rgb(69,69,69) */}
+                    {f.detail && (
+                      <p
+                        style={{
+                          fontFamily: "'Montserrat', sans-serif",
+                          fontWeight: 500,
+                          fontSize: "16px",
+                          lineHeight: "26px",
+                          color: "rgb(69,69,69)",
+                          marginTop: "2px",
+                          marginBottom: 0,
+                          whiteSpace: "pre-line",
+                        }}
+                      >
+                        {f.detail}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            {/* Right — plan cards + CTA */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+
+              {PLANS.map((plan) => (
+                <div
+                  key={plan.name}
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #E5E7EB",
+                    borderRadius: "12px",
+                    padding: "14px 20px",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      {/* Plan name: Montserrat 500, 16px, 26px lh, rgb(69,69,69) */}
+                      <span
+                        style={{
+                          fontFamily: "'Montserrat', sans-serif",
+                          fontWeight: 500,
+                          fontSize: "16px",
+                          lineHeight: "26px",
+                          color: "rgb(69,69,69)",
+                        }}
+                      >
+                        {plan.name}
+                      </span>
+                      {plan.badge && (
+                        <span
+                          style={{
+                            fontFamily: "'Montserrat', sans-serif",
+                            fontWeight: 600,
+                            fontSize: "11px",
+                            backgroundColor: "#FDE68A",
+                            color: "#92400E",
+                            padding: "2px 8px",
+                            borderRadius: "999px",
+                          }}
+                        >
+                          {plan.badge}
+                        </span>
+                      )}
+                    </div>
+                    {/* Price: Montserrat 500, 16px, rgb(69,69,69) */}
+                    <span
+                      style={{
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontWeight: 500,
+                        fontSize: "16px",
+                        color: "rgb(69,69,69)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {plan.price}
+                    </span>
+                  </div>
+                  {/* Note: Montserrat 500, 20px, 30px lh, rgb(101,101,101) */}
+                  {plan.note && (
+                    <p
+                      style={{
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontWeight: 500,
+                        fontSize: "20px",
+                        lineHeight: "30px",
+                        color: "rgb(101,101,101)",
+                        marginTop: "4px",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {plan.note}
                     </p>
                   )}
                 </div>
-              </li>
-            ))}
-          </ul>
+              ))}
 
-          {/* Right — plan cards + CTA */}
-          <div className="flex flex-col gap-3">
-
-            {PLANS.map((plan) => (
-              <div
-                key={plan.name}
-                className="bg-white border border-gray-200 rounded-xl px-5 py-4 shadow-sm"
+              {/* CTA button */}
+              <button
+                style={{
+                  marginTop: "4px",
+                  width: "100%",
+                  backgroundColor: "#EA5A1A",
+                  color: "#fff",
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 600,
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  padding: "14px",
+                  borderRadius: "12px",
+                  border: "none",
+                  cursor: "pointer",
+                }}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span
-                      style={{
-                        fontFamily: "Montserrat, sans-serif",
-                        fontWeight: 600,
-                        fontSize: "16px",
-                        color: "rgb(37, 37, 37)",
-                      }}
-                    >
-                      {plan.name}
-                    </span>
-                    {plan.badge && (
-                      <span className="text-[10px] font-semibold bg-yellow-300 text-yellow-900 px-2 py-0.5 rounded-full">
-                        {plan.badge}
-                      </span>
-                    )}
-                  </div>
-                  <span
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: 600,
-                      fontSize: "16px",
-                      color: "rgb(37, 37, 37)",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {plan.price}
-                  </span>
-                </div>
-                {plan.note && (
-                  <p
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontWeight: 500,
-                      fontSize: "13px",
-                      color: "rgb(101, 101, 101)",
-                      marginTop: "4px",
-                    }}
-                  >
-                    {plan.note}
-                  </p>
-                )}
-              </div>
-            ))}
+                Get free AI credits
+              </button>
 
-            {/* CTA */}
-            <button
-              className="mt-1 w-full text-white rounded-xl transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: "#E05C1A",
-                fontFamily: "Montserrat, sans-serif",
-                fontWeight: 600,
-                fontSize: "16px",
-                padding: "14px",
-              }}
-            >
-              Get free AI credits
-            </button>
-
-            <p
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontWeight: 400,
-                fontSize: "12px",
-                color: "rgb(101, 101, 101)",
-                textAlign: "center",
-                fontStyle: "italic",
-              }}
-            >
-              Experience the platform with up to 50 AI credits at no cost.
-            </p>
+              {/* Fine print: Montserrat 400, 16px, 28px lh, rgb(10,19,35) */}
+              <p
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: "28px",
+                  color: "rgb(10,19,35)",
+                  textAlign: "center",
+                  fontStyle: "italic",
+                  marginTop: "4px",
+                  marginBottom: 0,
+                }}
+              >
+                Experience the platform with up to 50 AI credits at no cost.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </SectionWrapper>
+    </section>
   );
 }

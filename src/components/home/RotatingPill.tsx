@@ -22,7 +22,8 @@ export default function RotatingPill() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -10, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="inline-block bg-brand-amber text-white rounded-md px-5 py-3 font-semibold text-xl"
+          className="inline-block bg-brand-amber rounded-md px-5 py-3"
+          style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500, fontSize: "20px", lineHeight: "28px", color: "rgb(255, 255, 255)" }}
         >
           {ROTATING_PILLS[index]}
         </motion.span>

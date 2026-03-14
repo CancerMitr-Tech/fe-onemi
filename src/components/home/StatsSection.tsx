@@ -44,13 +44,13 @@ function StatItem({ value, label, started }: { value: string; label: string; sta
     <div className="flex flex-col items-center gap-2">
       <p
         className="text-brand-orange"
-        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "32px", lineHeight: "32px", fontWeight: 700 }}
+        style={{ fontFamily: "'Manrope', sans-serif", fontSize: "32px", lineHeight: "32px", fontWeight: 700, color: "rgb(234, 90, 26)" }}
       >
         {animated}
       </p>
       <p
         className="text-center"
-        style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "20px", lineHeight: "30px", fontWeight: 600, color: "rgb(69, 69, 69)" }}
+        style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "20px", lineHeight: "50px", fontWeight: 600, color: "rgb(69, 69, 69)" }}
       >
         {label}
       </p>

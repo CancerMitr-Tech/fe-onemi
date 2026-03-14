@@ -43,6 +43,8 @@ function fixJourneySticky() {
   if (!journeySection) return;
   const stickyPanel = journeySection.querySelector(":scope > .e-con-inner > .e-con:first-child");
   if (!stickyPanel) return;
+
+  // Clear overflow on all ancestors so sticky works
   let node = stickyPanel.parentElement;
   while (node && node !== document.body) {
     const cs = window.getComputedStyle(node);
@@ -53,6 +55,23 @@ function fixJourneySticky() {
     node = node.parentElement;
   }
   wrapper.style.setProperty("overflow-x", "clip", "important");
+
+  // Left panel = stretches full height, contains the sticky heading
+  stickyPanel.style.setProperty("position", "relative", "important");
+  stickyPanel.style.setProperty("overflow", "visible", "important");
+
+  // Inner heading container = sticky element
+  const headingContainer = stickyPanel.querySelector("[data-id='f432fe0']");
+  if (headingContainer) {
+    headingContainer.style.setProperty("position", "sticky", "important");
+    headingContainer.style.setProperty("top", "calc(50vh - 80px)", "important");
+  }
+
+  // Parent flex must stretch left panel to full timeline height
+  const conInner = journeySection.querySelector(":scope > .e-con-inner");
+  if (conInner) {
+    conInner.style.setProperty("align-items", "stretch", "important");
+  }
 }
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -296,8 +315,25 @@ function fixHorizontalSections() {
   }
 }
 
+// ─── 6. FIX COUNTER VALUES ────────────────────────────────────────────────────
+function fixCounterValues() {
+  // Countries Served should show 15+
+  const counters = document.querySelectorAll(".wp-about .elementor-counter");
+  counters.forEach((counter) => {
+    const title = counter.querySelector(".elementor-counter-title");
+    if (title && title.textContent.trim().toLowerCase().includes("countries")) {
+      const num = counter.querySelector(".elementor-counter-number");
+      if (num) {
+        num.dataset.toValue = "15";
+        num.textContent = "0";
+      }
+    }
+  });
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 function initAll() {
+  fixCounterValues();
   animateCounters();
   fixJourneySticky();
   fixHorizontalSections();
@@ -308,4 +344,4 @@ if (typeof window !== "undefined") {
   else initAll();
 }
 
-export { animateCounters, fixJourneySticky, fixHorizontalSections, initAll };
+export { animateCounters, fixJourneySticky, fixHorizontalSections, fixCounterValues, initAll };

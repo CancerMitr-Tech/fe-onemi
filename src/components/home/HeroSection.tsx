@@ -32,17 +32,17 @@ export default function HeroSection() {
           <div className="px-8 sm:px-12 lg:px-16 py-16 flex flex-col gap-5 max-w-150">
 
             {/* Heading */}
-            <h1 className="text-[32px] sm:text-[36px] leading-[1.3] font-semibold text-[#252525]">
+            <h1 style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: "40px", lineHeight: "52px", color: "rgb(37, 37, 37)" }}>
               {HERO.heading1}
               <br />
               <span className="whitespace-nowrap">{HERO.heading2}</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[30px] leading-[1.6] font-normal text-[#454545]">
-              {HERO.subtitle1}
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500, fontSize: "30px", lineHeight: "38px", color: "rgb(69, 69, 69)" }}>
+              <span className="whitespace-nowrap">{HERO.subtitle1}</span>
               <br />
-              {HERO.subtitle2}
+              <span className="whitespace-nowrap">{HERO.subtitle2}</span>
             </p>
 
             {/* Rotating pill */}

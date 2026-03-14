@@ -116,88 +116,95 @@ export default function Footer() {
 
       </div>
 
-      {/* Contact + App download */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 grid lg:grid-cols-2 gap-10 items-start">
+      {/* Contact + App download — side by side */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="border-t border-gray-300 pt-10" />
+        <div className="grid lg:grid-cols-[1fr_1.6fr] gap-10 items-start">
 
-        <div>
-          {/* Contact heading — Montserrat 700, 14px, 18px lh, rgb(69,69,69) */}
-          <h4 style={{
-            fontFamily: "Montserrat, sans-serif",
-            fontWeight: 700,
-            fontSize: "14px",
-            lineHeight: "18px",
-            color: "rgb(69, 69, 69)",
-            marginBottom: "16px",
-          }}>
-            Contact Details
-          </h4>
-          <div className="space-y-2">
-            {/* Contact text — Montserrat 500, 14px, 18px lh, rgb(69,69,69) */}
-            <p style={linkStyle}>
-              <span style={{ fontWeight: 700 }}>Address: </span>
-              B-302, Dipti Classic, Suren Road, Off Sir M.V Road, Near Western Express Highway
-              Metro Station, Andheri East, Mumbai 400093.
-            </p>
-            <p style={linkStyle}>
-              <span style={{ fontWeight: 700 }}>Call us: </span>
-              +91 7718819089
-            </p>
-            <p style={linkStyle}>
-              <span style={{ fontWeight: 700 }}>Email: </span>
-              hello@onemi.ai
-            </p>
-          </div>
-        </div>
-
-        <div
-          className="rounded-2xl overflow-hidden flex items-center gap-6 p-6 border border-gray-200"
-          style={{
-            background:
-              "radial-gradient(circle, #E85D0418 1px, transparent 1px) 0 0 / 18px 18px, #ffffff",
-          }}
-        >
-          <div className="shrink-0">
-            <Image
-              src="/images/app-cta-phone.webp"
-              alt="oneMi app"
-              width={140}
-              height={200}
-              className="object-contain h-44 w-auto drop-shadow-md"
-            />
-          </div>
-
+          {/* Left: Contact Details */}
           <div>
-            {/* Card heading — Montserrat 600, 16px, 28px lh, rgb(10,19,35) */}
             <h4 style={{
               fontFamily: "Montserrat, sans-serif",
-              fontWeight: 600,
-              fontSize: "20px",
+              fontWeight: 700,
+              fontSize: "14px",
               lineHeight: "18px",
-              color: "rgb(37, 37, 37)",
-              marginBottom: "4px",
-            }}>
-              Smarter Health Starts Here
-            </h4>
-            {/* Card subtext — Montserrat 400, 14px, 18px lh, rgb(69,69,69) */}
-            <p style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 400,
-              fontSize: "16px",
-              lineHeight: "18px",
-              color: "rgb(37, 37, 37)",
+              color: "rgb(69, 69, 69)",
               marginBottom: "16px",
             }}>
-              Get the OneMi app and take charge of your health.
-            </p>
-            <Link
-              href="#"
-              className="inline-block bg-[#E85D04] hover:bg-brand-orange-hover text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors"
-            >
-              Download Now
-            </Link>
+              Contact Details
+            </h4>
+            <div className="space-y-2">
+              <p style={linkStyle}>
+                <span style={{ fontWeight: 700 }}>Address: </span>
+                B-302, Dipti Classic, Suren Road, Off Sir M.V Road, Near Western Express Highway
+                Metro Station, Andheri East, Mumbai 400093.
+              </p>
+              <p style={linkStyle}>
+                <span style={{ fontWeight: 700 }}>Call us: </span>
+                +91 7718819089
+              </p>
+              <p style={linkStyle}>
+                <span style={{ fontWeight: 700 }}>Email: </span>
+                hello@onemi.ai
+              </p>
+            </div>
           </div>
-        </div>
 
+          {/* Right: Smarter Health Starts Here card */}
+          <div
+            className="rounded-2xl overflow-visible flex items-center gap-8 px-8 pt-8 border border-gray-200 relative"
+            style={{
+              backgroundImage: "url('/images/footer-bg-white.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              minHeight: "220px",
+            }}
+          >
+            {/* Phone image — overflows bottom */}
+            <div className="shrink-0 relative z-10 self-end">
+              <Image
+                src="/images/app-cta-phone.webp"
+                alt="oneMi app"
+                width={220}
+                height={300}
+                className="object-contain w-auto drop-shadow-md"
+                style={{ height: "260px", marginBottom: "-2px" }}
+              />
+            </div>
+
+            {/* Text content */}
+            <div className="pb-8">
+              <h4 style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 600,
+                fontSize: "20px",
+                lineHeight: "28px",
+                color: "rgb(37, 37, 37)",
+                marginBottom: "8px",
+              }}>
+                Smarter Health Starts Here
+              </h4>
+              <p style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 400,
+                fontSize: "16px",
+                lineHeight: "24px",
+                color: "rgb(37, 37, 37)",
+                marginBottom: "16px",
+              }}>
+                Get the OneMi app and take charge of your health.
+              </p>
+              <Link
+                href="#"
+                className="inline-block bg-[#E85D04] hover:bg-brand-orange-hover text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors"
+              >
+                Download Now
+              </Link>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* Partner Logos */}

@@ -29,6 +29,7 @@ export default function Testimonials() {
   }, [maxIndex]);
 
   return (
+    <>
     <SectionWrapper className="bg-white">
 
       {/* Heading */}
@@ -175,5 +176,17 @@ export default function Testimonials() {
       </div>
 
     </SectionWrapper>
+
+    {/* Divider below testimonials */}
+    <div className="w-1/4 mx-auto mt-10">
+      <Image
+        src="/images/grey-line.svg"
+        alt="divider"
+        width={10}
+        height={40}
+        className="w-full block border-0 outline-none"
+      />
+    </div>
+    </>
   );
 }

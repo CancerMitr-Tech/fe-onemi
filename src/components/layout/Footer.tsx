@@ -59,9 +59,7 @@ export default function Footer() {
           <ul className="space-y-3">
             {WHO_ITS_FOR.map((l) => (
               <li key={l}>
-                <Link href="#" style={linkStyle} className="hover:text-[#E85D04] transition-colors">
-                  {l}
-                </Link>
+                <span style={linkStyle}>{l}</span>
               </li>
             ))}
           </ul>

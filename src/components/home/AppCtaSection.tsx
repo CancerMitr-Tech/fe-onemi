@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 
 export default function AppCtaSection() {
@@ -59,13 +60,15 @@ export default function AppCtaSection() {
 
           {/* oneMi logo — bottom right */}
           <div className="flex justify-end mt-8">
-            <Image
-              src="/images/logo-onemi.svg"
-              alt="oneMi"
-              width={110}
-              height={48}
-              className="h-10 w-auto object-contain"
-            />
+            <Link href="/">
+              <Image
+                src="/images/logo-onemi.svg"
+                alt="oneMi"
+                width={110}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
+            </Link>
           </div>
         </div>
 

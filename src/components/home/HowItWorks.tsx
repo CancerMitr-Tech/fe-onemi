@@ -115,8 +115,8 @@ function StepCard({
               <li key={item} className="flex items-center gap-3">
                 <Image
                   src="/images/tick.png"
-                  width={22}
-                  height={22}
+                  width={24}
+                  height={24}
                   alt=""
                   className="shrink-0"
                 />

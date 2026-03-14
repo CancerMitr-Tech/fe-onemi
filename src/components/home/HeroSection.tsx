@@ -6,7 +6,10 @@ import { HERO } from "@/constants/home";
 export default function HeroSection() {
   return (
     <div className="px-4 sm:px-6 lg:px-12 pt-3">
-      <section className="relative overflow-hidden rounded-2xl" style={{ minHeight: "520px" }}>
+        <section
+          className="relative rounded-2xl overflow-hidden"
+          style={{ height: 714 }}
+        >
 
         {/* Background Image */}
         <Image

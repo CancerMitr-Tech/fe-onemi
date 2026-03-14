@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import Button from "@/components/ui/Button";
 import EnquireModal from "@/components/EnquireModal";
 import { MMM_FORM_CONFIG } from "@/lib/formConfigs";
@@ -218,24 +218,20 @@ function MarqueeRow({
 }) {
   const repeated = [...items, ...items, ...items];
   return (
-    <div className="overflow-hidden py-2">
+    <div className="overflow-hidden whitespace-nowrap py-2">
       <style>{`
         @keyframes mmm-ml { from{transform:translateX(0)} to{transform:translateX(-33.333%)} }
         @keyframes mmm-mr { from{transform:translateX(-33.333%)} to{transform:translateX(0)} }
-        .mmm-ml{animation:mmm-ml 28s linear infinite}
-        .mmm-mr{animation:mmm-mr 28s linear infinite}
+        .mmm-ml{animation:mmm-ml 70s linear infinite}
+        .mmm-mr{animation:mmm-mr 70s linear infinite}
       `}</style>
-      <div
-        className={`flex gap-6 whitespace-nowrap ${direction === "left" ? "mmm-ml" : "mmm-mr"
-          }`}
-      >
+      <div className={`inline-flex items-center ${direction === "left" ? "mmm-ml" : "mmm-mr"}`}>
         {repeated.map((item, i) => (
-          <span
-            key={i}
-            className="inline-flex items-center gap-3 text-sm font-medium text-brand-dark"
-          >
-            <span className="text-brand-orange">✳</span>
-            {item}
+          <span key={i} className="inline-flex items-center" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500, fontSize: "20px", lineHeight: "22px", color: "rgb(69, 69, 69)", whiteSpace: "nowrap" }}>
+            <span style={{ marginRight: "20px" }}>{item}</span>
+            <span className="inline-flex items-center shrink-0" style={{ marginRight: "37px" }}>
+              <Image src="/images/asterisk-1.svg" alt="*" width={18} height={18} />
+            </span>
           </span>
         ))}
       </div>
@@ -297,114 +293,91 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 // ─── Sticky Steps ─────────────────────────────────────────────────────────────
 
-const CARD_H = 520;
-const SCROLL_PER_STEP = 600;
+const CARD_H = 700;
+const SCROLL_PER_STEP = 700;
 const TOTAL_STEPS = mmmSteps.length;
-const CONTAINER_H = SCROLL_PER_STEP * TOTAL_STEPS + CARD_H;
+const CONTAINER_H = SCROLL_PER_STEP * (TOTAL_STEPS - 1) + CARD_H + 300;
+
+function MmmStepCard({ step, index, containerScrollY }: { step: (typeof mmmSteps)[0]; index: number; containerScrollY: MotionValue<number> }) {
+  const scrollIn = (index - 1) * SCROLL_PER_STEP;
+  const scrollOut = index * SCROLL_PER_STEP;
+  const yPct = useTransform(
+    containerScrollY,
+    index === 0 ? [0, 1] : [scrollIn, scrollOut],
+    index === 0 ? ["0%", "0%"] : ["100%", "0%"]
+  );
+
+  return (
+    <motion.div className="absolute inset-0 bg-[#F8F9FA]" style={{ zIndex: index + 1, y: yPct }}>
+      <div className="w-full h-full flex" style={{ padding: "40px 60px" }}>
+        <div className="flex items-center justify-center shrink-0" style={{ width: "47%", paddingRight: "40px", borderRight: "2px solid #EA5A1A" }}>
+          <div className="relative w-full overflow-hidden rounded-2xl" style={{ aspectRatio: "1 / 1" }}>
+            <Image src={step.image} alt={`${step.title}${step.highlight}`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" quality={90} />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center overflow-y-auto" style={{ width: "53%", paddingLeft: "48px" }}>
+          <p className="mb-2 tracking-wide" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "14px", fontWeight: 600, color: "rgb(234,90,26)" }}>{step.step}</p>
+          <h3 className="text-brand-dark mb-3" style={{ fontFamily: "'Manrope', sans-serif", fontSize: "36px", fontWeight: 600, lineHeight: "49px" }}>
+            {step.title}<span style={{ color: "rgb(234,90,26)" }}>{step.highlight}</span>
+          </h3>
+          <p className="mb-5" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "18px", fontWeight: 500, color: "rgb(101,101,101)", lineHeight: "28px" }}>{step.subtitle}</p>
+          <ul className="space-y-3 mb-5">
+            {step.items.map((item) => (
+              <li key={item} className="flex items-center gap-3">
+                <Image src="/images/tick.png" width={24} height={24} alt="" className="shrink-0" />
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "18px", fontWeight: 500, color: "rgb(101,101,101)", lineHeight: "28px" }}>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 function StickySteps() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const { scrollY } = useScroll();
+  const [containerTop, setContainerTop] = useState(9999);
 
   useEffect(() => {
-    const onScroll = () => {
-      const el = containerRef.current;
-      if (!el) return;
-      const scrolled = -el.getBoundingClientRect().top + 80;
-      if (scrolled < 0) return;
-      setActive(
-        Math.min(TOTAL_STEPS - 1, Math.floor(scrolled / SCROLL_PER_STEP))
-      );
+    const measure = () => {
+      if (containerRef.current) setContainerTop(containerRef.current.getBoundingClientRect().top + window.scrollY);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
+  const containerScrollY = useTransform(scrollY, (v: number) => Math.max(0, v - containerTop));
+
+  useEffect(() => {
+    const unsub = containerScrollY.on("change", (v) => {
+      setActive(Math.min(TOTAL_STEPS - 1, Math.floor(v / SCROLL_PER_STEP)));
+    });
+    return unsub;
+  }, [containerScrollY]);
+
   return (
-    <div className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-brand-dark">
-          Kickstart your{" "}
-          <span className="text-brand-orange">Emotional Health Journey</span>
-        </h2>
-        <p className="mt-3 text-brand-muted">
-          The process can be simplified. Outcomes, however, need effort.
-        </p>
-      </div>
+    <div className="bg-[#F8F9FA]">
       <div ref={containerRef} style={{ height: CONTAINER_H }} className="relative">
-        <div className="sticky" style={{ top: 80 }}>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div
-              className="relative overflow-hidden"
-              style={{ height: CARD_H }}
-            >
+        <div className="sticky overflow-hidden" style={{ top: 80 }}>
+          <div className="max-w-6xl mx-auto">
+            <div className="relative overflow-hidden" style={{ height: CARD_H }}>
               {mmmSteps.map((step, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute inset-0 bg-white"
-                  animate={{ y: i <= active ? "0%" : "105%" }}
-                  initial={false}
-                  transition={{ duration: 0.55, ease: [0.32, 0.72, 0, 1] }}
-                  style={{ zIndex: i + 1 }}
-                >
-                  <div className="grid lg:grid-cols-2 h-full gap-0">
-                    <div className="relative h-56 lg:h-full rounded-2xl overflow-hidden">
-                      <Image
-                        src={step.image}
-                        alt={`${step.title}${step.highlight}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                      />
-                    </div>
-                    <div className="flex">
-                      <div className="hidden lg:block w-px bg-brand-orange mx-8 self-stretch shrink-0" />
-                      <div className="flex flex-col justify-center py-8 px-4 lg:px-6 lg:pr-12">
-                        <p className="text-sm font-semibold text-brand-orange mb-2 tracking-wide">
-                          {step.step}
-                        </p>
-                        <h3 className="text-3xl sm:text-4xl font-bold text-brand-dark mb-3 leading-tight">
-                          {step.title}
-                          <span className="text-brand-orange">
-                            {step.highlight}
-                          </span>
-                        </h3>
-                        <p className="text-sm text-brand-muted mb-5">
-                          {step.subtitle}
-                        </p>
-                        <ul className="space-y-3">
-                          {step.items.map((item) => (
-                            <li key={item} className="flex items-start gap-3">
-                              <OrangeCheck />
-                              <span className="text-sm text-brand-dark">
-                                {item}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+                <MmmStepCard key={i} step={step} index={i} containerScrollY={containerScrollY} />
               ))}
             </div>
-            <div className="flex justify-center gap-2 mt-6 pb-4">
+            <div className="flex justify-center gap-2 mt-4 pb-6">
               {mmmSteps.map((_, i) => (
-                <div
-                  key={i}
-                  className="h-1.5 rounded-full transition-all duration-300"
-                  style={{
-                    width: i === active ? 24 : 6,
-                    backgroundColor: i === active ? "#E85D04" : "#D1D5DB",
-                  }}
-                />
+                <div key={i} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === active ? 24 : 6, backgroundColor: i === active ? "#E85D04" : "#D1D5DB" }} />
               ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="pb-16" />
+      <div className="pb-10" />
     </div>
   );
 }
@@ -503,7 +476,7 @@ export default function MyMindMattersPage() {
       <EnquireModal open={modalOpen} onClose={() => setModalOpen(false)} formConfig={MMM_FORM_CONFIG} />
 
       {/* ── 1. HERO ── */}
-      <div className="px-6 sm:px-10 lg:px-14 pt-4 pb-4">
+      <div className="px-4 sm:px-6 lg:px-12 pt-3">
         <section
           className="relative rounded-2xl overflow-hidden"
           style={{ height: 714 }}
@@ -512,33 +485,57 @@ export default function MyMindMattersPage() {
             src="/images/mmm/MMM_Banner.webp"
             alt="My Mind Matters"
             fill
-            className="object-cover object-[55%_15%]"
             priority
-            sizes="(max-width: 640px) 100vw, 95vw"
+            sizes="100vw"
+            className="object-cover object-right"
           />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 25%, rgba(255,255,255,0.1) 48%, transparent 65%)",
-            }}
-          />
-          <div className="absolute bottom-10 left-8 sm:left-10 flex flex-col gap-3 max-w-xs">
+          <div className="absolute bottom-10 left-8 sm:left-12 flex flex-col gap-3 max-w-md">
+            {/* Rotating pill */}
             <div
               key={heroIdx}
-              className="inline-block px-4 py-2 rounded-lg font-bold text-brand-dark text-base sm:text-lg"
-              style={{ backgroundColor: "#F5C842", width: "fit-content" }}
+              className="inline-block px-5 py-2.5 rounded-lg"
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: 600,
+                fontSize: "30px",
+                lineHeight: "37px",
+                color: "rgb(10, 19, 35)",
+                backgroundColor: "#F5C842",
+                width: "fit-content",
+              }}
             >
               {heroPhrases[heroIdx]}
             </div>
-            <p className="text-sm sm:text-base text-brand-dark font-medium">
+            {/* Subheading */}
+            <p style={{
+              fontFamily: "'Montserrat', sans-serif",
+              fontWeight: 500,
+              fontSize: "24px",
+              lineHeight: "30px",
+              color: "rgb(37, 37, 37)",
+            }}>
               Reduce emotional overload
             </p>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-brand-dark leading-tight">
+              {/* Heading */}
+              <h1 style={{
+                fontFamily: "'Manrope', sans-serif",
+                fontWeight: 600,
+                fontSize: "40px",
+                lineHeight: "40px",
+                color: "rgb(37, 37, 37)",
+              }}>
                 My Mind Matters
               </h1>
-              <p className="mt-1 text-sm sm:text-base text-[#3D3D3D]">
+              {/* Sub-subtitle */}
+              <p style={{
+                fontFamily: "'Montserrat', sans-serif",
+                fontWeight: 500,
+                fontSize: "24px",
+                lineHeight: "30px",
+                color: "rgb(37, 37, 37)",
+                marginTop: "6px",
+              }}>
                 Reignite your mental strength in 6 sessions
               </p>
             </div>
@@ -551,7 +548,7 @@ export default function MyMindMattersPage() {
       </div>
 
       {/* ── 2. MARQUEE ── */}
-      <div className="py-6 bg-[#F9FAFB] border-y border-gray-100">
+      <div className="py-6 space-y-3">
         <MarqueeRow items={mmmMarqueeItems} direction="left" />
         <MarqueeRow items={[...mmmMarqueeItems].reverse()} direction="right" />
       </div>

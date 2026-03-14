@@ -10,13 +10,15 @@ export default function MedicalDisclaimer() {
 
         {/* Logo */}
         <div className="flex justify-center mb-5 pt-10">
-          <Image
-            src="/images/logo-onemi.svg"
-            alt="oneMi — My health in my hands"
-            width={130}
-            height={60}
-            className="h-16 w-auto object-contain"
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo-onemi.svg"
+              alt="oneMi — My health in my hands"
+              width={130}
+              height={60}
+              className="h-16 w-auto object-contain"
+            />
+          </Link>
         </div>
 
         {/* Tagline — Montserrat 500, 16px, 24px lh, rgb(26,26,46) */}

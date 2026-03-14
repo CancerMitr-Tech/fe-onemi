@@ -39,7 +39,7 @@ export default function HeroSection() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[17px] sm:text-[18px] leading-[1.6] font-normal text-[#3a3a3a]">
+            <p className="text-[30px] leading-[1.6] font-normal text-[#454545]">
               {HERO.subtitle1}
               <br />
               {HERO.subtitle2}

@@ -19,7 +19,7 @@ function TickerRow({ direction = 1, color }: { direction?: number; color: string
             className="inline-flex items-center"
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              fontSize: "20px",
+              fontSize: "16px",
               fontWeight: 500,
               lineHeight: "22px",
               color,

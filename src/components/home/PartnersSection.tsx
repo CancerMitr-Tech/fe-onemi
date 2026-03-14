@@ -22,7 +22,7 @@ function PartnerRow({
         animate={
           direction > 0 ? { x: ["0%", "-50%"] } : { x: ["-50%", "0%"] }
         }
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
       >
         {items.map((name, i) => (
           <span key={i} className="inline-flex items-center">
@@ -30,8 +30,8 @@ function PartnerRow({
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: 500,
-                fontSize: "20px",
-                lineHeight: "30px",
+                fontSize: "16px",
+                lineHeight: "24px",
                 color: "rgb(69, 69, 69)",
                 marginRight: "20px",
               }}
